@@ -89,12 +89,3 @@ class VectorIndexing:
         ''', nodes=nodes, listToEncode=[node['to_encode'] for node in nodes], token=self.openai_token,
         database_=self.db_name)
         print(f'Processed batch {batch_n}')
-
-# if __name__ == "__main__":
-#     vectorIndexing = VectorIndexing(
-#         uri=os.getenv("NEO4J_URI", "neo4j://localhost:7687"),
-#         auth=('neo4j', os.getenv("NEO4J_PASSWORD", "pasword")),
-#         db_name='neo4j',
-#         openai_token=os.getenv("OPENAI_API_KEY", None)  # Optional, if you want to use OpenAI embeddings
-#     )
-#     vectorIndexing.create_embeddings()

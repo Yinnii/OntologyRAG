@@ -69,7 +69,7 @@ def insert_runs_into_graph():
         uri=URI,
         auth=(USER, PASSWORD),
         db_name='neo4j',
-        openai_token=TOKEN # Optional, if you want to use OpenAI embeddings
+        openai_token=TOKEN 
     )
 
     vectorIndexing.create_embeddings()

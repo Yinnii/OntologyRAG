@@ -144,17 +144,3 @@ class OntologyGraph:
                   DETACH DELETE n
                   """)
 
-# if __name__ == "__main__":
-  # graph = OntologyGraph(uri=os.getenv("NEO4J_URI", "neo4j://localhost:7688"), user=os.getenv("NEO4J_USER", "neo4j"), password=os.getenv("NEO4J_PASSWORD", "Jo3i!$kWVJ"))
-  # graph.load_ontology()
-  # graph.insert_run(run_id=124042)
-  # graph.create_vector_index()
-  # graph.insert_ttl(file_path="/home/yin/Projects/OntologyRAG/data/example.ttl")
-  # graph.close()
-# 124042
-  # run = runs.get_run(100241)
-  # task = tasks.get_task(run.task_id)
-  # flow = flows.get_flow(run.flow_id)
-  # print(run)
-  # print(task)
-  # print(flow)
