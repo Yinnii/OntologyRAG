@@ -1,0 +1,7 @@
+openai
+rdflib
+requests
+neo4j
+neo4j_graphrag
+langchain
+python-dotenv

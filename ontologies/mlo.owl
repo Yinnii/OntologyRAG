@@ -1,0 +1,2625 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.a2rd.net.br/mlo#"
+     xml:base="http://www.a2rd.net.br/mlo"
+     xmlns:mlo="http://www.a2rd.net.br/mlo#mlo:"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:mlo1="http://www.semanticweb.org/user/ontologies/2020/0/ml-ontology#mlo:"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.a2rd.net.br/mlo">
+        <owl:versionIRI rdf:resource="http://www.a2rd.net.br/mlo/10.0"/>
+        <mlo:contributor></mlo:contributor>
+        <mlo:contributor>Francisco Regateiro, Instituto Superior Técnico, ULisboa, Portugal
+  https://fenix.tecnico.ulisboa.pt/homepage/ist13522</mlo:contributor>
+        <mlo:contributor>Julião Braga, UMackenzie, SP Brazil
+  http://www.braga.net.br </mlo:contributor>
+        <mlo1:license>Copyright (C) by Francisco Regateiro, Joaquim Ramos Dias and Juliao Braga. Except where otherwise noted, content on this ontology is licensed under a Creative Commons Attribution-NonCommercial 4.0 International Licence (BY-NC).
+</mlo1:license>
+        <rdfs:comment xml:lang="a2rd.net.br.">Any information can be forwarded to info</rdfs:comment>
+        <owl:versionInfo>7.0 (March 2020) </owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#mlo:GitHub -->
+
+    <owl:AnnotationProperty rdf:about="http://www.a2rd.net.br/mlo#mlo:GitHub"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#mlo:Linkedln -->
+
+    <owl:AnnotationProperty rdf:about="http://www.a2rd.net.br/mlo#mlo:Linkedln"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#mlo:Twitter -->
+
+    <owl:AnnotationProperty rdf:about="http://www.a2rd.net.br/mlo#mlo:Twitter"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#mlo:Website -->
+
+    <owl:AnnotationProperty rdf:about="http://www.a2rd.net.br/mlo#mlo:Website"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#mlo:contributor -->
+
+    <owl:AnnotationProperty rdf:about="http://www.a2rd.net.br/mlo#mlo:contributor"/>
+    
+
+
+    <!-- http://www.semanticweb.org/user/ontologies/2020/0/ml-ontology#mlo:license -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/user/ontologies/2020/0/ml-ontology#mlo:license"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#integer -->
+
+    <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#integer">
+        <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#canBeSolvedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#canBeSolvedBy">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#canSolve"/>
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isResourceFor"/>
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#worksFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#canSolve -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#canSolve">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#isResourceFor"/>
+        <rdfs:comment></rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#described -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#described">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#isAuthor"/>
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#hasAuthor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasAcronym -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasAcronym">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#hasByname"/>
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasAlgorithm -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasAlgorithm">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isAlgorithmOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasApplicationFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasApplicationFrom">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isApplicationOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasAuthor -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasAuthor">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#wasDescribed"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasByname -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasByname">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isByname"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasComplementaryResources -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasComplementaryResources">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isComplementaryResources"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasContinuosValues -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasContinuosValues">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isContinuousVariable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasDiscretValues -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasDiscretValues">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isCategoricalVariable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasFunction -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasFunction">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#hasModule"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasMethod -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasMethod">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isMethod"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasModule -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasModule">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isModule"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasPart -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasPart">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isPart"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasSimilarMethodsIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasSimilarMethodsIn">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#isSimilarMethodsFrom"/>
+        <rdfs:comment>Has similar functions or methods in.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#hasSource -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#hasSource"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#implementedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#implementedBy"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#is -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#is"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isAcronym -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isAcronym"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isAlgorithmOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isAlgorithmOf"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isAlgoritm -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isAlgoritm"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isApplicationOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isApplicationOf"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isAuthor -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isAuthor">
+        <owl:inverseOf rdf:resource="http://www.a2rd.net.br/mlo#wasDescribed"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isByname -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isByname">
+        <rdfs:domain rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isCategoricalVariable -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isCategoricalVariable">
+        <rdfs:subPropertyOf rdf:resource="http://www.a2rd.net.br/mlo#isTechnique"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isCoAuthor -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isCoAuthor"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isComplementaryResources -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isComplementaryResources"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isContinuousVariable -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isContinuousVariable">
+        <rdfs:subPropertyOf rdf:resource="http://www.a2rd.net.br/mlo#isTechnique"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isCopyright -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isCopyright"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isDeprecated -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isDeprecated"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isDesignedToWorkFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isDesignedToWorkFor">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#worksFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isFunction -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isFunction">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#isModule"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isMemberOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isMemberOf">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#isTypeOf"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isMethod -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isMethod"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isModule -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isModule"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isOpenSourceFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isOpenSourceFrom"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isPackageFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isPackageFrom"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isPart -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isPart"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isPerson -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isPerson">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isProblemOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isProblemOf"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isResourceFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isResourceFor">
+        <rdfs:comment>Is algorihm to solve this techinique</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isSimilarMethodsFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isSimilarMethodsFrom"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isSubPackagefrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isSubPackagefrom">
+        <owl:equivalentProperty rdf:resource="http://www.a2rd.net.br/mlo#isSubpackageFrom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isSubTypeOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isSubTypeOf"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isSubpackageFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isSubpackageFrom"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isSucessor -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isSucessor">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isTechnique -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isTechnique"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#isTypeOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#isTypeOf"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#requires -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#requires"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#seeAlso -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#seeAlso"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#useSolver -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#useSolver"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#wasDescribed -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#wasDescribed"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#worksFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.a2rd.net.br/mlo#worksFor"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#describedDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.a2rd.net.br/mlo#describedDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#ANN -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#ANN">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Artificial_Neural_Network"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#ATP -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#ATP">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#AdaBoost -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#AdaBoost">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Apriori -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Apriori">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Association_Rule_Learning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Artificial_Neural_Network -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Artificial_Neural_Network">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#hasAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#ANN"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Association_Rule_Learning -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Association_Rule_Learning"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Auto-WEKA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Auto-WEKA"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Auto-sklearn -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Auto-sklearn">
+        <rdfs:comment>Auto-Sklearn is an automated machine learning toolkit to automatically determine a well-performing machine learning pipeline. It is a drop-in replacement for a scikit-learn estimator</rdfs:comment>
+        <rdfs:isDefinedBy>1. https://www.automl.org/automl/auto-sklearn/
+2. https://papers.nips.cc/paper/5872-efficient-and-robust-automated-machine-learning.pdf</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Averaged_One-Dependencies_Estimators -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Averaged_One-Dependencies_Estimators">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#BERT -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#BERT">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Bidirectional_Encoder_Representations_From_Transformers"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#BIRCH -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#BIRCH">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Backpropagation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Backpropagation">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Artificial_Neural_Network"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bagging -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bagging">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isByname"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Bootstrapped_Agregation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bagging_meta-estimator -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bagging_meta-estimator">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+        <rdfs:comment>In ensemble algorithms, bagging methods form a class of algorithms which build several instances of a black-box estimator on random subsets of the original training set and then aggregate their individual predictions to form a final prediction.</rdfs:comment>
+        <rdfs:isDefinedBy>https://scikit-learn.org/stable/modules/ensemble.html#bagging-meta-estimator</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bayes -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bayes"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bayesian_Belief_Network -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bayesian_Belief_Network">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bayesian_Network -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bayesian_Network">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bernouilli_Naive_Bayes -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bernouilli_Naive_Bayes">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Naive_Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bidirectional_Encoder_Representations_From_Transformers -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bidirectional_Encoder_Representations_From_Transformers">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Processing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Blending -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Blending">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isByname"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Weighted_Average"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Boosting -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Boosting">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Bootstrapped_Agregation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Bootstrapped_Agregation">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#C4.5 -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#C4.5">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#C5 -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#C5">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#CART -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#CART">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Classification_And_Regression_Tree"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#CASH -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#CASH">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#CHAID -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#CHAID">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Chi-squared_Automatic_Interaction_Detection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#CNN -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#CNN">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Convolutional_Neural_Networks"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#CNTK -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#CNTK"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#CURL -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#CURL">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Contrastive_Unsupervised_Representations_for_Reinforcement_Learning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#CV -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#CV">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Caffe -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Caffe"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Categorical_Naive_Bayes -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Categorical_Naive_Bayes">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Naive_Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Chi-squared_Automatic_Interaction_Detection -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Chi-squared_Automatic_Interaction_Detection">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Classification -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Classification">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Classification_And_Regression_Tree -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Classification_And_Regression_Tree">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Clustering -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Clustering">
+        <rdfs:comment>Clustering algorithms are useful in information theory, target detection, communications, compression, and other areas. (https://docs.scipy.org/doc/scipy/reference/cluster.html</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Complement_Naive_Bayes -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Complement_Naive_Bayes">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Naive_Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Conditional_Decision_Tree -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Conditional_Decision_Tree">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Contrastive_Unsupervised_Representations_for_Reinforcement_Learning -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Contrastive_Unsupervised_Representations_for_Reinforcement_Learning">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Image-Based"/>
+        <rdfs:isDefinedBy>https://arxiv.org/pdf/2004.04136.pdf</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Convolutional_Neural_Networks -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Convolutional_Neural_Networks">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Neural_Networks"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#hasModule"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#SciPy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#DBM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#DBM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Deep_Boltzmann_Machine"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#DBN -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#DBN">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Deep_Belief_Networks"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#DBSCAN -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#DBSCAN">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Density-Based_Spatial_Clustering_of_Applications_with_Noise"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Decision_Stump -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Decision_Stump">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Decision_Tree -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Deep_Belief_Networks -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Deep_Belief_Networks">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Neural_Networks"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Deep_Boltzmann_Machine -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Deep_Boltzmann_Machine">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Neural_Networks"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Deep_Learning -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Deep_Learning"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Deep_Neural_Networks -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Deep_Neural_Networks">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Learning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Density-Based_Spatial_Clustering_of_Applications_with_Noise -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Density-Based_Spatial_Clustering_of_Applications_with_Noise">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Dictionary -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Dictionary"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Dimensionality_Reduction -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Dimensionality_Reduction">
+        <rdfs:comment>Helps systemsremove data tht`s not useful for analysis. This group of algorithms is used to remove reduntante data, outliers, and other non-useful data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Eclat -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Eclat">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Association_Rule_Learning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Elastic_Net -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Elastic_Net">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Regularization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Ensemble -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Ensemble"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Expectation_Maximisation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Expectation_Maximisation">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#FDA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#FDA">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Flexible_Discriminant_Analysis"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Flexible_Discriminant_Analysis -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Flexible_Discriminant_Analysis">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Forests_of_randomized_trees -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Forests_of_randomized_trees">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#GBDT -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#GBDT">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#GBM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#GBM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Gradient_Boosting_Machine"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#GBRT -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#GBRT">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#GPR -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#GPR">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#GPU -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#GPU">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Gaussian_Naive_Bayes -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Gaussian_Naive_Bayes">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Naive_Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#GloVe -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#GloVe">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Global_Vectors_For_Word_Representation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Global_Vectors_For_Word_Representation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Global_Vectors_For_Word_Representation">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Learning"/>
+        <rdfs:comment>GloVe is an unsupervised learning algorithm for obtaining sector representation for words,. Training is performed on agregated global word-word co-ocurrence statistics from a corpus and the resulting respresantation interesting linear substructures of the word vector space.</rdfs:comment>
+        <rdfs:isDefinedBy>https://stanford.edu.projects/glove/</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Gradient_Boosting_Machine -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Gradient_Boosting_Machine">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Gradient_Tree_Boosting -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Gradient_Tree_Boosting">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+        <rdfs:comment>Gradient Tree Boosting or Gradient Boosted Decision Trees (GBDT) is a generalization of boosting to arbitrary differentiable loss functions. GBDT is an accurate and effective off-the-shelf procedure that can be used for both regression and classification problems in a variety of areas including Web search ranking and ecology.</rdfs:comment>
+        <rdfs:isDefinedBy>https://scikit-learn.org/stable/modules/ensemble.html#gradient-tree-boosting</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#HDBSCAN -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#HDBSCAN">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Hierarchical_Density-Based_Spatial_Clustering_of_Applications_with_Noise"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#HMM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#HMM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Hiden_Markov_Model"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Hiden_Markov_Model -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Hiden_Markov_Model">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:comment>A hidden Markov model is a Markov chain for which the state is only partially observable. In other words, observations are related to the state of the system, but they are typically insufficient to precisely determine the state.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Markov_model</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Hierarchical_Clustering -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Hierarchical_Clustering">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Hierarchical_Density-Based_Spatial_Clustering_of_Applications_with_Noise -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Hierarchical_Density-Based_Spatial_Clustering_of_Applications_with_Noise">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+        <rdfs:isDefinedBy>https://link.springer.com/chapter/10.1007%2F978-3-642-37456-2_14</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Hierarchical_Markov_Models -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Hierarchical_Markov_Models">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:comment>Hierarchical Markov models can be applied to categorize human behavior at various levels of abstraction. For example, a series of simple observations, such as a person&apos;s location in a room, can be interpreted to determine more complex information, such as in what task or activity the person is performing.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Markov_model</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Histogram_Based_Gradient_Boosting -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Histogram_Based_Gradient_Boosting">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Hopfield_Network -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Hopfield_Network">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Artificial_Neural_Network"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#ID3 -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#ID3">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Iterative_Dichotomiser_3"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Image-Based -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Image-Based"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Instance-Based -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Instance-Based">
+        <rdfs:comment>Are used when you want to categorize new data points based on similities to training data.can be very useful in pattern recognition.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Iterative_Dichotomiser_3 -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Iterative_Dichotomiser_3">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#JAX -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#JAX">
+        <rdfs:comment>JAX is a Machine Learning library which I would describe (very vaguely) as Numpy with auto differentiation that you can execute on GPUs (and TPUs too!). Additionally, it has XLA compilation and built-in vectorization and parallelization capabilities.</rdfs:comment>
+        <rdfs:isDefinedBy>https://github.com/google/jax</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Keras -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Keras"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LARS -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LARS">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LDA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LDA">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Latent_Dirichlet_Allocation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Linear_Discriminant_Analysis"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LMS -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LMS">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Least_Mean_Squares"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LOESS -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LOESS">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LSA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LSA">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LSTM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LSTM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Long_Short-Term_Memory_Networks"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LVQ -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LVQ">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Learning_Vector_Quantization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LWL -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LWL">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Locally_Weighted_Learning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Latent_Dirichlet_Allocation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Latent_Dirichlet_Allocation">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Processing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Learning_Vector_Quantization -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Learning_Vector_Quantization"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Least_Absolute_Shinkage_and_Selection_Operator -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Least_Absolute_Shinkage_and_Selection_Operator">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Regularization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Least_Mean_Squares -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Least_Mean_Squares"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#LightGBM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#LightGBM">
+        <rdfs:comment>A fast, distributed, high performance gradient boosting (GBT, GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks.</rdfs:comment>
+        <rdfs:isDefinedBy>https://github.com/microsoft/LightGBM</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Linear_Discriminant_Analysis -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Linear_Discriminant_Analysis">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Linear_Models -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Linear_Models"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Linear_Regression -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Linear_Regression">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Linear_Models"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Locally_Weighted_Learning -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Locally_Weighted_Learning">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAlgorithmOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Long_Short-Term_Memory_Networks -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Long_Short-Term_Memory_Networks">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Neural_Networks"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#M5 -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#M5">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Decision_Tree"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#MARS -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#MARS">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#MCD -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#MCD">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#MDA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#MDA">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Mixture_Discriminant_Analysis"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#MDS -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#MDS">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Multidimensional_Scaling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#MLP -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#MLP">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Markov-chain_Forecasting_Models -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Markov-chain_Forecasting_Models">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:comment>Markov-chains have been used as a forecasting methods for several topics, for example price trends[9], wind power and solar irradiance. The Markov-chain forecasting models utilize a variety of different settings, from discretizing the time-series to hidden Markov-models combined with wavelets[9] and the Markov-chain mixture distribution model (MCM)
+.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Markov_model</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Markov_Chain -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Markov_Chain">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:comment>The simplest Markov model is the Markov chain. It models the state of a system with a random variable that changes through time.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Markov_model</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Markov_Decision_Process -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Markov_Decision_Process">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isPart"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Markov_Chain"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>A Markov decision process is a Markov chain in which state transitions depend on the current state and an action vector that is applied to the system.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Markov_model</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Markov_Model -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Markov_Model">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isByname"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Markov_Network -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Markov_Network">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isByname"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Markov_Random_Field"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Markov_Process_Models -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Markov_Random_Field -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Markov_Random_Field">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:comment>n the domain of physics and probability, a Markov random field (often abbreviated as MRF), Markov network or undirected graphical model is a set of random variables having a Markov property described by an undirected graph. In other words, a random field is said to be a Markov random field if it satisfies Markov properties.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Markov_random_field</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Matplotlib -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Matplotlib"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Max_Match -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Max_Match">
+        <rdfs:comment> We unify the current dominant approaches for semi-supervised learning to produce a new algorithm, MixMatch, that works by guessing low-entropy labels for data-augmented unlabeled examples and mixing labeled and unlabeled data using MixUp. We show that MixMatch obtains state-of-the-art results by a large margin across many datasets and labeled data amounts.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Mean-Shift -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Mean-Shift">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#MiniBatchMeans -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#MiniBatchMeans">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Mixture_Discriminant_Analysis -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Mixture_Discriminant_Analysis">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Monte_Carlo_Simulation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Monte_Carlo_Simulation">
+        <rdfs:comment>Monte Carlo method is to approximate the expectations of outcomes given various inputs, uncertainty, and system dynamics. This video walks through some high-level mathematics for those who are interested.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Multidimensional_Scaling -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Multidimensional_Scaling">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Multinomial_Naive_Bayes -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Multinomial_Naive_Bayes">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Naive_Bayes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Muti-Task_Learning -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Muti-Task_Learning">
+        <rdfs:isDefinedBy>https://arxiv.org/pdf/2001.06782.pdf</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#MxNet -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#MxNet"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#NISQ -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#NISQ">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#NLG -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#NLG">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Generation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#NLP -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#NLP">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Processing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#NLU -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#NLU">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Understanding"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#NUBIA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#NUBIA">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Neural_Based_Interchangeability_Assessor_for_Text_Generation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Naive_Bayes -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Naive_Bayes">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Bayes"/>
+        <rdfs:comment>Naive Bayes methods are a set of supervised learning algorithms based on applying Bayes’ theorem with the “naive” assumption of conditional independence between every pair of features given the value of the class variable.</rdfs:comment>
+        <rdfs:isDefinedBy>https://scikit-learn.org/stable/modules/naive_bayes.html</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Natural_Language_Generation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Natural_Language_Generation">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Processing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Natural_Language_Processing -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Natural_Language_Processing">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#hasAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#NLP"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Natural_Language_Understand -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Natural_Language_Understand">
+        <owl:equivalentClass rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Understanding"/>
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Processing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Natural_Language_Understanding -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Natural_Language_Understanding">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Processing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Network-X -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Network-X"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Neural_Based_Interchangeability_Assessor_for_Text_Generation -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Neural_Based_Interchangeability_Assessor_for_Text_Generation">
+        <rdfs:comment>A methodology to build automatic evaluation metrics for text generation using only machine learning models as core components.</rdfs:comment>
+        <rdfs:isDefinedBy>https://wl-research.github.io/blog/</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#NumPy -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#NumPy">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#requires"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Python"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Has supported mehods </rdfs:comment>
+        <rdfs:isDefinedBy>https://numpy.org/devdocs/index.html</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#ODE -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#ODE">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#OLSR -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#OLSR">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Ordinary_Least_Squares"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#OPTICS -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#OPTICS">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Ordering_points_to_identify_the_clustering_structure"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Ordering_points_to_identify_the_clustering_structure -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Ordering_points_to_identify_the_clustering_structure">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Ordinary_Least_Squares -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Ordinary_Least_Squares">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Linear_Models"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Others -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Others"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#PCA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#PCA">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Principal_Component_Analysis"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#PCR -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#PCR">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Principal_Component_Regression"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#PLSR -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#PLSR">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Partial_Least_Squares_Regression"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#POMDP -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#POMDP">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Partially_Observable_Markov_Decision_Process"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Paddle_Paddle -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Paddle_Paddle"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Pandas -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Pandas">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#requires"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Python"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Partial_Least_Squares_Regression -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Partial_Least_Squares_Regression">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Partially_Observable_Markov_Decision_Process -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Partially_Observable_Markov_Decision_Process">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:comment>A partially observable Markov decision process (POMDP) is a generalization of a Markov decision process (MDP). A POMDP models an agent decision process in which it is assumed that the system dynamics are determined by an MDP, but the agent cannot directly observe the underlying state. Instead, it must maintain a probability distribution over the set of possible states, based on a set of observations and observation probabilities, and the underlying MDP.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Partially_observable_Markov_decision_process</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Perceptron -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Perceptron">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Linear_Models"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Principal_Component_Analysis -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Principal_Component_Analysis">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+        <rdfs:comment>Is a linear dimension reduction technique that seeks to maximize variance and preserves large pairwise distances.  In other words, things that are differente end up far apart. This can lead to poor visualization especiaally when dealing with no-linear manifold structures. Think of a manifold structure as any geometric shape like: cylinder, ball, curve, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Principal_Component_Regression -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Principal_Component_Regression">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Project_Pursuit -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Project_Pursuit">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Prolog -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Prolog">
+        <rdfs:comment>We present a reinforcement learning toolkit for experiments with guiding automated theorem proving in the connection calculus. The core of the toolkit is a compact and easy to extend Prolog-based automated theorem prover called plCoP. plCoP builds on the leanCoP Prolog implementation and adds learning-guided Monte-Carlo Tree Search as done in the rlCoP system. Other components include a Python interface to plCoP and machine learners, and an external proof checker that verifies the validity of plCoP proofs. The toolkit is evaluated on two benchmarks and we demonstrate its extendability by two additions: (1) guidance is extended to reduction steps and (2) the standard leanCoP calculus is extended with rewrite steps and their learned guidance. We argue that the Prolog setting is suitable for combining statistical and symbolic learning methods. The complete toolkit is publicly released.</rdfs:comment>
+        <rdfs:isDefinedBy>https://arxiv.org/pdf/2004.06997.pdf</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#PyCaret -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#PyCaret">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#LightGBM"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#XGBoost"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#scikit-learn"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#spaCy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>We are excited to announce PyCaret, an open source machine learning library in Python to train and deploy supervised and unsupervised machine learning models in a low-code environment. PyCaret allows you to go from preparing data to deploying models within seconds from your choice of notebook environment.
+
+In comparison with the other open source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as scikit-learn, XGBoost, Microsoft LightGBM, spaCy, and many more.
+
+PyCaret is simple and easy to use. All the operations performed in PyCaret are sequentially stored in a Pipeline that is fully orchestrated for deployment. Whether its imputing missing values, transforming categorical data, feature engineering or even hyperparameter tuning, PyCaret automates all of it. To learn more about PyCaret, watch this 1-minute video.</rdfs:comment>
+        <rdfs:isDefinedBy>https://pycaret.org/</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#PyTorch -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#PyTorch"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Python -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Python"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#QDA -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#QDA">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Quadratic_Discriminant_Analysis"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Quadratic_Discriminant_Analysis -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Quadratic_Discriminant_Analysis">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Quantum_Machine_Learning -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Quantum_Machine_Learning">
+        <rdfs:isDefinedBy>https://arxiv.org/pdf/2003.02989.pdf</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#RNN -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#RNN">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Recurrent_Neural_Networks"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Radial_Basis_Function_Network -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Radial_Basis_Function_Network">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Artificial_Neural_Network"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Random_Forest -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Random_Forest">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Recurrent_Neural_Networks -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Recurrent_Neural_Networks">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Neural_Networks"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Regularization -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Regularization">
+        <rdfs:comment>Is a technique to modify models to avoid the problem of overfitting. OVERFITTING occurs when a model is created for a specific data set but will have poor predictive capabilities for a generalize data sete.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#SOFM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#SOFM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#self-organizing_feature_map"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#SOM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#SOM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Self-organizing_map"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#SON -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#SON">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Self-Organizing_Map"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#SVM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#SVM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Support_Vector_Machines"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Sammon_Mapping -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Sammon_Mapping">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dimensionality_Reduction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#SciPy -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#SciPy">
+        <rdfs:comment>SciPy is an open-source scientific computing library for the Python programming language. Since its initial release in 2001, SciPy has become a de facto standard for leveraging scientific algorithms in Python, with over 600 unique code contributors, thousands of dependent packages, over 100,000 dependent repositories and millions of downloads per year. In this work, we provide an overview of the capabilities and development practices of SciPy 1.0 and highlight some recent technical developments.
+
+© Copyright 2008-2019, The SciPy community.</rdfs:comment>
+        <rdfs:isDefinedBy>1. https://www.nature.com/articles/s41592-019-0686-2
+2. https://docs.scipy.org/doc/scipy/reference/tutorial/
+3. https://docs.scipy.org/doc/scipy/reference/index.html#api-reference</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Self-Organizing_Map -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Self-Organizing_Map">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAlgorithmOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Self-organizing_map -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Self-organizing_map">
+        <owl:equivalentClass rdf:resource="http://www.a2rd.net.br/mlo#self-organizing_feature_map"/>
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Artificial_Neural_Network"/>
+        <rdfs:comment>A self-organizing map (SOM) or self-organizing feature map (SOFM) is a type of artificial neural network (ANN) that is trained using unsupervised learning to produce a low-dimensional (typically two-dimensional), discretized representation of the input space of the training samples, called a map, and is therefore a method to do dimensionality reduction. Self-organizing maps differ from other artificial neural networks as they apply competitive learning as opposed to error-correction learning (such as backpropagation with gradient descent), and in the sense that they use a neighborhood function to preserve the topological properties of the input space.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.m.wikipedia.org/wiki/Self-organizing_map</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Spectral_Bi-Clustering -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Spectral_Bi-Clustering">
+        <owl:equivalentClass rdf:resource="http://www.a2rd.net.br/mlo#Spectral_Co-Clustering"/>
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+        <rdfs:comment>See Spectral Co-Clustering</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Spectral_Co-Clustering -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Spectral_Co-Clustering">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+        <rdfs:isDefinedBy>http://mlwiki.org/index.php/Co-Clustering</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Stacked_Auto-Encoders -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Stacked_Auto-Encoders">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Neural_Networks"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Stacked_Generalization -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Stacked_Generalization">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Stacking -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Stacking">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isByname"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Stacked_Generalization"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Stochastic_Gradient_Descent -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Stochastic_Gradient_Descent">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Artificial_Neural_Network"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Support_Vector_Machine -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Support_Vector_Machine"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Support_Vector_Machines -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Support_Vector_Machines">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAlgorithmOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#SymPy -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#SymPy"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#T-NGL -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#T-NGL"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#TD -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#TD">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#TMM -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#TMM">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Tolerant_Markov_Model"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#TensorFlow -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#TensorFlow">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isResourceFor"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Natural_Language_Processing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>TensorFlow, open sourced to the public by Google in 2015, is the result of years of lessons learned from a dilemma: should we attempt to do research with inflexible libraries so that we don’t have to reimplement code, or should we use one library for research and a completely different library for production?</rdfs:comment>
+        <rdfs:seeAlso>https://towardsdatascience.com/the-ultimate-beginner-guide-to-tensorflow-af82fd4b8626</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#TensorFlow_Quantum -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#TensorFlow_Quantum">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isDesignedToWorkFor"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Quantum_Machine_Learning"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>We introduce TensorFlow Quantum (TFQ), an open source library for the rapid prototyping of hybrid quantum-classical models for classical or quantum data. This framework offers high-level abstractions for the design and training of both discriminative and generative quantum models under TensorFlow and supports high-performance quantum circuit simulators. We provide an overview of the software architecture and building blocks through several examples and review the theory of hybrid quantum-classical neural networks. We illustrate TFQ functionalities via several basic applications including supervised learning for quantum classification, quantum control, and quantum approximate optimization. Moreover, we demonstrate how one can apply TFQ to tackle advanced quantum learning tasks including meta-learning, Hamiltonian learning, and sampling thermal states.
+We hope this framework provides the necessary tools for the quantum computing and machine learning research communities to explore models of both natural and artificial quantum systems, and ultimately discover new quantum algorithms which could potentially yield a quantum advantage.
+</rdfs:comment>
+        <rdfs:isDefinedBy>arxiv.org/pdf/2003.02989.pdf</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Theano -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Theano"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Tolerant_Markov_Model -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Tolerant_Markov_Model">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Markov_Process_Models"/>
+        <rdfs:comment>A Tolerant Markov model (TMM) is a probabilistic-algorithmic Markov chain model. It assigns the probabilities according to a conditioning context that considers the last symbol, from the sequence to occur, as the most probable instead of the true occurring symbol. A TMM can model three different natures: substitutions, additions or deletions. Successful applications have been efficiently implemented in DNA sequences compression.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Markov_model</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Voting_Classifier -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Voting_Classifier">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Voting_Regressor -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Voting_Regressor">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Weighted_Average -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Weighted_Average">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Ensemble"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Widrow-Hoff -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Widrow-Hoff"/>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#Word2Vec -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#Word2Vec">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Deep_Learning"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#XGBoost -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#XGBoost">
+        <rdfs:comment>XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples.</rdfs:comment>
+        <rdfs:isDefinedBy>https://xgboost.readthedocs.io/en/latest/</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#k-Means -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#k-Means">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#k-Medians -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#k-Medians">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Clustering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#k-Nearest_Neighbor -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#k-Nearest_Neighbor">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAlgorithmOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Instance-Based"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#kNN -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#kNN">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#k-Nearest_Neighbor"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#scikit-learn -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#scikit-learn">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#requires"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#NumPy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#requires"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#Python"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#requires"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#SciPy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <mlo:contributor xml:lang="article{scikit-learn,  title={scikit-learn: machine learning in {p}ython},  author={pedregosa, f. and varoquaux, g. and gramfort, a. and michel, v. and thirion, b. and grisel, o. and blondel, m. and prettenhofer, p. and weiss, r. and dubourg, v. and vanderplas, j. and passos, a. and cournapeau, d. and brucher, m. and perrot, m. and duchesnay, e.},  journal={journal of machine learning research},  volume={12},  pages={2825--2830},  year={2011} }"></mlo:contributor>
+        <rdfs:comment>This project was started in 2007 as a Google Summer of Code project by David Cournapeau. Later that year, Matthieu Brucher started work on this project as part of his thesis.
+
+In 2010 Fabian Pedregosa, Gael Varoquaux, Alexandre Gramfort and Vincent Michel of INRIA took leadership of the project and made the first public release, February the 1st 2010. Since then, several releases have appeared following a ~3 month cycle, and a thriving international community has been leading the development.</rdfs:comment>
+        <rdfs:isDefinedBy>https://scikit-learn.org/stable/</rdfs:isDefinedBy>
+        <owl:priorVersion>0.22.2</owl:priorVersion>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#self-organizing_feature_map -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#self-organizing_feature_map">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Artificial_Neural_Network"/>
+        <rdfs:comment>A self-organizing map (SOM) or self-organizing feature map (SOFM) is a type of artificial neural network (ANN) that is trained using unsupervised learning to produce a low-dimensional (typically two-dimensional), discretized representation of the input space of the training samples, called a map, and is therefore a method to do dimensionality reduction. Self-organizing maps differ from other artificial neural networks as they apply competitive learning as opposed to error-correction learning (such as backpropagation with gradient descent), and in the sense that they use a neighborhood function to preserve the topological properties of the input space.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.m.wikipedia.org/wiki/Self-organizing_map</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#spaCy -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#spaCy">
+        <rdfs:comment>spaCy is designed to help you do real work — to build real products, or gather real insights. The library respects your time, and tries to avoid wasting it. It&apos;s easy to install, and its API is simple and productive. We like to think of spaCy as the Ruby on Rails of Natural Language Processing.</rdfs:comment>
+        <rdfs:isDefinedBy>https://spacy.io/</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#t-Distributed_Stochastic_Neighbor_Embedding -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#t-Distributed_Stochastic_Neighbor_Embedding">
+        <rdfs:comment>It is a nonlinear dimensionality reduction technique well-suited for embedding high-dimensional data for visualization in a low-dimensional space of two or three dimensions. Specifically, it models each high-dimensional object by a two- or three-dimensional point in such a way that similar objects are modeled by nearby points and dissimilar objects are modeled by distant points with high probability.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#t-SNE -->
+
+    <owl:Class rdf:about="http://www.a2rd.net.br/mlo#t-SNE">
+        <rdfs:subClassOf rdf:resource="http://www.a2rd.net.br/mlo#Dictionary"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.a2rd.net.br/mlo#isAcronym"/>
+                <owl:someValuesFrom rdf:resource="http://www.a2rd.net.br/mlo#t-Distributed_Stochastic_Neighbor_Embedding"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.a2rd.net.br/mlo#notUniversal -->
+
+    <owl:NamedIndividual rdf:about="http://www.a2rd.net.br/mlo#notUniversal"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

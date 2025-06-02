@@ -1,0 +1,2330 @@
+@prefix : <http://www.w3c.org/ns/mlMerge#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3c.org/ns/mlMerge> .
+
+<http://www.w3c.org/ns/mlMerge> rdf:type owl:Ontology ;
+                                 <http://purl.org/dc/terms/description> "ML-Schema is a collaborative, community effort with a mission to develop, maintain, and promote standard schemas for data mining and machine learning algorithms, datasets, and experiments" ;
+                                 <http://purl.org/dc/terms/hasVersion> 1.0 ;
+                                 <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0/> ;
+                                 <http://purl.org/dc/terms/title> "Machine Learning Schema" ;
+                                 <http://www.a2rd.net.br/mlo#mlo:contributor> """Francisco Regateiro, Instituto Superior Técnico, ULisboa, Portugal
+  https://fenix.tecnico.ulisboa.pt/homepage/ist13522""" ,
+                                                                              """Julião Braga, UMackenzie, SP Brazil
+  http://www.braga.net.br """ ;
+                                 <http://www.semanticweb.org/user/ontologies/2020/0/ml-ontology#mlo:license> """Copyright (C) by Francisco Regateiro, Joaquim Ramos Dias and Juliao Braga. Except where otherwise noted, content on this ontology is licensed under a Creative Commons Attribution-NonCommercial 4.0 International Licence (BY-NC).
+""" ;
+                                 rdfs:comment "Any information can be forwarded to info"@a2rd.net.br. ;
+                                 owl:versionInfo "7.0 (March 2020) " .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/description
+<http://purl.org/dc/terms/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/hasVersion
+<http://purl.org/dc/terms/hasVersion> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/issued
+<http://purl.org/dc/terms/issued> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/modified
+<http://purl.org/dc/terms/modified> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/publisher
+<http://purl.org/dc/terms/publisher> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+<http://purl.org/dc/terms/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.a2rd.net.br/mlo#mlo:GitHub
+<http://www.a2rd.net.br/mlo#mlo:GitHub> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.a2rd.net.br/mlo#mlo:Linkedln
+<http://www.a2rd.net.br/mlo#mlo:Linkedln> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.a2rd.net.br/mlo#mlo:Twitter
+<http://www.a2rd.net.br/mlo#mlo:Twitter> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.a2rd.net.br/mlo#mlo:Website
+<http://www.a2rd.net.br/mlo#mlo:Website> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.a2rd.net.br/mlo#mlo:contributor
+<http://www.a2rd.net.br/mlo#mlo:contributor> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.semanticweb.org/user/ontologies/2020/0/ml-ontology#mlo:license
+<http://www.semanticweb.org/user/ontologies/2020/0/ml-ontology#mlo:license> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#note
+<http://www.w3.org/2004/02/skos/core#note> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#integer
+xsd:integer owl:equivalentClass xsd:dateTime .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.a2rd.net.br/mlo#canBeSolvedBy
+<http://www.a2rd.net.br/mlo#canBeSolvedBy> rdf:type owl:ObjectProperty ;
+                                           owl:inverseOf <http://www.a2rd.net.br/mlo#canSolve> ,
+                                                         <http://www.a2rd.net.br/mlo#isResourceFor> ,
+                                                         <http://www.a2rd.net.br/mlo#worksFor> .
+
+
+###  http://www.a2rd.net.br/mlo#canSolve
+<http://www.a2rd.net.br/mlo#canSolve> rdf:type owl:ObjectProperty ;
+                                      owl:equivalentProperty <http://www.a2rd.net.br/mlo#isResourceFor> ;
+                                      rdfs:comment "" .
+
+
+###  http://www.a2rd.net.br/mlo#described
+<http://www.a2rd.net.br/mlo#described> rdf:type owl:ObjectProperty ;
+                                       owl:equivalentProperty <http://www.a2rd.net.br/mlo#isAuthor> ;
+                                       owl:inverseOf <http://www.a2rd.net.br/mlo#hasAuthor> .
+
+
+###  http://www.a2rd.net.br/mlo#hasAcronym
+<http://www.a2rd.net.br/mlo#hasAcronym> rdf:type owl:ObjectProperty ;
+                                        owl:equivalentProperty <http://www.a2rd.net.br/mlo#hasByname> ;
+                                        owl:inverseOf <http://www.a2rd.net.br/mlo#isAcronym> .
+
+
+###  http://www.a2rd.net.br/mlo#hasAlgorithm
+<http://www.a2rd.net.br/mlo#hasAlgorithm> rdf:type owl:ObjectProperty ;
+                                          owl:inverseOf <http://www.a2rd.net.br/mlo#isAlgorithmOf> .
+
+
+###  http://www.a2rd.net.br/mlo#hasApplicationFrom
+<http://www.a2rd.net.br/mlo#hasApplicationFrom> rdf:type owl:ObjectProperty ;
+                                                owl:inverseOf <http://www.a2rd.net.br/mlo#isApplicationOf> .
+
+
+###  http://www.a2rd.net.br/mlo#hasAuthor
+<http://www.a2rd.net.br/mlo#hasAuthor> rdf:type owl:ObjectProperty ;
+                                       owl:equivalentProperty <http://www.a2rd.net.br/mlo#wasDescribed> .
+
+
+###  http://www.a2rd.net.br/mlo#hasByname
+<http://www.a2rd.net.br/mlo#hasByname> rdf:type owl:ObjectProperty ;
+                                       owl:inverseOf <http://www.a2rd.net.br/mlo#isByname> .
+
+
+###  http://www.a2rd.net.br/mlo#hasComplementaryResources
+<http://www.a2rd.net.br/mlo#hasComplementaryResources> rdf:type owl:ObjectProperty ;
+                                                       owl:inverseOf <http://www.a2rd.net.br/mlo#isComplementaryResources> .
+
+
+###  http://www.a2rd.net.br/mlo#hasContinuosValues
+<http://www.a2rd.net.br/mlo#hasContinuosValues> rdf:type owl:ObjectProperty ;
+                                                owl:inverseOf <http://www.a2rd.net.br/mlo#isContinuousVariable> .
+
+
+###  http://www.a2rd.net.br/mlo#hasDiscretValues
+<http://www.a2rd.net.br/mlo#hasDiscretValues> rdf:type owl:ObjectProperty ;
+                                              rdfs:subPropertyOf owl:topObjectProperty ;
+                                              owl:inverseOf <http://www.a2rd.net.br/mlo#isCategoricalVariable> .
+
+
+###  http://www.a2rd.net.br/mlo#hasFunction
+<http://www.a2rd.net.br/mlo#hasFunction> rdf:type owl:ObjectProperty ;
+                                         owl:equivalentProperty <http://www.a2rd.net.br/mlo#hasModule> .
+
+
+###  http://www.a2rd.net.br/mlo#hasMethod
+<http://www.a2rd.net.br/mlo#hasMethod> rdf:type owl:ObjectProperty ;
+                                       owl:inverseOf <http://www.a2rd.net.br/mlo#isMethod> .
+
+
+###  http://www.a2rd.net.br/mlo#hasModule
+<http://www.a2rd.net.br/mlo#hasModule> rdf:type owl:ObjectProperty ;
+                                       owl:inverseOf <http://www.a2rd.net.br/mlo#isModule> .
+
+
+###  http://www.a2rd.net.br/mlo#hasPart
+<http://www.a2rd.net.br/mlo#hasPart> rdf:type owl:ObjectProperty ;
+                                     owl:inverseOf <http://www.a2rd.net.br/mlo#isPart> .
+
+
+###  http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom
+<http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#hasSimilarMethodsIn
+<http://www.a2rd.net.br/mlo#hasSimilarMethodsIn> rdf:type owl:ObjectProperty ;
+                                                 owl:inverseOf <http://www.a2rd.net.br/mlo#isSimilarMethodsFrom> ;
+                                                 rdfs:comment "Has similar functions or methods in." .
+
+
+###  http://www.a2rd.net.br/mlo#hasSource
+<http://www.a2rd.net.br/mlo#hasSource> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#implementedBy
+<http://www.a2rd.net.br/mlo#implementedBy> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#is
+<http://www.a2rd.net.br/mlo#is> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isAcronym
+<http://www.a2rd.net.br/mlo#isAcronym> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isAlgorithmOf
+<http://www.a2rd.net.br/mlo#isAlgorithmOf> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isAlgoritm
+<http://www.a2rd.net.br/mlo#isAlgoritm> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isApplicationOf
+<http://www.a2rd.net.br/mlo#isApplicationOf> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isAuthor
+<http://www.a2rd.net.br/mlo#isAuthor> rdf:type owl:ObjectProperty ;
+                                      owl:inverseOf <http://www.a2rd.net.br/mlo#wasDescribed> .
+
+
+###  http://www.a2rd.net.br/mlo#isByname
+<http://www.a2rd.net.br/mlo#isByname> rdf:type owl:ObjectProperty ;
+                                      rdfs:domain <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#isCategoricalVariable
+<http://www.a2rd.net.br/mlo#isCategoricalVariable> rdf:type owl:ObjectProperty ;
+                                                   rdfs:subPropertyOf <http://www.a2rd.net.br/mlo#isTechnique> .
+
+
+###  http://www.a2rd.net.br/mlo#isCoAuthor
+<http://www.a2rd.net.br/mlo#isCoAuthor> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isComplementaryResources
+<http://www.a2rd.net.br/mlo#isComplementaryResources> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isContinuousVariable
+<http://www.a2rd.net.br/mlo#isContinuousVariable> rdf:type owl:ObjectProperty ;
+                                                  rdfs:subPropertyOf <http://www.a2rd.net.br/mlo#isTechnique> .
+
+
+###  http://www.a2rd.net.br/mlo#isCopyright
+<http://www.a2rd.net.br/mlo#isCopyright> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isDeprecated
+<http://www.a2rd.net.br/mlo#isDeprecated> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isDesignedToWorkFor
+<http://www.a2rd.net.br/mlo#isDesignedToWorkFor> rdf:type owl:ObjectProperty ;
+                                                 owl:equivalentProperty <http://www.a2rd.net.br/mlo#worksFor> .
+
+
+###  http://www.a2rd.net.br/mlo#isFunction
+<http://www.a2rd.net.br/mlo#isFunction> rdf:type owl:ObjectProperty ;
+                                        owl:equivalentProperty <http://www.a2rd.net.br/mlo#isModule> .
+
+
+###  http://www.a2rd.net.br/mlo#isMemberOf
+<http://www.a2rd.net.br/mlo#isMemberOf> rdf:type owl:ObjectProperty ;
+                                        owl:equivalentProperty <http://www.a2rd.net.br/mlo#isTypeOf> ;
+                                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isMethod
+<http://www.a2rd.net.br/mlo#isMethod> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isModule
+<http://www.a2rd.net.br/mlo#isModule> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isOpenSourceFrom
+<http://www.a2rd.net.br/mlo#isOpenSourceFrom> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isPackageFrom
+<http://www.a2rd.net.br/mlo#isPackageFrom> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isPart
+<http://www.a2rd.net.br/mlo#isPart> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isPerson
+<http://www.a2rd.net.br/mlo#isPerson> rdf:type owl:ObjectProperty ,
+                                               owl:SymmetricProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isProblemOf
+<http://www.a2rd.net.br/mlo#isProblemOf> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isResourceFor
+<http://www.a2rd.net.br/mlo#isResourceFor> rdf:type owl:ObjectProperty ;
+                                           rdfs:comment "Is algorihm to solve this techinique" .
+
+
+###  http://www.a2rd.net.br/mlo#isSimilarMethodsFrom
+<http://www.a2rd.net.br/mlo#isSimilarMethodsFrom> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isSubPackagefrom
+<http://www.a2rd.net.br/mlo#isSubPackagefrom> rdf:type owl:ObjectProperty ;
+                                              owl:equivalentProperty <http://www.a2rd.net.br/mlo#isSubpackageFrom> .
+
+
+###  http://www.a2rd.net.br/mlo#isSubTypeOf
+<http://www.a2rd.net.br/mlo#isSubTypeOf> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isSubpackageFrom
+<http://www.a2rd.net.br/mlo#isSubpackageFrom> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isSucessor
+<http://www.a2rd.net.br/mlo#isSucessor> rdf:type owl:ObjectProperty ,
+                                                 owl:TransitiveProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isTechnique
+<http://www.a2rd.net.br/mlo#isTechnique> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#isTypeOf
+<http://www.a2rd.net.br/mlo#isTypeOf> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#requires
+<http://www.a2rd.net.br/mlo#requires> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#seeAlso
+<http://www.a2rd.net.br/mlo#seeAlso> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#useSolver
+<http://www.a2rd.net.br/mlo#useSolver> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#wasDescribed
+<http://www.a2rd.net.br/mlo#wasDescribed> rdf:type owl:ObjectProperty .
+
+
+###  http://www.a2rd.net.br/mlo#worksFor
+<http://www.a2rd.net.br/mlo#worksFor> rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/ns/mls#achieves
+<http://www.w3.org/ns/mls#achieves> rdf:type owl:ObjectProperty ;
+                                    rdfs:domain <http://www.w3.org/ns/mls#Run> ;
+                                    rdfs:range <http://www.w3.org/ns/mls#Task> ;
+                                    <http://purl.org/dc/terms/description> "A relation between a run and a task, where the run achieves specifications formulated by the task." ;
+                                    rdfs:comment "A relation between a run and a task, where the run achieves specifications formulated by the task." .
+
+
+###  http://www.w3.org/ns/mls#definedOn
+<http://www.w3.org/ns/mls#definedOn> rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf owl:topObjectProperty ;
+                                     owl:inverseOf <http://www.w3.org/ns/mls#defines> ;
+                                     rdfs:domain <http://www.w3.org/ns/mls#Task> ;
+                                     rdfs:range [ rdf:type owl:Class ;
+                                                  owl:unionOf ( <http://www.w3.org/ns/mls#Data>
+                                                                <http://www.w3.org/ns/mls#EvaluationSpecification>
+                                                              )
+                                                ] ;
+                                     <http://purl.org/dc/terms/description> "A relation between a task and either the data or an evaluation specification pertinent to this task." ;
+                                     rdfs:comment "A relation between a task and either the data or an evaluation specification pertinent to this task." ;
+                                     rdfs:label "definedOn"@en .
+
+
+###  http://www.w3.org/ns/mls#defines
+<http://www.w3.org/ns/mls#defines> rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/ns/mls#executes
+<http://www.w3.org/ns/mls#executes> rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf owl:topObjectProperty ;
+                                    rdfs:domain <http://www.w3.org/ns/mls#Run> ;
+                                    rdfs:range <http://www.w3.org/ns/mls#Implementation> ;
+                                    <http://purl.org/dc/terms/description> "A relation between a run and an implemantation that is being executed during the run." ;
+                                    rdfs:comment "A relation between a run and an implemantation that is being executed during the run." .
+
+
+###  http://www.w3.org/ns/mls#hasHyperParameter
+<http://www.w3.org/ns/mls#hasHyperParameter> rdf:type owl:ObjectProperty ;
+                                             rdfs:subPropertyOf owl:topObjectProperty ;
+                                             rdfs:domain <http://www.w3.org/ns/mls#Implementation> ;
+                                             rdfs:range <http://www.w3.org/ns/mls#HyperParameter> ;
+                                             <http://purl.org/dc/terms/description> "A relation between an implementation of a machine learning algorithm and its hyperparameter." ;
+                                             rdfs:comment "A relation between an implementation of a machine learning algorithm and its hyperparameter." ;
+                                             rdfs:label "hasHyperParameter"@en .
+
+
+###  http://www.w3.org/ns/mls#hasInput
+<http://www.w3.org/ns/mls#hasInput> rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf owl:topObjectProperty ;
+                                    rdfs:domain <http://www.w3.org/ns/mls#Run> ;
+                                    rdfs:range [ rdf:type owl:Class ;
+                                                 owl:unionOf ( <http://www.w3.org/ns/mls#Data>
+                                                               <http://www.w3.org/ns/mls#HyperParameterSetting>
+                                                             )
+                                               ] ;
+                                    <http://purl.org/dc/terms/description> "A relation between a run and data that is taken as input to the run." ;
+                                    rdfs:comment "A relation between a run and data that is taken as input to the run." ;
+                                    rdfs:label "hasInput"@en .
+
+
+###  http://www.w3.org/ns/mls#hasOutput
+<http://www.w3.org/ns/mls#hasOutput> rdf:type owl:ObjectProperty ;
+                                     rdfs:domain <http://www.w3.org/ns/mls#Run> ;
+                                     rdfs:range [ rdf:type owl:Class ;
+                                                  owl:unionOf ( <http://www.w3.org/ns/mls#Model>
+                                                                <http://www.w3.org/ns/mls#ModelEvaluation>
+                                                              )
+                                                ] ;
+                                     <http://purl.org/dc/terms/description> "A relation between a run and either a model or model evaluation that is produced on it’s output." ;
+                                     rdfs:comment "A relation between a run and either a model or model evaluation that is produced on it’s output." .
+
+
+###  http://www.w3.org/ns/mls#hasPart
+<http://www.w3.org/ns/mls#hasPart> rdf:type owl:ObjectProperty ;
+                                   <http://purl.org/dc/terms/description> "A relation which represents a part-whole relationship holding between an entity and its part." ;
+                                   rdfs:comment "A relation which represents a part-whole relationship holding between an entity and its part." ;
+                                   rdfs:label "hasPart"@en .
+
+
+###  http://www.w3.org/ns/mls#hasQuality
+<http://www.w3.org/ns/mls#hasQuality> rdf:type owl:ObjectProperty ;
+                                      <http://purl.org/dc/terms/description> "A relation between entities and their various characteristics." ;
+                                      rdfs:comment "A relation between entities and their various characteristics." .
+
+
+###  http://www.w3.org/ns/mls#implements
+<http://www.w3.org/ns/mls#implements> rdf:type owl:ObjectProperty ;
+                                      rdfs:domain <http://www.w3.org/ns/mls#InformationEntity> ;
+                                      rdfs:range <http://www.w3.org/ns/mls#InformationEntity> ;
+                                      <http://purl.org/dc/terms/description> "A relation between an information entity and a specification that it conforms to." ;
+                                      rdfs:comment "A relation between an information entity and a specification that it conforms to." ;
+                                      rdfs:label "implements"@en .
+
+
+###  http://www.w3.org/ns/mls#realizes
+<http://www.w3.org/ns/mls#realizes> rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf owl:topObjectProperty ;
+                                    rdfs:domain <http://www.w3.org/ns/mls#Run> ;
+                                    rdfs:range <http://www.w3.org/ns/mls#Algorithm> ;
+                                    <http://purl.org/dc/terms/description> "A relation between a run and an algorithm, where the run realizes specifications formulated by the algorithm." ;
+                                    rdfs:comment "A relation between a run and an algorithm, where the run realizes specifications formulated by the algorithm." .
+
+
+###  http://www.w3.org/ns/mls#specifiedBy
+<http://www.w3.org/ns/mls#specifiedBy> rdf:type owl:ObjectProperty ;
+                                       rdfs:range <http://www.w3.org/ns/mls#InformationEntity> ;
+                                       <http://purl.org/dc/terms/description> "A relation between an entity and the information content entity that specifies it." ;
+                                       rdfs:comment "A relation between an entity and the information content entity that specifies it." .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.a2rd.net.br/mlo#describedDate
+<http://www.a2rd.net.br/mlo#describedDate> rdf:type owl:DatatypeProperty ;
+                                           rdfs:range xsd:dateTime .
+
+
+###  http://www.w3.org/ns/mls#hasValue
+<http://www.w3.org/ns/mls#hasValue> rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.a2rd.net.br/mlo#ANN
+<http://www.a2rd.net.br/mlo#ANN> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Artificial_Neural_Network>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#ATP
+<http://www.a2rd.net.br/mlo#ATP> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#AdaBoost
+<http://www.a2rd.net.br/mlo#AdaBoost> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Apriori
+<http://www.a2rd.net.br/mlo#Apriori> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Association_Rule_Learning> .
+
+
+###  http://www.a2rd.net.br/mlo#Artificial_Neural_Network
+<http://www.a2rd.net.br/mlo#Artificial_Neural_Network> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ,
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty <http://www.a2rd.net.br/mlo#hasAcronym> ;
+                                                                         owl:someValuesFrom <http://www.a2rd.net.br/mlo#ANN>
+                                                                       ] .
+
+
+###  http://www.a2rd.net.br/mlo#Association_Rule_Learning
+<http://www.a2rd.net.br/mlo#Association_Rule_Learning> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Auto-WEKA
+<http://www.a2rd.net.br/mlo#Auto-WEKA> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#Auto-sklearn
+<http://www.a2rd.net.br/mlo#Auto-sklearn> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                          rdfs:comment "Auto-Sklearn is an automated machine learning toolkit to automatically determine a well-performing machine learning pipeline. It is a drop-in replacement for a scikit-learn estimator" ;
+                                          rdfs:isDefinedBy """1. https://www.automl.org/automl/auto-sklearn/
+2. https://papers.nips.cc/paper/5872-efficient-and-robust-automated-machine-learning.pdf""" .
+
+
+###  http://www.a2rd.net.br/mlo#Averaged_One-Dependencies_Estimators
+<http://www.a2rd.net.br/mlo#Averaged_One-Dependencies_Estimators> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#BERT
+<http://www.a2rd.net.br/mlo#BERT> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Bidirectional_Encoder_Representations_From_Transformers>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#BIRCH
+<http://www.a2rd.net.br/mlo#BIRCH> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#Backpropagation
+<http://www.a2rd.net.br/mlo#Backpropagation> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.a2rd.net.br/mlo#Artificial_Neural_Network> .
+
+
+###  http://www.a2rd.net.br/mlo#Bagging
+<http://www.a2rd.net.br/mlo#Bagging> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://www.a2rd.net.br/mlo#isByname> ;
+                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#Bootstrapped_Agregation>
+                                                     ] .
+
+
+###  http://www.a2rd.net.br/mlo#Bagging_meta-estimator
+<http://www.a2rd.net.br/mlo#Bagging_meta-estimator> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> ;
+                                                    rdfs:comment "In ensemble algorithms, bagging methods form a class of algorithms which build several instances of a black-box estimator on random subsets of the original training set and then aggregate their individual predictions to form a final prediction." ;
+                                                    rdfs:isDefinedBy "https://scikit-learn.org/stable/modules/ensemble.html#bagging-meta-estimator" .
+
+
+###  http://www.a2rd.net.br/mlo#Bayes
+<http://www.a2rd.net.br/mlo#Bayes> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Bayesian_Belief_Network
+<http://www.a2rd.net.br/mlo#Bayesian_Belief_Network> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#Bayesian_Network
+<http://www.a2rd.net.br/mlo#Bayesian_Network> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.a2rd.net.br/mlo#Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#Bernouilli_Naive_Bayes
+<http://www.a2rd.net.br/mlo#Bernouilli_Naive_Bayes> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Naive_Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#Bidirectional_Encoder_Representations_From_Transformers
+<http://www.a2rd.net.br/mlo#Bidirectional_Encoder_Representations_From_Transformers> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Natural_Language_Processing> .
+
+
+###  http://www.a2rd.net.br/mlo#Blending
+<http://www.a2rd.net.br/mlo#Blending> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://www.a2rd.net.br/mlo#isByname> ;
+                                                        owl:someValuesFrom <http://www.a2rd.net.br/mlo#Weighted_Average>
+                                                      ] .
+
+
+###  http://www.a2rd.net.br/mlo#Boosting
+<http://www.a2rd.net.br/mlo#Boosting> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Bootstrapped_Agregation
+<http://www.a2rd.net.br/mlo#Bootstrapped_Agregation> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#C4.5
+<http://www.a2rd.net.br/mlo#C4.5> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#C5
+<http://www.a2rd.net.br/mlo#C5> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#CART
+<http://www.a2rd.net.br/mlo#CART> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Classification_And_Regression_Tree>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#CASH
+<http://www.a2rd.net.br/mlo#CASH> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#CHAID
+<http://www.a2rd.net.br/mlo#CHAID> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                     owl:someValuesFrom <http://www.a2rd.net.br/mlo#Chi-squared_Automatic_Interaction_Detection>
+                                                   ] .
+
+
+###  http://www.a2rd.net.br/mlo#CNN
+<http://www.a2rd.net.br/mlo#CNN> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Convolutional_Neural_Networks>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#CNTK
+<http://www.a2rd.net.br/mlo#CNTK> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#CURL
+<http://www.a2rd.net.br/mlo#CURL> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Contrastive_Unsupervised_Representations_for_Reinforcement_Learning>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#CV
+<http://www.a2rd.net.br/mlo#CV> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#Caffe
+<http://www.a2rd.net.br/mlo#Caffe> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#Categorical_Naive_Bayes
+<http://www.a2rd.net.br/mlo#Categorical_Naive_Bayes> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Naive_Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#Chi-squared_Automatic_Interaction_Detection
+<http://www.a2rd.net.br/mlo#Chi-squared_Automatic_Interaction_Detection> rdf:type owl:Class ;
+                                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#Classification
+<http://www.a2rd.net.br/mlo#Classification> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#Classification_And_Regression_Tree
+<http://www.a2rd.net.br/mlo#Classification_And_Regression_Tree> rdf:type owl:Class ;
+                                                                rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#Clustering
+<http://www.a2rd.net.br/mlo#Clustering> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                        rdfs:comment "Clustering algorithms are useful in information theory, target detection, communications, compression, and other areas. (https://docs.scipy.org/doc/scipy/reference/cluster.html" .
+
+
+###  http://www.a2rd.net.br/mlo#Complement_Naive_Bayes
+<http://www.a2rd.net.br/mlo#Complement_Naive_Bayes> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Naive_Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#Conditional_Decision_Tree
+<http://www.a2rd.net.br/mlo#Conditional_Decision_Tree> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#Contrastive_Unsupervised_Representations_for_Reinforcement_Learning
+<http://www.a2rd.net.br/mlo#Contrastive_Unsupervised_Representations_for_Reinforcement_Learning> rdf:type owl:Class ;
+                                                                                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Image-Based> ;
+                                                                                                 rdfs:isDefinedBy "https://arxiv.org/pdf/2004.04136.pdf" .
+
+
+###  http://www.a2rd.net.br/mlo#Convolutional_Neural_Networks
+<http://www.a2rd.net.br/mlo#Convolutional_Neural_Networks> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Neural_Networks> ,
+                                                                           [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty <http://www.a2rd.net.br/mlo#hasModule> ;
+                                                                             owl:someValuesFrom <http://www.a2rd.net.br/mlo#SciPy>
+                                                                           ] .
+
+
+###  http://www.a2rd.net.br/mlo#DBM
+<http://www.a2rd.net.br/mlo#DBM> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Deep_Boltzmann_Machine>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#DBN
+<http://www.a2rd.net.br/mlo#DBN> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Deep_Belief_Networks>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#DBSCAN
+<http://www.a2rd.net.br/mlo#DBSCAN> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                      owl:someValuesFrom <http://www.a2rd.net.br/mlo#Density-Based_Spatial_Clustering_of_Applications_with_Noise>
+                                                    ] .
+
+
+###  http://www.a2rd.net.br/mlo#Decision_Stump
+<http://www.a2rd.net.br/mlo#Decision_Stump> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#Decision_Tree
+<http://www.a2rd.net.br/mlo#Decision_Tree> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Deep_Belief_Networks
+<http://www.a2rd.net.br/mlo#Deep_Belief_Networks> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Neural_Networks> .
+
+
+###  http://www.a2rd.net.br/mlo#Deep_Boltzmann_Machine
+<http://www.a2rd.net.br/mlo#Deep_Boltzmann_Machine> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Neural_Networks> .
+
+
+###  http://www.a2rd.net.br/mlo#Deep_Learning
+<http://www.a2rd.net.br/mlo#Deep_Learning> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Deep_Neural_Networks
+<http://www.a2rd.net.br/mlo#Deep_Neural_Networks> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Learning> .
+
+
+###  http://www.a2rd.net.br/mlo#Density-Based_Spatial_Clustering_of_Applications_with_Noise
+<http://www.a2rd.net.br/mlo#Density-Based_Spatial_Clustering_of_Applications_with_Noise> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#Dictionary
+<http://www.a2rd.net.br/mlo#Dictionary> rdf:type owl:Class .
+
+
+###  http://www.a2rd.net.br/mlo#Dimensionality_Reduction
+<http://www.a2rd.net.br/mlo#Dimensionality_Reduction> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                                      rdfs:comment "Helps systemsremove data tht`s not useful for analysis. This group of algorithms is used to remove reduntante data, outliers, and other non-useful data." .
+
+
+###  http://www.a2rd.net.br/mlo#Eclat
+<http://www.a2rd.net.br/mlo#Eclat> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Association_Rule_Learning> .
+
+
+###  http://www.a2rd.net.br/mlo#Elastic_Net
+<http://www.a2rd.net.br/mlo#Elastic_Net> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Regularization> .
+
+
+###  http://www.a2rd.net.br/mlo#Ensemble
+<http://www.a2rd.net.br/mlo#Ensemble> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Expectation_Maximisation
+<http://www.a2rd.net.br/mlo#Expectation_Maximisation> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#FDA
+<http://www.a2rd.net.br/mlo#FDA> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Flexible_Discriminant_Analysis>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Flexible_Discriminant_Analysis
+<http://www.a2rd.net.br/mlo#Flexible_Discriminant_Analysis> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Forests_of_randomized_trees
+<http://www.a2rd.net.br/mlo#Forests_of_randomized_trees> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#GBDT
+<http://www.a2rd.net.br/mlo#GBDT> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#GBM
+<http://www.a2rd.net.br/mlo#GBM> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Gradient_Boosting_Machine>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#GBRT
+<http://www.a2rd.net.br/mlo#GBRT> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#GPR
+<http://www.a2rd.net.br/mlo#GPR> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#GPU
+<http://www.a2rd.net.br/mlo#GPU> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#Gaussian_Naive_Bayes
+<http://www.a2rd.net.br/mlo#Gaussian_Naive_Bayes> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Naive_Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#GloVe
+<http://www.a2rd.net.br/mlo#GloVe> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                     owl:someValuesFrom <http://www.a2rd.net.br/mlo#Global_Vectors_For_Word_Representation>
+                                                   ] .
+
+
+###  http://www.a2rd.net.br/mlo#Global_Vectors_For_Word_Representation
+<http://www.a2rd.net.br/mlo#Global_Vectors_For_Word_Representation> rdf:type owl:Class ;
+                                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Learning> ;
+                                                                    rdfs:comment "GloVe is an unsupervised learning algorithm for obtaining sector representation for words,. Training is performed on agregated global word-word co-ocurrence statistics from a corpus and the resulting respresantation interesting linear substructures of the word vector space." ;
+                                                                    rdfs:isDefinedBy "https://stanford.edu.projects/glove/" .
+
+
+###  http://www.a2rd.net.br/mlo#Gradient_Boosting_Machine
+<http://www.a2rd.net.br/mlo#Gradient_Boosting_Machine> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Gradient_Tree_Boosting
+<http://www.a2rd.net.br/mlo#Gradient_Tree_Boosting> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> ;
+                                                    rdfs:comment "Gradient Tree Boosting or Gradient Boosted Decision Trees (GBDT) is a generalization of boosting to arbitrary differentiable loss functions. GBDT is an accurate and effective off-the-shelf procedure that can be used for both regression and classification problems in a variety of areas including Web search ranking and ecology." ;
+                                                    rdfs:isDefinedBy "https://scikit-learn.org/stable/modules/ensemble.html#gradient-tree-boosting" .
+
+
+###  http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees
+<http://www.a2rd.net.br/mlo#Gradiente_Bosted_Decision_Trees> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#HDBSCAN
+<http://www.a2rd.net.br/mlo#HDBSCAN> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#Hierarchical_Density-Based_Spatial_Clustering_of_Applications_with_Noise>
+                                                     ] .
+
+
+###  http://www.a2rd.net.br/mlo#HMM
+<http://www.a2rd.net.br/mlo#HMM> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Hiden_Markov_Model>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Hiden_Markov_Model
+<http://www.a2rd.net.br/mlo#Hiden_Markov_Model> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ;
+                                                rdfs:comment "A hidden Markov model is a Markov chain for which the state is only partially observable. In other words, observations are related to the state of the system, but they are typically insufficient to precisely determine the state." ;
+                                                rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Markov_model" .
+
+
+###  http://www.a2rd.net.br/mlo#Hierarchical_Clustering
+<http://www.a2rd.net.br/mlo#Hierarchical_Clustering> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#Hierarchical_Density-Based_Spatial_Clustering_of_Applications_with_Noise
+<http://www.a2rd.net.br/mlo#Hierarchical_Density-Based_Spatial_Clustering_of_Applications_with_Noise> rdf:type owl:Class ;
+                                                                                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> ;
+                                                                                                      rdfs:isDefinedBy "https://link.springer.com/chapter/10.1007%2F978-3-642-37456-2_14" .
+
+
+###  http://www.a2rd.net.br/mlo#Hierarchical_Markov_Models
+<http://www.a2rd.net.br/mlo#Hierarchical_Markov_Models> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ;
+                                                        rdfs:comment "Hierarchical Markov models can be applied to categorize human behavior at various levels of abstraction. For example, a series of simple observations, such as a person's location in a room, can be interpreted to determine more complex information, such as in what task or activity the person is performing." ;
+                                                        rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Markov_model" .
+
+
+###  http://www.a2rd.net.br/mlo#Histogram_Based_Gradient_Boosting
+<http://www.a2rd.net.br/mlo#Histogram_Based_Gradient_Boosting> rdf:type owl:Class ;
+                                                               rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Hopfield_Network
+<http://www.a2rd.net.br/mlo#Hopfield_Network> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.a2rd.net.br/mlo#Artificial_Neural_Network> .
+
+
+###  http://www.a2rd.net.br/mlo#ID3
+<http://www.a2rd.net.br/mlo#ID3> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Iterative_Dichotomiser_3>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Image-Based
+<http://www.a2rd.net.br/mlo#Image-Based> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Instance-Based
+<http://www.a2rd.net.br/mlo#Instance-Based> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                            rdfs:comment "Are used when you want to categorize new data points based on similities to training data.can be very useful in pattern recognition." .
+
+
+###  http://www.a2rd.net.br/mlo#Iterative_Dichotomiser_3
+<http://www.a2rd.net.br/mlo#Iterative_Dichotomiser_3> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#JAX
+<http://www.a2rd.net.br/mlo#JAX> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                 rdfs:comment "JAX is a Machine Learning library which I would describe (very vaguely) as Numpy with auto differentiation that you can execute on GPUs (and TPUs too!). Additionally, it has XLA compilation and built-in vectorization and parallelization capabilities." ;
+                                 rdfs:isDefinedBy "https://github.com/google/jax" .
+
+
+###  http://www.a2rd.net.br/mlo#Keras
+<http://www.a2rd.net.br/mlo#Keras> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#LARS
+<http://www.a2rd.net.br/mlo#LARS> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#LDA
+<http://www.a2rd.net.br/mlo#LDA> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Latent_Dirichlet_Allocation>
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Linear_Discriminant_Analysis>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#LMS
+<http://www.a2rd.net.br/mlo#LMS> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Least_Mean_Squares>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#LOESS
+<http://www.a2rd.net.br/mlo#LOESS> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#LSA
+<http://www.a2rd.net.br/mlo#LSA> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#LSTM
+<http://www.a2rd.net.br/mlo#LSTM> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Long_Short-Term_Memory_Networks>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#LVQ
+<http://www.a2rd.net.br/mlo#LVQ> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Learning_Vector_Quantization>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#LWL
+<http://www.a2rd.net.br/mlo#LWL> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Locally_Weighted_Learning>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Latent_Dirichlet_Allocation
+<http://www.a2rd.net.br/mlo#Latent_Dirichlet_Allocation> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Natural_Language_Processing> .
+
+
+###  http://www.a2rd.net.br/mlo#Learning_Vector_Quantization
+<http://www.a2rd.net.br/mlo#Learning_Vector_Quantization> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Least_Absolute_Shinkage_and_Selection_Operator
+<http://www.a2rd.net.br/mlo#Least_Absolute_Shinkage_and_Selection_Operator> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Regularization> .
+
+
+###  http://www.a2rd.net.br/mlo#Least_Mean_Squares
+<http://www.a2rd.net.br/mlo#Least_Mean_Squares> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#LightGBM
+<http://www.a2rd.net.br/mlo#LightGBM> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                      rdfs:comment "A fast, distributed, high performance gradient boosting (GBT, GBDT, GBRT, GBM or MART) framework based on decision tree algorithms, used for ranking, classification and many other machine learning tasks." ;
+                                      rdfs:isDefinedBy "https://github.com/microsoft/LightGBM" .
+
+
+###  http://www.a2rd.net.br/mlo#Linear_Discriminant_Analysis
+<http://www.a2rd.net.br/mlo#Linear_Discriminant_Analysis> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Linear_Models
+<http://www.a2rd.net.br/mlo#Linear_Models> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Linear_Regression
+<http://www.a2rd.net.br/mlo#Linear_Regression> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.a2rd.net.br/mlo#Linear_Models> .
+
+
+###  http://www.a2rd.net.br/mlo#Locally_Weighted_Learning
+<http://www.a2rd.net.br/mlo#Locally_Weighted_Learning> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.a2rd.net.br/mlo#Instance-Based> ,
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty <http://www.a2rd.net.br/mlo#isAlgorithmOf> ;
+                                                                         owl:someValuesFrom <http://www.a2rd.net.br/mlo#Instance-Based>
+                                                                       ] .
+
+
+###  http://www.a2rd.net.br/mlo#Long_Short-Term_Memory_Networks
+<http://www.a2rd.net.br/mlo#Long_Short-Term_Memory_Networks> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Neural_Networks> .
+
+
+###  http://www.a2rd.net.br/mlo#M5
+<http://www.a2rd.net.br/mlo#M5> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://www.a2rd.net.br/mlo#Decision_Tree> .
+
+
+###  http://www.a2rd.net.br/mlo#MARS
+<http://www.a2rd.net.br/mlo#MARS> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#MCD
+<http://www.a2rd.net.br/mlo#MCD> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#MDA
+<http://www.a2rd.net.br/mlo#MDA> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Mixture_Discriminant_Analysis>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#MDS
+<http://www.a2rd.net.br/mlo#MDS> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Multidimensional_Scaling>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#MLP
+<http://www.a2rd.net.br/mlo#MLP> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#Markov-chain_Forecasting_Models
+<http://www.a2rd.net.br/mlo#Markov-chain_Forecasting_Models> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ;
+                                                             rdfs:comment """Markov-chains have been used as a forecasting methods for several topics, for example price trends[9], wind power and solar irradiance. The Markov-chain forecasting models utilize a variety of different settings, from discretizing the time-series to hidden Markov-models combined with wavelets[9] and the Markov-chain mixture distribution model (MCM)
+.""" ;
+                                                             rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Markov_model" .
+
+
+###  http://www.a2rd.net.br/mlo#Markov_Chain
+<http://www.a2rd.net.br/mlo#Markov_Chain> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ;
+                                          rdfs:comment "The simplest Markov model is the Markov chain. It models the state of a system with a random variable that changes through time." ;
+                                          rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Markov_model" .
+
+
+###  http://www.a2rd.net.br/mlo#Markov_Decision_Process
+<http://www.a2rd.net.br/mlo#Markov_Decision_Process> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://www.a2rd.net.br/mlo#isPart> ;
+                                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#Markov_Chain>
+                                                                     ] ;
+                                                     rdfs:comment "A Markov decision process is a Markov chain in which state transitions depend on the current state and an action vector that is applied to the system." ;
+                                                     rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Markov_model" .
+
+
+###  http://www.a2rd.net.br/mlo#Markov_Model
+<http://www.a2rd.net.br/mlo#Markov_Model> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.a2rd.net.br/mlo#isByname> ;
+                                                            owl:someValuesFrom <http://www.a2rd.net.br/mlo#Markov_Process_Models>
+                                                          ] .
+
+
+###  http://www.a2rd.net.br/mlo#Markov_Network
+<http://www.a2rd.net.br/mlo#Markov_Network> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://www.a2rd.net.br/mlo#isByname> ;
+                                                              owl:someValuesFrom <http://www.a2rd.net.br/mlo#Markov_Random_Field>
+                                                            ] .
+
+
+###  http://www.a2rd.net.br/mlo#Markov_Process_Models
+<http://www.a2rd.net.br/mlo#Markov_Process_Models> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Markov_Random_Field
+<http://www.a2rd.net.br/mlo#Markov_Random_Field> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ;
+                                                 rdfs:comment "n the domain of physics and probability, a Markov random field (often abbreviated as MRF), Markov network or undirected graphical model is a set of random variables having a Markov property described by an undirected graph. In other words, a random field is said to be a Markov random field if it satisfies Markov properties." ;
+                                                 rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Markov_random_field" .
+
+
+###  http://www.a2rd.net.br/mlo#Matplotlib
+<http://www.a2rd.net.br/mlo#Matplotlib> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#Max_Match
+<http://www.a2rd.net.br/mlo#Max_Match> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                       rdfs:comment " We unify the current dominant approaches for semi-supervised learning to produce a new algorithm, MixMatch, that works by guessing low-entropy labels for data-augmented unlabeled examples and mixing labeled and unlabeled data using MixUp. We show that MixMatch obtains state-of-the-art results by a large margin across many datasets and labeled data amounts." .
+
+
+###  http://www.a2rd.net.br/mlo#Mean-Shift
+<http://www.a2rd.net.br/mlo#Mean-Shift> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#MiniBatchMeans
+<http://www.a2rd.net.br/mlo#MiniBatchMeans> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#Mixture_Discriminant_Analysis
+<http://www.a2rd.net.br/mlo#Mixture_Discriminant_Analysis> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Monte_Carlo_Simulation
+<http://www.a2rd.net.br/mlo#Monte_Carlo_Simulation> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                                    rdfs:comment "Monte Carlo method is to approximate the expectations of outcomes given various inputs, uncertainty, and system dynamics. This video walks through some high-level mathematics for those who are interested." .
+
+
+###  http://www.a2rd.net.br/mlo#Multidimensional_Scaling
+<http://www.a2rd.net.br/mlo#Multidimensional_Scaling> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Multinomial_Naive_Bayes
+<http://www.a2rd.net.br/mlo#Multinomial_Naive_Bayes> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Naive_Bayes> .
+
+
+###  http://www.a2rd.net.br/mlo#Muti-Task_Learning
+<http://www.a2rd.net.br/mlo#Muti-Task_Learning> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                                rdfs:isDefinedBy "https://arxiv.org/pdf/2001.06782.pdf" .
+
+
+###  http://www.a2rd.net.br/mlo#MxNet
+<http://www.a2rd.net.br/mlo#MxNet> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#NISQ
+<http://www.a2rd.net.br/mlo#NISQ> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#NLG
+<http://www.a2rd.net.br/mlo#NLG> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Natural_Language_Generation>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#NLP
+<http://www.a2rd.net.br/mlo#NLP> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Natural_Language_Processing>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#NLU
+<http://www.a2rd.net.br/mlo#NLU> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Natural_Language_Understanding>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#NUBIA
+<http://www.a2rd.net.br/mlo#NUBIA> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                     owl:someValuesFrom <http://www.a2rd.net.br/mlo#Neural_Based_Interchangeability_Assessor_for_Text_Generation>
+                                                   ] .
+
+
+###  http://www.a2rd.net.br/mlo#Naive_Bayes
+<http://www.a2rd.net.br/mlo#Naive_Bayes> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Bayes> ;
+                                         rdfs:comment "Naive Bayes methods are a set of supervised learning algorithms based on applying Bayes’ theorem with the “naive” assumption of conditional independence between every pair of features given the value of the class variable." ;
+                                         rdfs:isDefinedBy "https://scikit-learn.org/stable/modules/naive_bayes.html" .
+
+
+###  http://www.a2rd.net.br/mlo#Natural_Language_Generation
+<http://www.a2rd.net.br/mlo#Natural_Language_Generation> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Natural_Language_Processing> .
+
+
+###  http://www.a2rd.net.br/mlo#Natural_Language_Processing
+<http://www.a2rd.net.br/mlo#Natural_Language_Processing> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.a2rd.net.br/mlo#hasAcronym> ;
+                                                                           owl:someValuesFrom <http://www.a2rd.net.br/mlo#NLP>
+                                                                         ] .
+
+
+###  http://www.a2rd.net.br/mlo#Natural_Language_Understand
+<http://www.a2rd.net.br/mlo#Natural_Language_Understand> rdf:type owl:Class ;
+                                                         owl:equivalentClass <http://www.a2rd.net.br/mlo#Natural_Language_Understanding> ;
+                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Natural_Language_Processing> .
+
+
+###  http://www.a2rd.net.br/mlo#Natural_Language_Understanding
+<http://www.a2rd.net.br/mlo#Natural_Language_Understanding> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Natural_Language_Processing> .
+
+
+###  http://www.a2rd.net.br/mlo#Network-X
+<http://www.a2rd.net.br/mlo#Network-X> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#Neural_Based_Interchangeability_Assessor_for_Text_Generation
+<http://www.a2rd.net.br/mlo#Neural_Based_Interchangeability_Assessor_for_Text_Generation> rdf:type owl:Class ;
+                                                                                          rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                                                                          rdfs:comment "A methodology to build automatic evaluation metrics for text generation using only machine learning models as core components." ;
+                                                                                          rdfs:isDefinedBy "https://wl-research.github.io/blog/" .
+
+
+###  http://www.a2rd.net.br/mlo#NumPy
+<http://www.a2rd.net.br/mlo#NumPy> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.a2rd.net.br/mlo#requires> ;
+                                                     owl:someValuesFrom <http://www.a2rd.net.br/mlo#Python>
+                                                   ] ;
+                                   rdfs:comment "Has supported mehods " ;
+                                   rdfs:isDefinedBy "https://numpy.org/devdocs/index.html" .
+
+
+###  http://www.a2rd.net.br/mlo#ODE
+<http://www.a2rd.net.br/mlo#ODE> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#OLSR
+<http://www.a2rd.net.br/mlo#OLSR> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Ordinary_Least_Squares>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#OPTICS
+<http://www.a2rd.net.br/mlo#OPTICS> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                      owl:someValuesFrom <http://www.a2rd.net.br/mlo#Ordering_points_to_identify_the_clustering_structure>
+                                                    ] .
+
+
+###  http://www.a2rd.net.br/mlo#Ordering_points_to_identify_the_clustering_structure
+<http://www.a2rd.net.br/mlo#Ordering_points_to_identify_the_clustering_structure> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#Ordinary_Least_Squares
+<http://www.a2rd.net.br/mlo#Ordinary_Least_Squares> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Linear_Models> .
+
+
+###  http://www.a2rd.net.br/mlo#Others
+<http://www.a2rd.net.br/mlo#Others> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#PCA
+<http://www.a2rd.net.br/mlo#PCA> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Principal_Component_Analysis>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#PCR
+<http://www.a2rd.net.br/mlo#PCR> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Principal_Component_Regression>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#PLSR
+<http://www.a2rd.net.br/mlo#PLSR> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#Partial_Least_Squares_Regression>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#POMDP
+<http://www.a2rd.net.br/mlo#POMDP> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                     owl:someValuesFrom <http://www.a2rd.net.br/mlo#Partially_Observable_Markov_Decision_Process>
+                                                   ] .
+
+
+###  http://www.a2rd.net.br/mlo#Paddle_Paddle
+<http://www.a2rd.net.br/mlo#Paddle_Paddle> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#Pandas
+<http://www.a2rd.net.br/mlo#Pandas> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://www.a2rd.net.br/mlo#requires> ;
+                                                      owl:someValuesFrom <http://www.a2rd.net.br/mlo#Python>
+                                                    ] .
+
+
+###  http://www.a2rd.net.br/mlo#Partial_Least_Squares_Regression
+<http://www.a2rd.net.br/mlo#Partial_Least_Squares_Regression> rdf:type owl:Class ;
+                                                              rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Partially_Observable_Markov_Decision_Process
+<http://www.a2rd.net.br/mlo#Partially_Observable_Markov_Decision_Process> rdf:type owl:Class ;
+                                                                          rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ;
+                                                                          rdfs:comment "A partially observable Markov decision process (POMDP) is a generalization of a Markov decision process (MDP). A POMDP models an agent decision process in which it is assumed that the system dynamics are determined by an MDP, but the agent cannot directly observe the underlying state. Instead, it must maintain a probability distribution over the set of possible states, based on a set of observations and observation probabilities, and the underlying MDP." ;
+                                                                          rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Partially_observable_Markov_decision_process" .
+
+
+###  http://www.a2rd.net.br/mlo#Perceptron
+<http://www.a2rd.net.br/mlo#Perceptron> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://www.a2rd.net.br/mlo#Linear_Models> .
+
+
+###  http://www.a2rd.net.br/mlo#Principal_Component_Analysis
+<http://www.a2rd.net.br/mlo#Principal_Component_Analysis> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> ;
+                                                          rdfs:comment "Is a linear dimension reduction technique that seeks to maximize variance and preserves large pairwise distances.  In other words, things that are differente end up far apart. This can lead to poor visualization especiaally when dealing with no-linear manifold structures. Think of a manifold structure as any geometric shape like: cylinder, ball, curve, etc." .
+
+
+###  http://www.a2rd.net.br/mlo#Principal_Component_Regression
+<http://www.a2rd.net.br/mlo#Principal_Component_Regression> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Project_Pursuit
+<http://www.a2rd.net.br/mlo#Project_Pursuit> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Prolog
+<http://www.a2rd.net.br/mlo#Prolog> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                    rdfs:comment "We present a reinforcement learning toolkit for experiments with guiding automated theorem proving in the connection calculus. The core of the toolkit is a compact and easy to extend Prolog-based automated theorem prover called plCoP. plCoP builds on the leanCoP Prolog implementation and adds learning-guided Monte-Carlo Tree Search as done in the rlCoP system. Other components include a Python interface to plCoP and machine learners, and an external proof checker that verifies the validity of plCoP proofs. The toolkit is evaluated on two benchmarks and we demonstrate its extendability by two additions: (1) guidance is extended to reduction steps and (2) the standard leanCoP calculus is extended with rewrite steps and their learned guidance. We argue that the Prolog setting is suitable for combining statistical and symbolic learning methods. The complete toolkit is publicly released." ;
+                                    rdfs:isDefinedBy "https://arxiv.org/pdf/2004.06997.pdf" .
+
+
+###  http://www.a2rd.net.br/mlo#PyCaret
+<http://www.a2rd.net.br/mlo#PyCaret> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom> ;
+                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#LightGBM>
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom> ;
+                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#XGBoost>
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom> ;
+                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#scikit-learn>
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://www.a2rd.net.br/mlo#hasSimilarMethodsFrom> ;
+                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#spaCy>
+                                                     ] ;
+                                     rdfs:comment """We are excited to announce PyCaret, an open source machine learning library in Python to train and deploy supervised and unsupervised machine learning models in a low-code environment. PyCaret allows you to go from preparing data to deploying models within seconds from your choice of notebook environment.
+
+In comparison with the other open source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as scikit-learn, XGBoost, Microsoft LightGBM, spaCy, and many more.
+
+PyCaret is simple and easy to use. All the operations performed in PyCaret are sequentially stored in a Pipeline that is fully orchestrated for deployment. Whether its imputing missing values, transforming categorical data, feature engineering or even hyperparameter tuning, PyCaret automates all of it. To learn more about PyCaret, watch this 1-minute video.""" ;
+                                     rdfs:isDefinedBy "https://pycaret.org/" .
+
+
+###  http://www.a2rd.net.br/mlo#PyTorch
+<http://www.a2rd.net.br/mlo#PyTorch> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#Python
+<http://www.a2rd.net.br/mlo#Python> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#QDA
+<http://www.a2rd.net.br/mlo#QDA> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Quadratic_Discriminant_Analysis>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Quadratic_Discriminant_Analysis
+<http://www.a2rd.net.br/mlo#Quadratic_Discriminant_Analysis> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#Quantum_Machine_Learning
+<http://www.a2rd.net.br/mlo#Quantum_Machine_Learning> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                                      rdfs:isDefinedBy "https://arxiv.org/pdf/2003.02989.pdf" .
+
+
+###  http://www.a2rd.net.br/mlo#RNN
+<http://www.a2rd.net.br/mlo#RNN> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Recurrent_Neural_Networks>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Radial_Basis_Function_Network
+<http://www.a2rd.net.br/mlo#Radial_Basis_Function_Network> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.a2rd.net.br/mlo#Artificial_Neural_Network> .
+
+
+###  http://www.a2rd.net.br/mlo#Random_Forest
+<http://www.a2rd.net.br/mlo#Random_Forest> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Recurrent_Neural_Networks
+<http://www.a2rd.net.br/mlo#Recurrent_Neural_Networks> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Neural_Networks> .
+
+
+###  http://www.a2rd.net.br/mlo#Regularization
+<http://www.a2rd.net.br/mlo#Regularization> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                            rdfs:comment "Is a technique to modify models to avoid the problem of overfitting. OVERFITTING occurs when a model is created for a specific data set but will have poor predictive capabilities for a generalize data sete." .
+
+
+###  http://www.a2rd.net.br/mlo#SOFM
+<http://www.a2rd.net.br/mlo#SOFM> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                    owl:someValuesFrom <http://www.a2rd.net.br/mlo#self-organizing_feature_map>
+                                                  ] .
+
+
+###  http://www.a2rd.net.br/mlo#SOM
+<http://www.a2rd.net.br/mlo#SOM> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Self-organizing_map>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#SON
+<http://www.a2rd.net.br/mlo#SON> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Self-Organizing_Map>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#SVM
+<http://www.a2rd.net.br/mlo#SVM> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Support_Vector_Machines>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Sammon_Mapping
+<http://www.a2rd.net.br/mlo#Sammon_Mapping> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dimensionality_Reduction> .
+
+
+###  http://www.a2rd.net.br/mlo#SciPy
+<http://www.a2rd.net.br/mlo#SciPy> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                   rdfs:comment """SciPy is an open-source scientific computing library for the Python programming language. Since its initial release in 2001, SciPy has become a de facto standard for leveraging scientific algorithms in Python, with over 600 unique code contributors, thousands of dependent packages, over 100,000 dependent repositories and millions of downloads per year. In this work, we provide an overview of the capabilities and development practices of SciPy 1.0 and highlight some recent technical developments.
+
+© Copyright 2008-2019, The SciPy community.""" ;
+                                   rdfs:isDefinedBy """1. https://www.nature.com/articles/s41592-019-0686-2
+2. https://docs.scipy.org/doc/scipy/reference/tutorial/
+3. https://docs.scipy.org/doc/scipy/reference/index.html#api-reference""" .
+
+
+###  http://www.a2rd.net.br/mlo#Self-Organizing_Map
+<http://www.a2rd.net.br/mlo#Self-Organizing_Map> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Instance-Based> ,
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAlgorithmOf> ;
+                                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Instance-Based>
+                                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#Self-organizing_map
+<http://www.a2rd.net.br/mlo#Self-organizing_map> rdf:type owl:Class ;
+                                                 owl:equivalentClass <http://www.a2rd.net.br/mlo#self-organizing_feature_map> ;
+                                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Artificial_Neural_Network> ;
+                                                 rdfs:comment "A self-organizing map (SOM) or self-organizing feature map (SOFM) is a type of artificial neural network (ANN) that is trained using unsupervised learning to produce a low-dimensional (typically two-dimensional), discretized representation of the input space of the training samples, called a map, and is therefore a method to do dimensionality reduction. Self-organizing maps differ from other artificial neural networks as they apply competitive learning as opposed to error-correction learning (such as backpropagation with gradient descent), and in the sense that they use a neighborhood function to preserve the topological properties of the input space." ;
+                                                 rdfs:isDefinedBy "https://en.m.wikipedia.org/wiki/Self-organizing_map" .
+
+
+###  http://www.a2rd.net.br/mlo#Spectral_Bi-Clustering
+<http://www.a2rd.net.br/mlo#Spectral_Bi-Clustering> rdf:type owl:Class ;
+                                                    owl:equivalentClass <http://www.a2rd.net.br/mlo#Spectral_Co-Clustering> ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> ;
+                                                    rdfs:comment "See Spectral Co-Clustering" .
+
+
+###  http://www.a2rd.net.br/mlo#Spectral_Co-Clustering
+<http://www.a2rd.net.br/mlo#Spectral_Co-Clustering> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> ;
+                                                    rdfs:isDefinedBy "http://mlwiki.org/index.php/Co-Clustering" .
+
+
+###  http://www.a2rd.net.br/mlo#Stacked_Auto-Encoders
+<http://www.a2rd.net.br/mlo#Stacked_Auto-Encoders> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Neural_Networks> .
+
+
+###  http://www.a2rd.net.br/mlo#Stacked_Generalization
+<http://www.a2rd.net.br/mlo#Stacked_Generalization> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Stacking
+<http://www.a2rd.net.br/mlo#Stacking> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://www.a2rd.net.br/mlo#isByname> ;
+                                                        owl:someValuesFrom <http://www.a2rd.net.br/mlo#Stacked_Generalization>
+                                                      ] .
+
+
+###  http://www.a2rd.net.br/mlo#Stochastic_Gradient_Descent
+<http://www.a2rd.net.br/mlo#Stochastic_Gradient_Descent> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Artificial_Neural_Network> .
+
+
+###  http://www.a2rd.net.br/mlo#Support_Vector_Machine
+<http://www.a2rd.net.br/mlo#Support_Vector_Machine> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Support_Vector_Machines
+<http://www.a2rd.net.br/mlo#Support_Vector_Machines> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Instance-Based> ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://www.a2rd.net.br/mlo#isAlgorithmOf> ;
+                                                                       owl:someValuesFrom <http://www.a2rd.net.br/mlo#Instance-Based>
+                                                                     ] .
+
+
+###  http://www.a2rd.net.br/mlo#SymPy
+<http://www.a2rd.net.br/mlo#SymPy> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#T-NGL
+<http://www.a2rd.net.br/mlo#T-NGL> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#TD
+<http://www.a2rd.net.br/mlo#TD> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> .
+
+
+###  http://www.a2rd.net.br/mlo#TMM
+<http://www.a2rd.net.br/mlo#TMM> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#Tolerant_Markov_Model>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#TensorFlow
+<http://www.a2rd.net.br/mlo#TensorFlow> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://www.a2rd.net.br/mlo#isResourceFor> ;
+                                                          owl:someValuesFrom <http://www.a2rd.net.br/mlo#Natural_Language_Processing>
+                                                        ] ;
+                                        rdfs:comment "TensorFlow, open sourced to the public by Google in 2015, is the result of years of lessons learned from a dilemma: should we attempt to do research with inflexible libraries so that we don’t have to reimplement code, or should we use one library for research and a completely different library for production?" ;
+                                        rdfs:seeAlso "https://towardsdatascience.com/the-ultimate-beginner-guide-to-tensorflow-af82fd4b8626" .
+
+
+###  http://www.a2rd.net.br/mlo#TensorFlow_Quantum
+<http://www.a2rd.net.br/mlo#TensorFlow_Quantum> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ,
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.a2rd.net.br/mlo#isDesignedToWorkFor> ;
+                                                                  owl:someValuesFrom <http://www.a2rd.net.br/mlo#Quantum_Machine_Learning>
+                                                                ] ;
+                                                rdfs:comment """We introduce TensorFlow Quantum (TFQ), an open source library for the rapid prototyping of hybrid quantum-classical models for classical or quantum data. This framework offers high-level abstractions for the design and training of both discriminative and generative quantum models under TensorFlow and supports high-performance quantum circuit simulators. We provide an overview of the software architecture and building blocks through several examples and review the theory of hybrid quantum-classical neural networks. We illustrate TFQ functionalities via several basic applications including supervised learning for quantum classification, quantum control, and quantum approximate optimization. Moreover, we demonstrate how one can apply TFQ to tackle advanced quantum learning tasks including meta-learning, Hamiltonian learning, and sampling thermal states.
+We hope this framework provides the necessary tools for the quantum computing and machine learning research communities to explore models of both natural and artificial quantum systems, and ultimately discover new quantum algorithms which could potentially yield a quantum advantage.
+""" ;
+                                                rdfs:isDefinedBy "arxiv.org/pdf/2003.02989.pdf" .
+
+
+###  http://www.a2rd.net.br/mlo#Theano
+<http://www.a2rd.net.br/mlo#Theano> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.w3.org/ns/mls#Software> .
+
+
+###  http://www.a2rd.net.br/mlo#Tolerant_Markov_Model
+<http://www.a2rd.net.br/mlo#Tolerant_Markov_Model> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Markov_Process_Models> ;
+                                                   rdfs:comment "A Tolerant Markov model (TMM) is a probabilistic-algorithmic Markov chain model. It assigns the probabilities according to a conditioning context that considers the last symbol, from the sequence to occur, as the most probable instead of the true occurring symbol. A TMM can model three different natures: substitutions, additions or deletions. Successful applications have been efficiently implemented in DNA sequences compression." ;
+                                                   rdfs:isDefinedBy "https://en.wikipedia.org/wiki/Markov_model" .
+
+
+###  http://www.a2rd.net.br/mlo#Voting_Classifier
+<http://www.a2rd.net.br/mlo#Voting_Classifier> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Voting_Regressor
+<http://www.a2rd.net.br/mlo#Voting_Regressor> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Weighted_Average
+<http://www.a2rd.net.br/mlo#Weighted_Average> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.a2rd.net.br/mlo#Ensemble> .
+
+
+###  http://www.a2rd.net.br/mlo#Widrow-Hoff
+<http://www.a2rd.net.br/mlo#Widrow-Hoff> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> .
+
+
+###  http://www.a2rd.net.br/mlo#Word2Vec
+<http://www.a2rd.net.br/mlo#Word2Vec> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.a2rd.net.br/mlo#Deep_Learning> .
+
+
+###  http://www.a2rd.net.br/mlo#XGBoost
+<http://www.a2rd.net.br/mlo#XGBoost> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                     rdfs:comment "XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. It implements machine learning algorithms under the Gradient Boosting framework. XGBoost provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way. The same code runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples." ;
+                                     rdfs:isDefinedBy "https://xgboost.readthedocs.io/en/latest/" .
+
+
+###  http://www.a2rd.net.br/mlo#k-Means
+<http://www.a2rd.net.br/mlo#k-Means> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#k-Medians
+<http://www.a2rd.net.br/mlo#k-Medians> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://www.a2rd.net.br/mlo#Clustering> .
+
+
+###  http://www.a2rd.net.br/mlo#k-Nearest_Neighbor
+<http://www.a2rd.net.br/mlo#k-Nearest_Neighbor> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.a2rd.net.br/mlo#Instance-Based> ,
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.a2rd.net.br/mlo#isAlgorithmOf> ;
+                                                                  owl:someValuesFrom <http://www.a2rd.net.br/mlo#Instance-Based>
+                                                                ] .
+
+
+###  http://www.a2rd.net.br/mlo#kNN
+<http://www.a2rd.net.br/mlo#kNN> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                   owl:someValuesFrom <http://www.a2rd.net.br/mlo#k-Nearest_Neighbor>
+                                                 ] .
+
+
+###  http://www.a2rd.net.br/mlo#scikit-learn
+<http://www.a2rd.net.br/mlo#scikit-learn> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.a2rd.net.br/mlo#requires> ;
+                                                            owl:someValuesFrom <http://www.a2rd.net.br/mlo#NumPy>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.a2rd.net.br/mlo#requires> ;
+                                                            owl:someValuesFrom <http://www.a2rd.net.br/mlo#Python>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.a2rd.net.br/mlo#requires> ;
+                                                            owl:someValuesFrom <http://www.a2rd.net.br/mlo#SciPy>
+                                                          ] ;
+                                          <http://www.a2rd.net.br/mlo#mlo:contributor> ""@article{scikit-learn,  title={scikit-learn: machine learning in {p}ython},  author={pedregosa, f. and varoquaux, g. and gramfort, a. and michel, v. and thirion, b. and grisel, o. and blondel, m. and prettenhofer, p. and weiss, r. and dubourg, v. and vanderplas, j. and passos, a. and cournapeau, d. and brucher, m. and perrot, m. and duchesnay, e.},  journal={journal of machine learning research},  volume={12},  pages={2825--2830},  year={2011} } ;
+                                          rdfs:comment """This project was started in 2007 as a Google Summer of Code project by David Cournapeau. Later that year, Matthieu Brucher started work on this project as part of his thesis.
+
+In 2010 Fabian Pedregosa, Gael Varoquaux, Alexandre Gramfort and Vincent Michel of INRIA took leadership of the project and made the first public release, February the 1st 2010. Since then, several releases have appeared following a ~3 month cycle, and a thriving international community has been leading the development.""" ;
+                                          rdfs:isDefinedBy "https://scikit-learn.org/stable/" ;
+                                          owl:priorVersion "0.22.2" .
+
+
+###  http://www.a2rd.net.br/mlo#self-organizing_feature_map
+<http://www.a2rd.net.br/mlo#self-organizing_feature_map> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.a2rd.net.br/mlo#Artificial_Neural_Network> ;
+                                                         rdfs:comment "A self-organizing map (SOM) or self-organizing feature map (SOFM) is a type of artificial neural network (ANN) that is trained using unsupervised learning to produce a low-dimensional (typically two-dimensional), discretized representation of the input space of the training samples, called a map, and is therefore a method to do dimensionality reduction. Self-organizing maps differ from other artificial neural networks as they apply competitive learning as opposed to error-correction learning (such as backpropagation with gradient descent), and in the sense that they use a neighborhood function to preserve the topological properties of the input space." ;
+                                                         rdfs:isDefinedBy "https://en.m.wikipedia.org/wiki/Self-organizing_map" .
+
+
+###  http://www.a2rd.net.br/mlo#spaCy
+<http://www.a2rd.net.br/mlo#spaCy> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Software> ;
+                                   rdfs:comment "spaCy is designed to help you do real work — to build real products, or gather real insights. The library respects your time, and tries to avoid wasting it. It's easy to install, and its API is simple and productive. We like to think of spaCy as the Ruby on Rails of Natural Language Processing." ;
+                                   rdfs:isDefinedBy "https://spacy.io/" .
+
+
+###  http://www.a2rd.net.br/mlo#t-Distributed_Stochastic_Neighbor_Embedding
+<http://www.a2rd.net.br/mlo#t-Distributed_Stochastic_Neighbor_Embedding> rdf:type owl:Class ;
+                                                                         rdfs:subClassOf <http://www.w3.org/ns/mls#Algorithm> ;
+                                                                         rdfs:comment "It is a nonlinear dimensionality reduction technique well-suited for embedding high-dimensional data for visualization in a low-dimensional space of two or three dimensions. Specifically, it models each high-dimensional object by a two- or three-dimensional point in such a way that similar objects are modeled by nearby points and dissimilar objects are modeled by distant points with high probability." ;
+                                                                         rdfs:isDefinedBy "https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding" .
+
+
+###  http://www.a2rd.net.br/mlo#t-SNE
+<http://www.a2rd.net.br/mlo#t-SNE> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.a2rd.net.br/mlo#Dictionary> ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.a2rd.net.br/mlo#isAcronym> ;
+                                                     owl:someValuesFrom <http://www.a2rd.net.br/mlo#t-Distributed_Stochastic_Neighbor_Embedding>
+                                                   ] .
+
+
+###  http://www.w3.org/ns/mls#Algorithm
+<http://www.w3.org/ns/mls#Algorithm> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ;
+                                     <http://purl.org/dc/terms/description> "The algorithm regardless software implementation." ;
+                                     rdfs:comment "The algorithm regardless software implementation." .
+
+
+###  http://www.w3.org/ns/mls#Data
+<http://www.w3.org/ns/mls#Data> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/mls#hasQuality> ;
+                                                  owl:someValuesFrom <http://www.w3.org/ns/mls#DataCharacteristic>
+                                                ] ;
+                                <http://purl.org/dc/terms/description> """Data is a data item composed of data examples and it may be of a various level of granularity and complexity. 
+With regard to granularity, it can be a whole dataset (for instance, one main table and possibly other tables), or only a single table, or only a feature (e.g., a column of a table), or only an instance (e.g., row of a table), or a single feature-value pair. 
+With regard to complexity, data examples are characterized by their datatype, which may be arbitrarily complex (e.g., instead of a table it can be an arbitrary graph).""" ;
+                                rdfs:comment """Data is a data item composed of data examples and it may be of a various level of granularity and complexity. 
+With regard to granularity, it can be a whole dataset (for instance, one main table and possibly other tables), or only a single table, or only a feature (e.g., a column of a table), or only an instance (e.g., row of a table), or a single feature-value pair. 
+With regard to complexity, data examples are characterized by their datatype, which may be arbitrarily complex (e.g., instead of a table it can be an arbitrary graph).""" .
+
+
+###  http://www.w3.org/ns/mls#DataCharacteristic
+<http://www.w3.org/ns/mls#DataCharacteristic> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.w3.org/ns/mls#Quality> ;
+                                              <http://purl.org/dc/terms/description> """DataCharacteristic is a distinguishing quality or property that distinguish one data from another.
+Such characteristics are often statistical ones (e.g., the number of instances
+or the number of features of a data set). They may be also informationtheoretic measures (e.g., class entropy of a categorical data set) or geometric measures of data complexity (e.g., the highest discriminatory power of any single feature in the data set).""" ;
+                                              rdfs:comment """DataCharacteristic is a distinguishing quality or property that distinguish one data from another.
+Such characteristics are often statistical ones (e.g., the number of instances
+or the number of features of a data set). They may be also informationtheoretic measures (e.g., class entropy of a categorical data set) or geometric measures of data complexity (e.g., the highest discriminatory power of any single feature in the data set).""" .
+
+
+###  http://www.w3.org/ns/mls#Dataset
+<http://www.w3.org/ns/mls#Dataset> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Data> ;
+                                   owl:disjointWith <http://www.w3.org/ns/mls#Feature> .
+
+
+###  http://www.w3.org/ns/mls#DatasetCharacteristic
+<http://www.w3.org/ns/mls#DatasetCharacteristic> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.w3.org/ns/mls#DataCharacteristic> ;
+                                                 owl:disjointWith <http://www.w3.org/ns/mls#FeatureCharacteristic> .
+
+
+###  http://www.w3.org/ns/mls#EvaluationMeasure
+<http://www.w3.org/ns/mls#EvaluationMeasure> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ;
+                                             <http://purl.org/dc/terms/description> "EvaluationMeasure is a measure to assess the performance of the model generated by the process that realizes the task. Examples are predictive accuracy or f-measure." ;
+                                             rdfs:comment "EvaluationMeasure is a measure to assess the performance of the model generated by the process that realizes the task. Examples are predictive accuracy or f-measure." .
+
+
+###  http://www.w3.org/ns/mls#EvaluationProcedure
+<http://www.w3.org/ns/mls#EvaluationProcedure> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ;
+                                               <http://purl.org/dc/terms/description> "EvaluationProcedure is a technique to evaluate machine learning models. Examples are cross-validation and leave-one-out." ;
+                                               rdfs:comment "EvaluationProcedure is a technique to evaluate machine learning models. Examples are cross-validation and leave-one-out." .
+
+
+###  http://www.w3.org/ns/mls#EvaluationSpecification
+<http://www.w3.org/ns/mls#EvaluationSpecification> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3.org/ns/mls#defines> ;
+                                                                     owl:someValuesFrom <http://www.w3.org/ns/mls#Task>
+                                                                   ] ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3.org/ns/mls#hasPart> ;
+                                                                     owl:someValuesFrom <http://www.w3.org/ns/mls#EvaluationMeasure>
+                                                                   ] ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3.org/ns/mls#hasPart> ;
+                                                                     owl:someValuesFrom <http://www.w3.org/ns/mls#EvaluationProcedure>
+                                                                   ] ;
+                                                   <http://purl.org/dc/terms/description> "EvaluationSpecification is a specification of an evaluation measure and an evaluation procedure to assess the performance of the process that realizes the task." ;
+                                                   rdfs:comment "EvaluationProcedure is a technique to evaluate machine learning models. Examples are cross-validation and leave-one-out." .
+
+
+###  http://www.w3.org/ns/mls#Experiment
+<http://www.w3.org/ns/mls#Experiment> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://www.w3.org/ns/mls#Process> ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://www.w3.org/ns/mls#hasPart> ;
+                                                        owl:someValuesFrom <http://www.w3.org/ns/mls#Run>
+                                                      ] ;
+                                      <http://purl.org/dc/terms/description> "Experiment is a collection of runs." ;
+                                      rdfs:comment "Experiment is a collection of runs." .
+
+
+###  http://www.w3.org/ns/mls#Feature
+<http://www.w3.org/ns/mls#Feature> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://www.w3.org/ns/mls#Data> .
+
+
+###  http://www.w3.org/ns/mls#FeatureCharacteristic
+<http://www.w3.org/ns/mls#FeatureCharacteristic> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.w3.org/ns/mls#DataCharacteristic> .
+
+
+###  http://www.w3.org/ns/mls#HyperParameter
+<http://www.w3.org/ns/mls#HyperParameter> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ;
+                                          <http://purl.org/dc/terms/description> "Hyperparameter is a prior parameter of an implementation, i.e., a parameter which is set before its execution (e.g. C, the complexity parameter, in weka.SMO)." ;
+                                          rdfs:comment "Hyperparameter is a prior parameter of an implementation, i.e., a parameter which is set before its execution (e.g. C, the complexity parameter, in weka.SMO)." .
+
+
+###  http://www.w3.org/ns/mls#HyperParameterSetting
+<http://www.w3.org/ns/mls#HyperParameterSetting> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty <http://www.w3.org/ns/mls#specifiedBy> ;
+                                                                   owl:someValuesFrom <http://www.w3.org/ns/mls#HyperParameter>
+                                                                 ] ,
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty <http://www.w3.org/ns/mls#hasValue> ;
+                                                                   owl:someValuesFrom rdfs:Literal
+                                                                 ] ;
+                                                 <http://purl.org/dc/terms/description> "HyperParameterSetting is an entity which connects a hyperparameter and its value that is being set before an implementation execution." ;
+                                                 rdfs:comment "HyperParameterSetting is an entity which connects a hyperparameter and its value that is being set before an implementation execution." .
+
+
+###  http://www.w3.org/ns/mls#Implementation
+<http://www.w3.org/ns/mls#Implementation> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.w3.org/ns/mls#hasHyperParameter> ;
+                                                            owl:someValuesFrom <http://www.w3.org/ns/mls#HyperParameter>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.w3.org/ns/mls#hasQuality> ;
+                                                            owl:someValuesFrom <http://www.w3.org/ns/mls#ImplementationCharacteristic>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.w3.org/ns/mls#implements> ;
+                                                            owl:someValuesFrom <http://www.w3.org/ns/mls#Algorithm>
+                                                          ] ;
+                                          <http://purl.org/dc/terms/description> "Implementation is an executable implementation of a machine learning algorithm, a script, or a workflow. It is versioned, and sometimes belongs to a library (e.g. WEKA)." ;
+                                          rdfs:comment "Implementation is an executable implementation of a machine learning algorithm, a script, or a workflow. It is versioned, and sometimes belongs to a library (e.g. WEKA)." .
+
+
+###  http://www.w3.org/ns/mls#ImplementationCharacteristic
+<http://www.w3.org/ns/mls#ImplementationCharacteristic> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://www.w3.org/ns/mls#Quality> ;
+                                                        <http://purl.org/dc/terms/description> "ImplementationCharacteristic is a distinguishing quality or property that distinguish one implementation from another." ;
+                                                        rdfs:comment "ImplementationCharacteristic is a distinguishing quality or property that distinguish one implementation from another." .
+
+
+###  http://www.w3.org/ns/mls#InformationEntity
+<http://www.w3.org/ns/mls#InformationEntity> rdf:type owl:Class ;
+                                             owl:disjointWith <http://www.w3.org/ns/mls#Process> .
+
+
+###  http://www.w3.org/ns/mls#Model
+<http://www.w3.org/ns/mls#Model> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.w3.org/ns/mls#hasQuality> ;
+                                                   owl:someValuesFrom <http://www.w3.org/ns/mls#ModelCharacteristic>
+                                                 ] ;
+                                 <http://purl.org/dc/terms/description> "Model is a generalization of a set of training data able to predict values for unseen instances. It is an output from an execution of a data mining algorithm implementation. Models have a dual nature. They can be treated as data structures and as such represented, stored and manipulated. On the other hand, they act as functions and are executed, taking as input data examples and giving as output the result of applying the function to a data example. Models can also be divided into global or local ones. A global model has global coverage of a data set, i.e., it generalizes the whole data set. A local model, such as a pattern set, is a set of local hypotheses, i.e. each applies to a limited region of the data set." ;
+                                 rdfs:comment "Model is a generalization of a set of training data able to predict values for unseen instances. It is an output from an execution of a data mining algorithm implementation. Models have a dual nature. They can be treated as data structures and as such represented, stored and manipulated. On the other hand, they act as functions and are executed, taking as input data examples and giving as output the result of applying the function to a data example. Models can also be divided into global or local ones. A global model has global coverage of a data set, i.e., it generalizes the whole data set. A local model, such as a pattern set, is a set of local hypotheses, i.e. each applies to a limited region of the data set." .
+
+
+###  http://www.w3.org/ns/mls#ModelCharacteristic
+<http://www.w3.org/ns/mls#ModelCharacteristic> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3.org/ns/mls#Quality> ;
+                                               <http://purl.org/dc/terms/description> "ModelCharacteristic is a distinguishing quality or property that distinguish one model from another. An example model characetristic may be interpretabilty or a complexity of the model." ;
+                                               rdfs:comment "ModelCharacteristic is a distinguishing quality or property that distinguish one model from another. An example model characetristic may be interpretabilty or a complexity of the model." .
+
+
+###  http://www.w3.org/ns/mls#ModelEvaluation
+<http://www.w3.org/ns/mls#ModelEvaluation> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.w3.org/ns/mls#specifiedBy> ;
+                                                             owl:someValuesFrom <http://www.w3.org/ns/mls#EvaluationMeasure>
+                                                           ] ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.w3.org/ns/mls#hasValue> ;
+                                                             owl:someValuesFrom rdfs:Literal
+                                                           ] ;
+                                           <http://purl.org/dc/terms/description> "ModelEvaluation is a setting of a value of the performance measure  specified by the evaluation specification. It connects a measure specification with its value." ;
+                                           rdfs:comment "ModelEvaluation is a setting of a value of the performance measure  specified by the evaluation specification. It connects a measure specification with its value." .
+
+
+###  http://www.w3.org/ns/mls#Process
+<http://www.w3.org/ns/mls#Process> rdf:type owl:Class ;
+                                   owl:disjointWith <http://www.w3.org/ns/mls#Quality> ;
+                                   rdfs:label "Process"@en .
+
+
+###  http://www.w3.org/ns/mls#Quality
+<http://www.w3.org/ns/mls#Quality> rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/mls#Run
+<http://www.w3.org/ns/mls#Run> rdf:type owl:Class ;
+                               rdfs:subClassOf <http://www.w3.org/ns/mls#Process> ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/mls#achieves> ;
+                                                 owl:someValuesFrom <http://www.w3.org/ns/mls#Task>
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/mls#executes> ;
+                                                 owl:someValuesFrom <http://www.w3.org/ns/mls#Implementation>
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/mls#hasInput> ;
+                                                 owl:someValuesFrom <http://www.w3.org/ns/mls#Data>
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/mls#hasInput> ;
+                                                 owl:someValuesFrom <http://www.w3.org/ns/mls#HyperParameterSetting>
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/mls#hasOutput> ;
+                                                 owl:someValuesFrom <http://www.w3.org/ns/mls#Model>
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/mls#hasOutput> ;
+                                                 owl:someValuesFrom <http://www.w3.org/ns/mls#ModelEvaluation>
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/mls#realizes> ;
+                                                 owl:someValuesFrom <http://www.w3.org/ns/mls#Algorithm>
+                                               ] ;
+                               <http://purl.org/dc/terms/description> "Run is an execution of an implementation on a machine (computer). It is limited in time (has a start and end point), can be successful or failed." ;
+                               rdfs:comment "Run is an execution of an implementation on a machine (computer). It is limited in time (has a start and end point), can be successful or failed." .
+
+
+###  http://www.w3.org/ns/mls#Software
+<http://www.w3.org/ns/mls#Software> rdf:type owl:Class ;
+                                    rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://www.w3.org/ns/mls#hasPart> ;
+                                                      owl:someValuesFrom <http://www.w3.org/ns/mls#Implementation>
+                                                    ] ;
+                                    <http://purl.org/dc/terms/description> "Software is implemented computer programs, procedures, scripts or rules with associated documentation, possibly constituting an organized environment, stored in read/write memory for the purpose of being executed within a computer system." ;
+                                    rdfs:comment "Software is implemented computer programs, procedures, scripts or rules with associated documentation, possibly constituting an organized environment, stored in read/write memory for the purpose of being executed within a computer system." .
+
+
+###  http://www.w3.org/ns/mls#Study
+<http://www.w3.org/ns/mls#Study> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.w3.org/ns/mls#Process> ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.w3.org/ns/mls#hasPart> ;
+                                                   owl:someValuesFrom <http://www.w3.org/ns/mls#Experiment>
+                                                 ] ;
+                                 <http://purl.org/dc/terms/description> "Study is a collection of runs that belong together to do some kind of analysis on its results. This analysis can be general or very specific (e.g. a hypothesis test). Can be linked to files, data, that belong to it." ;
+                                 rdfs:comment "Study is a collection of runs that belong together to do some kind of analysis on its results. This analysis can be general or very specific (e.g. a hypothesis test). Can be linked to files, data, that belong to it." .
+
+
+###  http://www.w3.org/ns/mls#Task
+<http://www.w3.org/ns/mls#Task> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://www.w3.org/ns/mls#InformationEntity> ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/mls#definedOn> ;
+                                                  owl:someValuesFrom <http://www.w3.org/ns/mls#Data>
+                                                ] ;
+                                <http://purl.org/dc/terms/description> "Task is a formal description of a process that needs to be completed (e.g. based on inputs and outputs). A Task is any piece of work that needs to be addressed in the data mining process. In ML Schema, it is defined based on data." ;
+                                rdfs:comment "Task is a formal description of a process that needs to be completed (e.g. based on inputs and outputs). A Task is any piece of work that needs to be addressed in the data mining process. In ML Schema, it is defined based on data." .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.a2rd.net.br/mlo#notUniversal
+<http://www.a2rd.net.br/mlo#notUniversal> rdf:type owl:NamedIndividual .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://purl.org/dc/elements/1.1/> <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
+                                   <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> ;
+                                   <http://purl.org/dc/terms/title> "Dublin Core Metadata Element Set, Version 1.1"@en .
+
+
+<http://purl.org/dc/elements/1.1/contributor> <http://purl.org/dc/terms/description> "Examples of a Contributor include a person, an organization, or a service. Typically, the name of a Contributor should be used to indicate the entity."@en ;
+                                              <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#contributor-006> ;
+                                              <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                              <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                              rdfs:comment "An entity responsible for making contributions to the resource."@en ;
+                                              rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                              rdfs:label "Contributor"@en ;
+                                              <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/coverage> <http://purl.org/dc/terms/description> "Spatial topic and spatial applicability may be a named place or a location specified by its geographic coordinates. Temporal topic may be a named period, date, or date range. A jurisdiction may be a named administrative entity or a geographic place to which the resource applies. Recommended best practice is to use a controlled vocabulary such as the Thesaurus of Geographic Names [TGN]. Where appropriate, named places or time periods can be used in preference to numeric identifiers such as sets of coordinates or date ranges."@en ;
+                                           <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#coverage-006> ;
+                                           <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                           <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                           rdfs:comment "The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant."@en ;
+                                           rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                           rdfs:label "Coverage"@en ;
+                                           <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/creator> <http://purl.org/dc/terms/description> "Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity."@en ;
+                                          <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#creator-006> ;
+                                          <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                          <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                          rdfs:comment "An entity primarily responsible for making the resource."@en ;
+                                          rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                          rdfs:label "Creator"@en ;
+                                          <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/date> <http://purl.org/dc/terms/description> "Date may be used to express temporal information at any level of granularity.  Recommended best practice is to use an encoding scheme, such as the W3CDTF profile of ISO 8601 [W3CDTF]."@en ;
+                                       <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#date-006> ;
+                                       <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                       <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                       rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
+                                       rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                       rdfs:label "Date"@en ;
+                                       <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/description> <http://purl.org/dc/terms/description> "Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource."@en ;
+                                              <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#description-006> ;
+                                              <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                              <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                              rdfs:comment "An account of the resource."@en ;
+                                              rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                              rdfs:label "Description"@en ;
+                                              <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/format> <http://purl.org/dc/terms/description> "Examples of dimensions include size and duration. Recommended best practice is to use a controlled vocabulary such as the list of Internet Media Types [MIME]."@en ;
+                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#format-007> ;
+                                         <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                         rdfs:comment "The file format, physical medium, or dimensions of the resource."@en ;
+                                         rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                         rdfs:label "Format"@en ;
+                                         <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/identifier> <http://purl.org/dc/terms/description> "Recommended best practice is to identify the resource by means of a string conforming to a formal identification system. "@en ;
+                                             <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#identifier-006> ;
+                                             <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                             <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                             rdfs:comment "An unambiguous reference to the resource within a given context."@en ;
+                                             rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                             rdfs:label "Identifier"@en ;
+                                             <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/language> <http://purl.org/dc/terms/description> "Recommended best practice is to use a controlled vocabulary such as RFC 4646 [RFC4646]."@en ;
+                                           <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#language-007> ;
+                                           <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                           <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                           rdfs:comment "A language of the resource."@en ;
+                                           rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                           rdfs:label "Language"@en ;
+                                           rdfs:seeAlso <http://www.ietf.org/rfc/rfc4646.txt> ;
+                                           <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/publisher> <http://purl.org/dc/terms/description> "Examples of a Publisher include a person, an organization, or a service. Typically, the name of a Publisher should be used to indicate the entity."@en ;
+                                            <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#publisher-006> ;
+                                            <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                            <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                            rdfs:comment "An entity responsible for making the resource available."@en ;
+                                            rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                            rdfs:label "Publisher"@en ;
+                                            <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/relation> <http://purl.org/dc/terms/description> "Recommended best practice is to identify the related resource by means of a string conforming to a formal identification system. "@en ;
+                                           <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#relation-006> ;
+                                           <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                           <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                           rdfs:comment "A related resource."@en ;
+                                           rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                           rdfs:label "Relation"@en ;
+                                           <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/rights> <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en ;
+                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rights-006> ;
+                                         <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                         rdfs:comment "Information about rights held in and over the resource."@en ;
+                                         rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                         rdfs:label "Rights"@en ;
+                                         <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/source> <http://purl.org/dc/terms/description> "The described resource may be derived from the related resource in whole or in part. Recommended best practice is to identify the related resource by means of a string conforming to a formal identification system."@en ;
+                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#source-006> ;
+                                         <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                         rdfs:comment "A related resource from which the described resource is derived."@en ;
+                                         rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                         rdfs:label "Source"@en ;
+                                         <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/subject> <http://purl.org/dc/terms/description> "Typically, the subject will be represented using keywords, key phrases, or classification codes. Recommended best practice is to use a controlled vocabulary."@en ;
+                                          <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#subject-007> ;
+                                          <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                          <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
+                                          rdfs:comment "The topic of the resource."@en ;
+                                          rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                          rdfs:label "Subject"@en ;
+                                          <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/title> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#title-006> ;
+                                        <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                        <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                        rdfs:comment "A name given to the resource."@en ;
+                                        rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                        rdfs:label "Title"@en ;
+                                        <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+<http://purl.org/dc/elements/1.1/type> <http://purl.org/dc/terms/description> "Recommended best practice is to use a controlled vocabulary such as the DCMI Type Vocabulary [DCMITYPE]. To describe the file format, physical medium, or dimensions of the resource, use the Format element."@en ;
+                                       <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#type-006> ;
+                                       <http://purl.org/dc/terms/issued> "1999-07-02"^^xsd:date ;
+                                       <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                       rdfs:comment "The nature or genre of the resource."@en ;
+                                       rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> ;
+                                       rdfs:label "Type"@en ;
+                                       <http://www.w3.org/2004/02/skos/core#note> "A second property with the same name as this property has been declared in the dcterms: namespace (http://purl.org/dc/terms/).  See the Introduction to the document \"DCMI Metadata Terms\" (http://dublincore.org/documents/dcmi-terms/) for an explanation."@en .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( <http://www.w3.org/ns/mls#DataCharacteristic>
+                <http://www.w3.org/ns/mls#ImplementationCharacteristic>
+                <http://www.w3.org/ns/mls#ModelCharacteristic>
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( <http://www.w3.org/ns/mls#Experiment>
+                <http://www.w3.org/ns/mls#Run>
+                <http://www.w3.org/ns/mls#Study>
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
