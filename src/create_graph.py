@@ -37,17 +37,31 @@ class OntologyGraph:
         flow = flows.get_flow(run.flow_id)
         dataset = datasets.get_dataset(run.dataset_id, download_qualities=False, download_data=False, download_features_meta_data=False)
         task = tasks.get_task(run.task_id)
-        flname = flow.name.replace(".", "").replace("(", "").replace(")", "").replace("_", "").replace(" ", "")
-        flname = ''.join(filter(lambda x: not x.isdigit(), flname))
+        flname=flow.name
+        if flname is not None:
+          if "classifier=" in flow.name:
+              flname = flow.name.split("classifier=")[1]
+              flname = [s for s in flname if s.isalnum()]
+              flname = "".join(flname)
+          else:
+            flname = [s for s in flname if s.isalnum()]
+            flname = "".join(flname)
+            
         dname = dataset.name.replace(".", "").replace("(", "").replace(")", "").replace("_", "").replace("-", "")
 
         # get first name before _
-        fldependencies = flow.dependencies.split("_")[0]
+        if flow.dependencies is not None:
+            fldependencies = flow.dependencies.split("_")[0]
+            fldependencies = [s for s in fldependencies if s.isalnum()]
+            fldependencies = "".join(fldependencies)
+        else:
+            fldependencies = "NoDependencies"
+        
         if task.evaluation_measure is not None:
-            eval_measure = task.evaluation_measure.replace("_", "")
+            eval_measure = task.evaluation_measure.replace("_", "").lower()
             eval_value = run.evaluations[task.evaluation_measure]
         else: 
-            eval_measure = "predictiveAccuracy"
+            eval_measure = "predictiveaccuracy"
             eval_value = run.evaluations["predictive_accuracy"]
 
         flname_lower = flname.lower()
@@ -81,19 +95,19 @@ class OntologyGraph:
         
         with self.driver.session() as session:
             session.run(f"""
-                        MERGE (run{run_id}:Run {{id: 'run{run_id}'}}) SET run{run_id}.uri = $run_uri
-                        MERGE (task{run.task_id}:Task {{id: 'task{run.task_id}'}}) SET task{run.task_id}.uri = $task_uri
-                        MERGE ({flname}:Implementation {{id: '{flname}'}}) SET {flname}.uri = $implementation_uri
-                        MERGE ({fldependencies}:Software {{id: '{fldependencies}'}}) SET {fldependencies}.uri = $software_uri
-                        MERGE ({algorithm_name}:Algorithm {{id: '{algorithm_name}'}}) SET {algorithm_name}.uri = $algorithm_uri
-                        MERGE ({dname}:Dataset {{id: '{dname}'}}) SET {dname}.uri = $dataset_uri
-                        MERGE ({task.estimation_procedure["type"]}:EvaluationProcedure {{id: '{task.estimation_procedure["type"]}'}}) SET {task.estimation_procedure["type"]}.uri = $estimation_procedure_uri
-                        MERGE ({eval_measure}:EvaluationMeasure {{id: '{eval_measure}'}}) SET {eval_measure}.uri = $eval_measure_uri
-                        MERGE (evaluationSpecification{task.id}:EvaluationSpecification {{id: 'evaluationSpecification{task.id}'}}) SET evaluationSpecification{task.id}.uri = $evaluationSpecification_uri
-                        MERGE (modelEvaluation{run_id}:ModelEvaluation {{id: 'modelEvaluation{run.id}'}}) SET modelEvaluation{run_id}.uri = $modelEvaluation_uri
-                        MERGE ({flname}Model{run_id}:Model {{id: '{flname}Model{run_id}'}}) SET {flname}Model{run_id}.uri = $model_uri
-                        MERGE (numberOfInstances:DatasetCharacteristic {{id: 'numberOfInstances'}}) SET numberOfInstances.uri = $numberOfInstances_uri
-                        MERGE (numberOfFeatures:DatasetCharacteristic {{id: 'numberOfFeatures'}}) SET numberOfFeatures.uri = $numberOfFeatures_uri
+                        MERGE (run{run_id}:Run {{name: 'run{run_id}'}}) SET run{run_id}.uri = $run_uri SET run{run_id}.description = $run_description
+                        MERGE (task{run.task_id}:Task {{name: 'task{run.task_id}'}}) SET task{run.task_id}.uri = $task_uri
+                        MERGE ({flname}:Implementation {{name: '{flname}'}}) SET {flname}.uri = $implementation_uri
+                        MERGE ({fldependencies}:Software {{name: '{fldependencies}'}}) SET {fldependencies}.uri = $software_uri
+                        MERGE ({algorithm_name}:Algorithm {{name: '{algorithm_name}'}}) SET {algorithm_name}.uri = $algorithm_uri
+                        MERGE ({dname}:Dataset {{name: '{dname}'}}) SET {dname}.uri = $dataset_uri SET {dname}.description = $dataset_description
+                        MERGE ({task.estimation_procedure["type"]}:EvaluationProcedure {{name: '{task.estimation_procedure["type"]}'}}) SET {task.estimation_procedure["type"]}.uri = $estimation_procedure_uri
+                        MERGE ({eval_measure}:EvaluationMeasure {{name: '{eval_measure}'}}) SET {eval_measure}.uri = $eval_measure_uri
+                        MERGE (evaluationSpecification{task.id}:EvaluationSpecification {{name: 'evaluationSpecification{task.id}'}}) SET evaluationSpecification{task.id}.uri = $evaluationSpecification_uri
+                        MERGE (modelEvaluation{run_id}:ModelEvaluation {{name: 'modelEvaluation{run.id}'}}) SET modelEvaluation{run_id}.uri = $modelEvaluation_uri
+                        MERGE ({flname}Model{run_id}:Model {{name: '{flname}Model{run_id}'}}) SET {flname}Model{run_id}.uri = $model_uri
+                        MERGE (numberOfInstances{dname}:DatasetCharacteristic {{name: 'numberOfInstances{dname}'}}) SET numberOfInstances{dname}.uri = $numberOfInstances_uri
+                        MERGE (numberOfFeatures{dname}:DatasetCharacteristic {{name: 'numberOfFeatures{dname}'}}) SET numberOfFeatures{dname}.uri = $numberOfFeatures_uri
                         MERGE (run{run_id})-[:executes]->({flname})
                         MERGE (run{run_id})-[:hasInput]->({dname})
                         MERGE (run{run_id})-[:hasOutput]->(modelEvaluation{run.id})
@@ -102,45 +116,61 @@ class OntologyGraph:
                         MERGE (run{run_id})-[:achieves]->(task{run.task_id})
                         MERGE ({flname})-[:implements]->({algorithm_name})
                         MERGE ({fldependencies})-[:hasPart]->({flname})
-                        MERGE ({dname})-[:hasQuality]->(numberOfFeatures)
-                        MERGE ({dname})-[:hasQuality]->(numberOfInstances)
+                        MERGE ({dname})-[:hasQuality]->(numberOfFeatures{dname})
+                        MERGE ({dname})-[:hasQuality]->(numberOfInstances{dname})
                         MERGE (modelEvaluation{run_id})-[:specifiedBy]->({eval_measure})
                         MERGE (task{run.task_id})-[:definedOn]->({dname})
                         MERGE (evaluationSpecification{task.id})-[:defines]->(task{run.task_id})
                         MERGE (evaluationSpecification{task.id})-[:hasPart]->({task.estimation_procedure["type"]})
                         MERGE (evaluationSpecification{task.id})-[:hasPart]->({eval_measure})
                         SET modelEvaluation{run_id}.hasValue = $eval_value
-                        SET numberOfInstances.hasValue = $instances
-                        SET numberOfFeatures.hasValue = $features""", 
+                        SET numberOfInstances{dname}.hasValue = $instances
+                        SET numberOfFeatures{dname}.hasValue = $features""", 
                         eval_value=eval_value, 
                         instances=dataset.qualities['NumberOfInstances'], 
                         features=dataset.qualities['NumberOfFeatures'], run_uri=self.mls_prefix + f"run{run_id}",
                         task_uri=self.mls_prefix + f"Task{run.task_id}", implementation_uri=self.mls_prefix + f"{flname}",
                         software_uri=self.mls_prefix + f"{fldependencies}", algorithm_uri=self.mls_prefix+f"{algorithm_name}", 
                         dataset_uri=self.mls_prefix + f"Dataset{dname}", eval_measure_uri=self.mls_prefix + f"{eval_measure}",
+                        dataset_description=dataset.description, run_description = run.run_details if run.run_details is not None else "No description available",
                         estimation_procedure_uri=self.mls_prefix + f"{task.estimation_procedure['type']}", evaluationSpecification_uri=self.mls_prefix + f"evaluationSpecification{run_id}",
                         modelEvaluation_uri=self.mls_prefix + f"modelEvaluation{run.id}", model_uri=self.mls_prefix + f"{flname}Model{run_id}",
-                        numberOfInstances_uri=self.mls_prefix + "numberOfInstances", numberOfFeatures_uri=self.mls_prefix + "numberOfFeatures")
+                        numberOfInstances_uri=self.mls_prefix + f"numberOfInstances{dname}", numberOfFeatures_uri=self.mls_prefix + f"numberOfFeatures{dname}") 
 
             for parameter in flow.parameters:
                 p = re.sub(r'\W|^(?=\d)', '_', parameter)  # Replace non-alphanumeric characters and leading digits with underscores
                 p = p.strip('_')  # Remove leading or trailing underscores
                 session.run(f"""
-                      MATCH (run:Run {{id: 'run{run_id}'}})-[:realizes]->(alg:Algorithm {{id: $algorithm_name}})
-                      MATCH (fl:Implementation {{id: $flname}})-[:implements]->(alg)
-                      MERGE (hp:HyperParameter {{id: $hp_id}}) SET hp.uri = $hyperparameter_uri
-                      MERGE (hps:HyperParameterSetting {{id: $hps_id}}) SET hps.uri = $hyperparameter_setting_uri
+                      MATCH (run:Run {{name: 'run{run_id}'}})-[:realizes]->(alg:Algorithm {{name: $algorithm_name}})
+                      MATCH (fl:Implementation {{name: $flname}})-[:implements]->(alg)
+                      MERGE (hp:HyperParameter {{name: $hp_id}}) SET hp.uri = $hyperparameter_uri
+                      MERGE (hps:HyperParameterSetting {{name: $hps_id}}) SET hps.uri = $hyperparameter_setting_uri
                       MERGE (run)-[:has_input]->(hps)
                       MERGE (hps)-[:specifiedBy]->(hp)
                       SET hps.hasValue = $set_value
                       MERGE (fl)-[:hasHyperParameter]->(hp)
                     """, 
                     run_id=f"run{run_id}", algorithm_name=algorithm_name, flname=flname,
-                    hp_id=f"{flname}{p}", hps_id=f"{flname}{p}Setting{task.id}",
+                    hp_id=f"{p}", hps_id=f"{p}Setting{run_id}",
                     hyperparameter_uri=self.mls_prefix + f"{flname}{p}", set_value=flow.parameters[parameter] if flow.parameters[parameter] is not None else "null", 
-                    hyperparameter_setting_uri=self.mls_prefix + f"{flname}{p}Setting{task.id}")
+                    hyperparameter_setting_uri=self.mls_prefix + f"{flname}{p}Setting{run_id}")
             session.run(f"""
                   MATCH (n:HyperParameterSetting) where n.hasValue = 'null'
                   DETACH DELETE n
                   """)
+            # Create a unique constraint on the Run name
+            session.run("""
+                CREATE CONSTRAINT IF NOT EXISTS FOR (r:Run) REQUIRE r.name IS UNIQUE;
+            """)
 
+    def run_exists(self, run_id):
+      """ Check if a run already exists in the graph database.
+      Args:
+          run_id (int): The ID of the run to check.
+      Returns:
+          bool: True if the run exists, False otherwise.
+      """
+      with self.driver.session() as session:
+          result = session.run("MATCH (r:Run {name: $run_name}) RETURN r", run_name=f"run{run_id}")
+          return result.single() is not None
+    

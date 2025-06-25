@@ -1,6 +1,10 @@
 import neo4j, os
+from random import random
+from openml import flows
 from sentence_transformers import SentenceTransformer
+from neo4j_graphrag.embeddings import OllamaEmbeddings
 
+from neo4j_graphrag.indexes import create_vector_index, upsert_vectors, EntityType
 class VectorIndexing:
     """
     This script connects to a Neo4j database, retrieves nodes, generates embeddings using OpenAI's API,
@@ -9,6 +13,7 @@ class VectorIndexing:
     openai_token = None 
     db_name = 'neo4j'
     model = SentenceTransformer('all-MiniLM-L6-v2')
+    openai_model = os.getenv("EMBEDDING_SMALL", None)
 
     def __init__(self, uri, auth, db_name, openai_token=None):
         """
@@ -24,30 +29,38 @@ class VectorIndexing:
         self.openai_token = openai_token
 
     def create_embeddings(self):
+        
+        INDEX_NAME = 'embedding'
+        DIMENSION = 384 
+
         """
-        Generate embeddings for all nodes in the database in batches.
+        Generate embeddings for the description of the dataset nodes in the database in batches.
         """
         batch_size = 100
         batch_n = 1
         node_batch = []
 
         with self.driver.session(database=self.db_name) as session:
-            # Fetch all nodes 
-            result = session.run('MATCH (n) WHERE n.id IS NOT null RETURN n.id AS name')
+            result = session.run('MATCH (d:Dataset) WHERE d.description IS NOT null RETURN d.name AS name, d.description AS description'
+                                 ' UNION '
+                                 'MATCH (hps:HyperParameterSetting) WHERE hps.hasValue IS NOT null RETURN hps.name AS name, hps.hasValue AS description')
             for record in result:
                 name = record.get('name')
+                description = record.get('description', None)
 
                 if name is not None:
                     if self.openai_token is None:
                         node_batch.append({
                             'name': name,
+                            'description': description,
                             'embedding': self.model.encode(f'''
-                                        Name: {name}'''),
+                                        Name: {name}, Description: {description}'''),
                         })
                     else:
                       node_batch.append({
                           'name': name,
-                          'to_encode': f'Name: {name}'
+                          'description': description,
+                          'to_encode': f'Name: {name} Description: {description}'
                       })
 
                 # Import a batch; flush buffer
@@ -75,17 +88,26 @@ class VectorIndexing:
       if self.openai_token is None:
           self.driver.execute_query('''
           UNWIND $nodes AS node    
-          MATCH (n {id: node.name})
+          MATCH (n {name: node.name})
           CALL db.create.setNodeVectorProperty(n, 'embedding', node.embedding)
           ''', nodes=nodes, database_=self.db_name)
           print(f'Processed batch {batch_n}.')
 
       else:
+
         # Generate and store embeddings for nodes
         self.driver.execute_query('''
-        CALL genai.vector.encodeBatch($listToEncode, 'OpenAI', { token: $token }) YIELD index, vector
-        MATCH (n {id: $nodes[index].name})
+        CALL genai.vector.encodeBatch($listToEncode, 'AzureOpenAI', { token: $token, resource: $resource, deployment: 'text-embedding-3-small'}) YIELD index, vector
+        MATCH (n {name: $nodes[index].name})
         CALL db.create.setNodeVectorProperty(n, 'embedding', vector)
-        ''', nodes=nodes, listToEncode=[node['to_encode'] for node in nodes], token=self.openai_token,
+        ''', nodes=nodes, listToEncode=[node['to_encode'] for node in nodes], token=self.openai_token, resource='gpt-dbis',
         database_=self.db_name)
         print(f'Processed batch {batch_n}')
+
+
+if __name__ == "__main__":
+    VectorIndexing(
+        uri=os.getenv("NEO4J_URI", "bolt://localhost:7687"),
+        auth=("neo4j", os.getenv("NEO4J_PASSWORD", "password")),
+        db_name="neo4j",
+        openai_token=os.getenv("OPENAI_API_KEY", None)).create_embeddings()
