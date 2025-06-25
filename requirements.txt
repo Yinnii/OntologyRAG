@@ -5,3 +5,4 @@ neo4j
 neo4j_graphrag
 langchain
 python-dotenv
+mcp-neo4j-cypher
