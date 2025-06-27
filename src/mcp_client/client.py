@@ -1,15 +1,18 @@
-import asyncio, os
+import asyncio, os, sys
 from typing import Optional
 from contextlib import AsyncExitStack
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
+from openai import AsyncAzureOpenAI
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
 load_dotenv()  # load environment variables from .env
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", None)
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import ontorag_logger as logger
 
 SYSTEM_PROMPT = """
 You are a helpful AI assistant that can interact with a Neo4j database using the MCP protocol.
@@ -57,6 +60,7 @@ SCHEMA_PROMPT = """
   (:HyperParameterSetting)-[:specifiedBy]->(:HyperParameter)
   (:Implementation)-[:hasHyperParameter]->(:HyperParameter)
 """
+
 EXAMPLE_PROMPT = """
 Here are some examples of how to interact with the database:
 USER INPUT: 'What is the predictive accuracy for the run25673?'
@@ -103,7 +107,7 @@ class MCPClient:
         # List available tools
         response = await self.session.list_tools()
         tools = response.tools
-        print("\nConnected to server with tools:", [tool.name for tool in tools])
+        logger.info("Available tools:" + ", ".join(tool.name for tool in tools))
 
     async def process_query(self, query: str) -> str:
       response = await self.session.list_tools()
@@ -149,7 +153,7 @@ class MCPClient:
           message = choice.message
           if message.content:
               final_text.append(message.content)
-              print(f"\nAssistant response: {message.content}")
+              logger.info(f"Assistant response: {message.content}")
           if getattr(message, "tool_calls", None):
               import json
               # Add the assistant message with all tool_calls
@@ -162,12 +166,12 @@ class MCPClient:
               for tool_call in message.tool_calls:
                   tool_name = tool_call.function.name
                   tool_args = json.loads(tool_call.function.arguments)
-                  print(f"\nTool call: {tool_name} with args {tool_args}")
+                  logger.info(f"Tool call: {tool_name} with args {tool_args}")
                   # Execute tool call
                   result = await self.session.call_tool(tool_name, tool_args)
                   final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
-                  print(f"\nTool result: {result.content}")
-                  # Add the tool message immediately after the assistant message
+                  logger.info(f"Tool result: {result.content}")
+
                   messages.append({
                       "role": "tool",
                       "tool_call_id": tool_call.id,
@@ -186,10 +190,21 @@ class MCPClient:
 
       return "\n".join(final_text)
 
+    async def query(self, query: str):
+        """Run one query to retrieve data from the server"""
+        logger.info(f"Processing query: {query}")
+        try:
+            response = await self.process_query(query)
+            logger.info("\n" + response)
+            return response
+        except Exception as e:
+            logger.info(f"Error processing query: {str(e)}")
+            return f"Error processing query: {str(e)}"
+      
     async def chat_loop(self):
         """Run an interactive chat loop"""
-        print("\nMCP Client Started!")
-        print("Type your queries or 'quit' to exit.")
+        logger.info("MCP Client Started!")
+        logger.info("Type your queries or 'quit' to exit.")
         
         while True:
             try:
@@ -199,28 +214,25 @@ class MCPClient:
                     break
                     
                 response = await self.process_query(query)
-                print("\n" + response)
                     
             except Exception as e:
-                print(f"\nError: {str(e)}")
+                logger.info(f"\nError: {str(e)}")
     
     async def cleanup(self):
         """Clean up resources"""
         await self.exit_stack.aclose()
 
-async def main():
-    if len(sys.argv) < 2:
-        print("Usage: python client.py <path_to_server_script>")
-        sys.exit(1)
+# async def main():
+#     if len(sys.argv) < 2:
+#         logger.error("Usage: python client.py <path_to_server_script>")
+#         sys.exit(1)
         
-    client = MCPClient()
-    try:
-        await client.connect_to_server(sys.argv[1])
-        await client.chat_loop()
-    finally:
-        await client.cleanup()
+#     client = MCPClient()
+#     try:
+#         await client.connect_to_server(sys.argv[1])
+#         await client.chat_loop()
+#     finally:
+#         await client.cleanup()
 
-if __name__ == "__main__":
-    import sys
-    from openai import AsyncAzureOpenAI
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())
