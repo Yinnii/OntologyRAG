@@ -24,6 +24,7 @@ You can use the following tools:
 {tools}
 """
 
+
 SCHEMA_PROMPT = """
   Node properties:
   :`Run` {uri: ['String'], description: ['String'], name: ['String']}
@@ -72,6 +73,7 @@ QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH 
 USER INPUT: 'Get the best hyperparametersettings for the dataset creditg'
 QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) MATCH (r)-[:has_input]->(hps:HyperParameterSetting) RETURN hps.name, hps.hasValue, me.hasValue ORDER BY me.hasValue DESC LIMIT 10
 """
+
 
 class MCPClient:
     def __init__(self):
@@ -200,7 +202,99 @@ class MCPClient:
         except Exception as e:
             logger.info(f"Error processing query: {str(e)}")
             return f"Error processing query: {str(e)}"
-      
+    
+    async def process_query_for_run(self, query: str) -> str:
+      response = await self.session.list_tools()
+
+      available_tools = [{
+          "type": "function",
+          "function": {
+              "name": tool.name,
+              "description": tool.description,
+              "parameters": tool.inputSchema
+          }
+      } for tool in response.tools]
+
+      messages = [
+          {   "role": "system",
+              "content": SYSTEM_PROMPT.format(tools=available_tools) + SCHEMA_PROMPT + EXAMPLE_PROMPT
+          },
+          {
+              "role": "user",
+              "content": query
+          }
+      ]
+
+      client = AsyncAzureOpenAI(
+          api_key=os.getenv("AZURE_API_KEY"),
+          api_version="2025-01-01-preview",
+          azure_endpoint=os.getenv("AZURE_ENDPOINT")
+      )
+      deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
+
+      response = await client.chat.completions.create(
+          model=deployment,
+          max_tokens=1000,
+          messages=messages,
+          tools=available_tools
+      )
+
+      # Process response and handle tool calls
+      final_text = []
+
+      # assistant_message_content = []
+      for choice in response.choices:
+          message = choice.message
+          if message.content:
+              final_text.append(message.content)
+              logger.info(f"Assistant response: {message.content}")
+          if getattr(message, "tool_calls", None):
+              import json
+              # Add the assistant message with all tool_calls
+              messages.append({
+                  "role": "assistant",
+                  "content": message.content or "",
+                  "tool_calls": [tc.model_dump() for tc in message.tool_calls]
+              })
+              # For each tool call, execute and append a tool message
+              for tool_call in message.tool_calls:
+                  tool_name = tool_call.function.name
+                  tool_args = json.loads(tool_call.function.arguments)
+                  logger.info(f"Tool call: {tool_name} with args {tool_args}")
+                  # Execute tool call
+                  result = await self.session.call_tool(tool_name, tool_args)
+                  final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
+                  logger.info(f"Tool result: {result.content}")
+
+                  messages.append({
+                      "role": "tool",
+                      "tool_call_id": tool_call.id,
+                      "name": tool_name,
+                      "content": result.content
+                  })
+              # Get next response from Azure OpenAI
+              response = await client.chat.completions.create(
+                  model=deployment,
+                  max_tokens=1000,
+                  messages=messages,
+                  tools=available_tools
+              )
+              if response.choices and response.choices[0].message.content:
+                  final_text.append(response.choices[0].message.content)
+
+      return "\n".join(final_text)
+
+    async def query_for_run(self, query: str):
+        """Run a query to retrieve runs from the server"""
+        logger.info(f"Processing query for runs: {query}")
+        try:
+            response = await self.process_query_for_run(query)
+            logger.info("\n" + response)
+            return response
+        except Exception as e:
+            logger.info(f"Error processing query for runs: {str(e)}")
+            return f"Error processing query for runs: {str(e)}"
+
     async def chat_loop(self):
         """Run an interactive chat loop"""
         logger.info("MCP Client Started!")
