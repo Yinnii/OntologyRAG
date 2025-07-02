@@ -2,6 +2,7 @@ import json
 import logging
 import re
 import sys
+import os
 import time
 from typing import Any, Literal, Optional
 import asyncio
@@ -175,11 +176,11 @@ async def main(
 if __name__ == "__main__":
     asyncio.run(
         main(
-            db_url=sys.argv[1] if len(sys.argv) > 1 else "bolt://localhost:7688",
-            username=sys.argv[2] if len(sys.argv) > 2 else "neo4j",
-            password=sys.argv[3] if len(sys.argv) > 3 else "Jo3i!$kWVJ",
-            database=sys.argv[4] if len(sys.argv) > 4 else "neo4j",
-            transport=sys.argv[5] if len(sys.argv) > 5 else "stdio",
-            namespace=sys.argv[6] if len(sys.argv) > 6 else "",
+            db_url=os.getenv("NEO4J_URI", "bolt://localhost:7688"),
+            username=os.getenv("NEO4J_USER", "neo4j"),
+            password=os.getenv("NEO4J_PASSWORD", "Jo3i!$kWVJ"),
+            database="neo4j",
+            transport="stdio",
+            namespace="",
         )
     )
