@@ -6,7 +6,7 @@ RUN pip install -r requirements.txt
 
 WORKDIR /src
 
-ENV NEO4J_URI="neo4j://localhost:7688"
+ENV NEO4J_URI="neo4j://localhost:7687"
 ENV NEO4J_USER="neo4j"
 ENV NEO4J_PASSWORD="NEO4J_PASSWORD"
 ENV POSTGRES_PASSWORD="POSTGRES_PASSWORD"
