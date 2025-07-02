@@ -3,8 +3,8 @@ import warnings
 import os
 import pandas as pd
 import psycopg2 as p
-from create_graph import OntologyGraph
-from Projects.OntologyRAG.src.graph_creation.vector_index import VectorIndexing
+from graph_creation.create_graph import OntologyGraph
+from graph_creation.vector_index import VectorIndexing
 from sqlalchemy import create_engine
 import asyncio
 warnings.filterwarnings("ignore", category=RuntimeWarning)
