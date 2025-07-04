@@ -53,7 +53,7 @@ async def retrieve_parameters(request: Request):
 
     logger.info("Start searching for settings for the dataset...")
     client = MCPClient()
-    await client.connect_to_server("src/mcp_server/server.py")
+    await client.connect_to_server("./mcp_server/server.py")
 
     response = ""
 
@@ -80,7 +80,7 @@ async def retrieve_runs(request: Request):
     
     logger.info("Start searching for runs in the graph database...")
     client = MCPClient()
-    await client.connect_to_server("src/mcp_server/server.py")
+    await client.connect_to_server("./mcp_server/server.py")
 
     response = ""
     try:

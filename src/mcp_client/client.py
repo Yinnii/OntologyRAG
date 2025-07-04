@@ -60,10 +60,11 @@ class MCPClient:
             raise ValueError("Server script must be a .py or .js file")
             
         command = "python" if is_python else "node"
+        # Pass current environment variables to the server process
         server_params = StdioServerParameters(
             command=command,
             args=[server_script_path],
-            env=None
+            env=dict(os.environ)
         )
         
         stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
