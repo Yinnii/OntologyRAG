@@ -2,42 +2,11 @@ from openml import tasks, runs, evaluations
 import warnings
 import os
 import pandas as pd
-import psycopg2 as p
-from graph_creation.create_graph import OntologyGraph
-from graph_creation.vector_index import VectorIndexing
-from sqlalchemy import create_engine
-import asyncio
+from create_graph import OntologyGraph
+from vector_index import VectorIndexing
+from connect_postgres import init_postgresql, close_postgresql
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 
-POSTGRES_USER = os.getenv("POSTGRES_USER", "openml_user")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "openml_password")
-POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
-POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
-POSTGRES_DB = os.getenv("POSTGRES_DB", "openml")
-
-# initialize postgresql database connection
-def init_postgresql():
-    """ Initialize the PostgreSQL database connection."""
-    connection = p.connect(
-      database=POSTGRES_DB,
-      user=POSTGRES_USER,
-      password=POSTGRES_PASSWORD,
-      host=POSTGRES_HOST,
-      port=POSTGRES_PORT
-    )
-
-    engine = create_engine(
-        f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
-    )
-    return connection, engine
-
-def close_postgresql(connection):
-    """ Close the PostgreSQL database connection."""
-    if connection:
-        connection.close()
-        print("PostgreSQL connection is closed.")
-    else:
-        print("No PostgreSQL connection to close.")
 
 def insert_runs_into_graph():
     """ Insert OpenML runs into the Neo4j graph database.
