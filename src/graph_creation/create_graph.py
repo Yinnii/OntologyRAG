@@ -32,35 +32,25 @@ class OntologyGraph:
             """)
             print("Ontology loaded successfully.")
 
-    def insert_run(self, run_id):
-        run = runs.get_run(run_id)
-        flow = flows.get_flow(run.flow_id)
-        dataset = datasets.get_dataset(run.dataset_id, download_qualities=False, download_data=False, download_features_meta_data=False)
-        task = tasks.get_task(run.task_id)
-        flname=flow.name
-        if flname is not None:
-          if "classifier=" in flow.name:
-              flname = flow.name.split("classifier=")[1]
-              flname = [s for s in flname if s.isalnum()]
-              flname = "".join(flname)
-          else:
-            flname = [s for s in flname if s.isalnum()]
-            flname = "".join(flname)
-            
-        dname = dataset.name.replace(".", "").replace("(", "").replace(")", "").replace("_", "").replace("-", "")
+    def _clean_data(self, name):
+       return re.sub(r'\W|^(?=\d)', '', name)
 
+    def _retrieve_implementation_name(self, flow_name):
+       return re.search(r'classifier=([^,)\s]+)', flow_name)
+
+    def _retrieve_software(self, flow_dependencies):
         try:
           fldependencies = {}
-          if flow.dependencies is not None:
+          if flow_dependencies is not None:
               # flow.dependencies form string to list
-              if isinstance(flow.dependencies, str):
-                  if "==" in flow.dependencies or ">=" in flow.dependencies:
-                    flow.dependencies = flow.dependencies.split("\n")
+              if isinstance(flow_dependencies, str):
+                  if "==" in flow_dependencies or ">=" in flow_dependencies:
+                    flow_dependencies = flow_dependencies.split("\n")
                   else:
-                    flow.dependencies = flow.dependencies.split(",")
+                    flow_dependencies = flow_dependencies.split(",")
 
               # create a dict of dependencies with the library and version 
-              for d in flow.dependencies:
+              for d in flow_dependencies:
                   if "==" in d:
                     lib = d.split("==")[0]
                     version = d.split("==")[1] if "==" in d else "latest"
@@ -76,45 +66,50 @@ class OntologyGraph:
               print(fldependencies)
           else:
               fldependencies["NoDependencies"] = "null"
+
+          return fldependencies
+    
         except Exception as e:
           print(f"Error processing flow dependencies: {e}")
           fldependencies = {"NoDependencies": "null"}
-        
-        if task.evaluation_measure is not None:
-            eval_measure = task.evaluation_measure.replace("_", "").lower()
-            eval_value = run.evaluations[task.evaluation_measure]
-        else: 
-            eval_measure = "predictiveaccuracy"
-            eval_value = run.evaluations["predictive_accuracy"]
+          return fldependencies
+    
+    def _retrieve_algorithm_name(self, flow_name):
+        flow_name_lower = flow_name.lower()
+        algorithm_map = {
+            "logistic": "LogisticRegression",
+            "randomforest": "RandomForest",
+            "decisiontree": "DecisionTree",
+            "knn": "KNN",
+            "svm": "SVM",
+            "adaboost": "AdaBoost",
+            "gradientboosting": "GradientBoosting",
+            "xgboost": "XGBoost",
+            "lightgbm": "LightGBM",
+            "catboost": "CatBoost",
+        }
+        for key, value in algorithm_map.items():
+            if key in flow_name_lower:
+              return value
 
-        flname_lower = flname.lower()
-        # Use Wikidata later to get algorithm name
-        if "logistic" in flname_lower:
-            algorithm_name = "LogisticRegression"
-        elif "randomforest" in flname_lower:
-            algorithm_name = "RandomForest"
-        elif "decisiontree" in flname_lower:
-            algorithm_name = "DecisionTree"
-        elif "knn" in flname_lower:
-            algorithm_name = "KNN"
-        elif "svm" in flname_lower:
-            algorithm_name = "SVM"
-        elif "adaboost" in flname_lower:
-            algorithm_name = "AdaBoost"
-        elif "gradientboosting" in flname_lower:
-            algorithm_name = "GradientBoosting"
-        elif "xgboost" in flname_lower:
-            algorithm_name = "XGBoost"
-        elif "lightgbm" in flname_lower:
-            algorithm_name = "LightGBM"
-        elif "catboost" in flname_lower:
-            algorithm_name = "CatBoost"
+    def insert_run(self, run_id):
+        run = runs.get_run(run_id)
+        flow = flows.get_flow(run.flow_id)
+        dataset = datasets.get_dataset(run.dataset_id, download_qualities=False, download_data=False, download_features_meta_data=False)
+        task = tasks.get_task(run.task_id)
+        if 'pipeline' in flow.name.lower():
+          flname = self._retrieve_implementation_name(flow.name)
         else:
-            algorithm_name = "UnknownAlgorithm"
+          flname = self._clean_data(flow.name)
 
-        # insert data into graph
-        # TODO store the run description in the run node when a new run is created by running the AutoML
-        # TODO sklearnpipelinePipelineimputation=sklearnpreprocessingimputationImputer,classifier=sklearntreetreeDecisionTreeClassifier can not be stored as implementation
+        dname = self._clean_data(dataset.name)
+
+        fldependencies = self._retrieve_software(flow.dependencies)
+        
+        algorithm_name = self._retrieve_algorithm_name(flname)
+
+        eval_measure = self._clean_data(task.evaluation_measure).lower() if task.evaluation_measure else "predictiveaccuracy"
+        eval_value = run.evaluations[task.evaluation_measure] if task.evaluation_measure else "null"
         
         with self.driver.session() as session:
             session.run(f"""
@@ -160,8 +155,7 @@ class OntologyGraph:
           
             # parse the fldependencies dict to create software nodes and its values
             for lib, version in fldependencies.items():
-                lib_clean = re.sub(r'\W|^(?=\d)', '_', lib)
-                lib_clean = lib_clean.strip('_')
+                lib_clean = self._clean_data(lib)
                 version_clean = version.strip('-')
                 node_name = f"{lib_clean}{run_id}"
                 node_uri = self.mls_prefix + node_name
