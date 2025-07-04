@@ -26,15 +26,15 @@ You can use the following tools:
 
 EXAMPLE_PROMPT = """
 Here are some examples of how to interact with the database. To ensure correct usage, always retrieve the schema first:
-USER INPUT: 'What is the predictive accuracy for the run25673?'
-First retrieve schema then run the query:
-QUERY: MATCH (d:Dataset {name: 'anneal'}) MATCH (r:Run {name: 'run25673'})-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) RETURN me.name, me.hasValue ORDER BY me.hasValue
+USER INPUT: 'What are the best runs and its hyperparametersettings?'
+1. Retrieve schema then run the query to retrieve the best predictive accuracy for the dataset:
+QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) RETURN r, d, me ORDER BY me.hasValue DESC LIMIT 3
 
-USER INPUT: 'Get the best runs for the dataset creditg'
-QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) RETURN r.name, me.hasValue ORDER BY me.hasValue DESC LIMIT 10
+2. Get the hyperparametersettings for each of the runs:
+QUERY: MATCH (r:Run {name: 'retrieved run name'})-[:hasInput]->(hps:HyperParameterSetting) RETURN hps.name, hps.hasValue
 
-USER INPUT: 'Get the best hyperparametersettings for the dataset creditg'
-QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) MATCH (r)-[:has_input]->(hps:HyperParameterSetting) RETURN hps.name, hps.hasValue, me.hasValue ORDER BY me.hasValue DESC LIMIT 10
+3. Get the used software and implementation of the run:
+QUERY: MATCH (r:Run {name: 'retrieved run name'})-[:executes]->(i:Implementation) MATCH (i)-[:hasPart]->(s:Software) RETURN i.name, s.name, s.hasVersion
 
 Do the extractions step by step, and do not try to extract all information at once.
 First extract the relevant runs for the dataset, then extract the hyperparameter settings for those runs.
