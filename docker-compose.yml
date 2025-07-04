@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 services:
   yin-neo4j:
@@ -62,4 +62,4 @@ volumes:
 
 networks:
   yin-network:
-    driver:
+    external: true
