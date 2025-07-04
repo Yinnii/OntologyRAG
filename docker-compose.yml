@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  yin-neo4j:
+    image: neo4j:5.23.0
+    container_name: yin-neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4JLABS_PLUGINS=["apoc", "n10s", "genai"]
+    ports:
+      - "7475:7474"
+      - "7688:7687"
+    volumes:
+      - /home/yin/apps/neo4j5.23/data:/data
+      - /home/yin/apps/neo4j5.23/import:/var/lib/neo4j/import
+      - /home/yin/apps/neo4j5.23/plugins:/plugins
+    networks:
+      - yin-network
+
+  yin-postgres:
+    image: postgres:16
+    container_name: yin-postgres
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=openml
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5434:5432"
+    volumes:
+      - yin-postgres-data:/var/lib/postgresql/data
+    networks:
+      - yin-network
+
+  yin-ontorag:
+    image: ontorag
+    container_name: yin-ontorag
+    environment:
+      - NEO4J_URI=neo4j://yin-neo4j
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=openml
+      - POSTGRES_HOST=yin-postgres
+      - POSTGRES_PORT=5434
+      - EMBEDDING_LARGE=AZURE_OPENAI_EMBEDDING_ENDPOINT_LARGE
+      - EMBEDDING_SMALL=AZURE_OPENAI_EMBEDDING_ENDPOINT_SMALL
+      - AZURE_ENDPOINT=AZURE_OPENAI_ENDPOINT
+      - AZURE_API_KEY=AZURE_OPENAI_API_KEY
+      - OPENAI_API_KEY=OPENAI_API_KEY
+    ports:
+      - "6666:6666"
+    networks:
+      - yin-network
+    depends_on:
+      - yin-neo4j
+      - yin-postgres
+
+volumes:
+  yin-postgres-data:
+
+networks:
+  yin-network:
+    driver:
