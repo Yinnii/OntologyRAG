@@ -15,51 +15,14 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import ontorag_logger as logger
 
 SYSTEM_PROMPT = """
-You are a helpful AI assistant that can interact with a Neo4j database using the MCP protocol.
-You can execute queries, retrieve data, and perform various operations on the graph database.
+You are a helpful data analyst specialized on machine learning data who can interact with the connected Neo4j database containing runs from OpenML by using the given tools.
+You can retrieve the schema of the database, read the data and analyze it. 
 You will receive queries and commands from the user, and you should respond with the results. 
-Use specific tools to interact with the database, such as getting the schema and reading data.
-Do not write any code or perform actions outside of the provided tools.
+Use the specific tools to interact with the database, such as getting the schema and reading data.
 You can use the following tools:
 {tools}
-"""
 
-
-SCHEMA_PROMPT = """
-  Node properties:
-  :`Run` {uri: ['String'], description: ['String'], name: ['String']}
-  :`Task` {uri: ['String'], name: ['String']}
-  :`Implementation` {uri: ['String'], name: ['String']}
-  :`Software` {uri: ['String'], name: ['String']}
-  :`Algorithm` {uri: ['String'], name: ['String']}
-  :`Dataset` {uri: ['String'], description: ['String'], name: ['String']}
-  :`EvaluationProcedure` {uri: ['String'], name: ['String']}
-  :`EvaluationMeasure` {uri: ['String'], name: ['String']}
-  :`EvaluationSpecification` {uri: ['String'], name: ['String']}
-  :`ModelEvaluation` {uri: ['String'], hasValue: ['Double'], name: ['String']}
-  :`Model` {uri: ['String'], name: ['String']}
-  :`DatasetCharacteristic` {uri: ['String'], hasValue: ['Double'], name: ['String']}
-  :`HyperParameter` {uri: ['String'], name: ['String']}
-  :`HyperParameterSetting` {uri: ['String'], hasValue: ['String'], name: ['String']}
-
-  Relationships:
-  (:Run)-[:executes]->(:Implementation)
-  (:Run)-[:hasInput]->(:Dataset)
-  (:Run)-[:hasOutput]->(:ModelEvaluation)
-  (:Run)-[:hasOutput]->(:Model)
-  (:Run)-[:realizes]->(:Algorithm)
-  (:Run)-[:achieves]->(:Task)
-  (:Implementation)-[:implements]->(:Algorithm)
-  (:Software)-[:hasPart]->(:Implementation)
-  (:Dataset)-[:hasQuality]->(:DatasetCharacteristic)
-  (:ModelEvaluation)-[:specifiedBy]->(:EvaluationMeasure)
-  (:Task)-[:definedOn]->(:Dataset)
-  (:EvaluationSpecification)-[:defines]->(:Task)
-  (:EvaluationSpecification)-[:hasPart]->(:EvaluationProcedure)
-  (:EvaluationSpecification)-[:hasPart]->(:EvaluationMeasure)
-  (:Run)-[:has_input]->(:HyperParameterSetting)
-  (:HyperParameterSetting)-[:specifiedBy]->(:HyperParameter)
-  (:Implementation)-[:hasHyperParameter]->(:HyperParameter)
+Try to first get the schema of the database and then use the schema to answer the user's queries.
 """
 
 EXAMPLE_PROMPT = """
@@ -72,6 +35,9 @@ QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH 
 
 USER INPUT: 'Get the best hyperparametersettings for the dataset creditg'
 QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) MATCH (r)-[:has_input]->(hps:HyperParameterSetting) RETURN hps.name, hps.hasValue, me.hasValue ORDER BY me.hasValue DESC LIMIT 10
+
+Do the extractions step by step, and do not try to extract all information at once.
+First extract the relevant runs for the dataset, then extract the hyperparameter settings for those runs.
 """
 
 
@@ -125,7 +91,7 @@ class MCPClient:
 
       messages = [
           {   "role": "system",
-              "content": SYSTEM_PROMPT.format(tools=available_tools) + SCHEMA_PROMPT + EXAMPLE_PROMPT
+              "content": SYSTEM_PROMPT.format(tools=available_tools) + EXAMPLE_PROMPT
           },
           {
               "role": "user",
@@ -149,9 +115,10 @@ class MCPClient:
 
       # Process response and handle tool calls
       final_text = []
+      choices = response.choices
 
       # assistant_message_content = []
-      for choice in response.choices:
+      for choice in choices:
           message = choice.message
           if message.content:
               final_text.append(message.content)
@@ -171,8 +138,6 @@ class MCPClient:
                   logger.info(f"Tool call: {tool_name} with args {tool_args}")
                   # Execute tool call
                   result = await self.session.call_tool(tool_name, tool_args)
-                  final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
-                  logger.info(f"Tool result: {result.content}")
 
                   messages.append({
                       "role": "tool",
@@ -180,6 +145,7 @@ class MCPClient:
                       "name": tool_name,
                       "content": result.content
                   })
+
               # Get next response from Azure OpenAI
               response = await client.chat.completions.create(
                   model=deployment,
@@ -187,8 +153,14 @@ class MCPClient:
                   messages=messages,
                   tools=available_tools
               )
+
+              if response.choices[0].message.tool_calls:
+                  choices.append(response.choices[0])
+
               if response.choices and response.choices[0].message.content:
                   final_text.append(response.choices[0].message.content)
+               
+              logger.debug("Messages after tool calls:" + str(messages))
 
       return "\n".join(final_text)
 
@@ -217,7 +189,7 @@ class MCPClient:
 
       messages = [
           {   "role": "system",
-              "content": SYSTEM_PROMPT.format(tools=available_tools) + SCHEMA_PROMPT + EXAMPLE_PROMPT
+              "content": SYSTEM_PROMPT.format(tools=available_tools) + EXAMPLE_PROMPT
           },
           {
               "role": "user",
@@ -234,16 +206,17 @@ class MCPClient:
 
       response = await client.chat.completions.create(
           model=deployment,
-          max_tokens=1000,
+          max_tokens=1500,
           messages=messages,
           tools=available_tools
       )
 
       # Process response and handle tool calls
       final_text = []
+      choices = response.choices
 
       # assistant_message_content = []
-      for choice in response.choices:
+      for choice in choices:
           message = choice.message
           if message.content:
               final_text.append(message.content)
@@ -256,29 +229,35 @@ class MCPClient:
                   "content": message.content or "",
                   "tool_calls": [tc.model_dump() for tc in message.tool_calls]
               })
+
               # For each tool call, execute and append a tool message
               for tool_call in message.tool_calls:
                   tool_name = tool_call.function.name
                   tool_args = json.loads(tool_call.function.arguments)
                   logger.info(f"Tool call: {tool_name} with args {tool_args}")
+
                   # Execute tool call
                   result = await self.session.call_tool(tool_name, tool_args)
-                  final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
-                  logger.info(f"Tool result: {result.content}")
+                  
+                  print(f"Tool result: {result.content}")
 
                   messages.append({
                       "role": "tool",
+                      "content": result.content[0].text,
                       "tool_call_id": tool_call.id,
-                      "name": tool_name,
-                      "content": result.content
                   })
+
               # Get next response from Azure OpenAI
               response = await client.chat.completions.create(
                   model=deployment,
-                  max_tokens=1000,
+                  max_tokens=1500,
                   messages=messages,
                   tools=available_tools
               )
+
+              if response.choices[0].message.tool_calls:
+                  choices.append(response.choices[0])
+              
               if response.choices and response.choices[0].message.content:
                   final_text.append(response.choices[0].message.content)
 
@@ -315,18 +294,3 @@ class MCPClient:
     async def cleanup(self):
         """Clean up resources"""
         await self.exit_stack.aclose()
-
-# async def main():
-#     if len(sys.argv) < 2:
-#         logger.error("Usage: python client.py <path_to_server_script>")
-#         sys.exit(1)
-        
-#     client = MCPClient()
-#     try:
-#         await client.connect_to_server(sys.argv[1])
-#         await client.chat_loop()
-#     finally:
-#         await client.cleanup()
-
-# if __name__ == "__main__":
-#     asyncio.run(main())

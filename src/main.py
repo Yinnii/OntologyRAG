@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import ontorag_logger as logger
 from fastapi import FastAPI, Request
 from graph_creation.store_run import OntologyGraphStoreRun
-from graph_creation.annotate_graph import init_postgresql, close_postgresql
+from graph_creation.connect_postgres import init_postgresql, close_postgresql
 
 app = FastAPI()
 
@@ -19,7 +19,6 @@ For example:
 ```{
     "run": {
       "name": "run25673",
-      "description": "Run for the anneal dataset",
       "dataset": {  
         "dataset_name": "iris",
         "qualities": {
@@ -30,7 +29,7 @@ For example:
       "flow": {
         "implementation": "TreeClassifier",
         "software": "scikit-learn",
-        "parameters": {
+        "hyperparametersettings": {
           "max_depth": 3,
           "min_samples_split": 2
         }
@@ -75,7 +74,7 @@ async def retrieve_parameters(request: Request):
 
 @app.post("/retrieve_runs")
 async def retrieve_runs(request: Request):
-    """Retrieve runs from the neo4j based on a given query."""
+    """Retrieve runs from the neo4j based on the given metadata and description of a dataset."""
     req = await request.json()
     query = req.get("query", "")
     
@@ -88,10 +87,10 @@ async def retrieve_runs(request: Request):
         similar_dataset = find_similar_dataset(query) 
         if not similar_dataset:
             logger.info("No similar datasets found.")
-            response = await client.query_for_run(f"Based on your knowledge, what are the 5 best runs for a dataset with the following description: {query}?")
+            response = await client.query_for_run(f"Based on your knowledge, what are the 3 best runs for a dataset with the following description: {query}?")
         else:
             logger.info(f"Found similar dataset: {similar_dataset['name']}")
-            response = await client.query_for_run(f"Retrieve the 5 best runs for the following dataset {similar_dataset['name']}." + OUTPUT_RUN)
+            response = await client.query_for_run(f"Retrieve the 3 best runs for the following dataset {similar_dataset['name']}." + OUTPUT_RUN)
         
         await client.cleanup()
         return {"message": response}

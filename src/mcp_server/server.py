@@ -18,7 +18,9 @@ from neo4j import (
 from neo4j.exceptions import DatabaseError
 from pydantic import Field
 
-logger = logging.getLogger("mcp_neo4j_cypher")
+# logger = logging.getLogger("mcp_neo4j_cypher")
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import ontorag_logger as logger
 
 def _format_namespace(namespace: str) -> str:
     if namespace:
