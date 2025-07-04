@@ -73,8 +73,20 @@ def insert_runs_into_graph():
         openai_token=os.getenv("AZURE_API_KEY", None)  # or None if not using Azure OpenAI 
     )
 
+    nodes_to_embed = ["HyperParameterSetting", "Dataset"]
+
     # the embeddings are created for the descriptions of hyperparametersettings and datasets
-    vectorIndexing.create_embeddings()
+    for n in nodes_to_embed:
+      vectorIndexing.create_vector_index(
+          node_label=n,
+          embedding_property='embedding',
+          vector_dimensions=1536,
+          similarity_function='euclidean' 
+      )
+      vectorIndexing.create_embeddings(
+          node_label=n,
+          embedding_property='embedding'
+      )
 
     close_postgresql(connection)
 
