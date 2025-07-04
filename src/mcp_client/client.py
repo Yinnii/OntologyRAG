@@ -22,12 +22,12 @@ Use the specific tools to interact with the database, such as getting the schema
 You can use the following tools:
 {tools}
 
-Try to first get the schema of the database and then use the schema to answer the user's queries.
 """
 
 EXAMPLE_PROMPT = """
-Here are some examples of how to interact with the database:
+Here are some examples of how to interact with the database. To ensure correct usage, always retrieve the schema first:
 USER INPUT: 'What is the predictive accuracy for the run25673?'
+First retrieve schema then run the query:
 QUERY: MATCH (d:Dataset {name: 'anneal'}) MATCH (r:Run {name: 'run25673'})-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) RETURN me.name, me.hasValue ORDER BY me.hasValue
 
 USER INPUT: 'Get the best runs for the dataset creditg'
