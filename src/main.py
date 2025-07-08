@@ -2,7 +2,7 @@
 # It connects the retrieving similar data with searching for the best hyperparameters using the MCPClient
 # It should be also possible to integrate multiple other MCPClients later
 
-import os, asyncio, sys, uvicorn
+import os, asyncio, sys, uvicorn, uuid
 from mcp_client.client import MCPClient
 from similar_data import find_similar_dataset
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -41,6 +41,30 @@ For example:
     }
 }```
 """
+def _store_tokens(tokens):
+    try:
+      connection, _ = init_postgresql()
+      # initialize a uuid for the query
+      query_id = str(uuid.uuid4())
+
+      with connection.cursor() as cursor:
+        cursor.execute("CREATE TABLE IF NOT EXISTS tokens (id VARCHAR PRIMARY KEY, query_id VARCHAR, completion_tokens INT, prompt_tokens INT, total_tokens INT)")
+        for token in tokens:
+            completion_tokens = int(token.get("completion_tokens") or 0)
+            prompt_tokens = int(token.get("prompt_tokens") or 0)
+            total_tokens = int(token.get("total_tokens") or 0)
+            cursor.execute(
+                "INSERT INTO tokens (id, query_id, completion_tokens, prompt_tokens, total_tokens) VALUES (%s, %s, %s, %s, %s) ON CONFLICT (id) DO UPDATE SET completion_tokens = EXCLUDED.completion_tokens, prompt_tokens = EXCLUDED.prompt_tokens, total_tokens = EXCLUDED.total_tokens",
+                (token["id"], query_id , completion_tokens, prompt_tokens, total_tokens)
+            )
+        connection.commit()
+    
+      close_postgresql(connection)
+
+    except Exception as e:
+        logger.error(f"Error storing tokens in PostgreSQL: {e}")
+        
+    return query_id
 
 @app.post("/retrieve_parameters")
 async def retrieve_parameters(request: Request):
@@ -62,10 +86,13 @@ async def retrieve_parameters(request: Request):
     if not similar_dataset:
         logger.info("No similar datasets found.")
         # This will not return a good solution
-        response = await client.query(f"Based on your knowledge, what are the best hyperparameters for a dataset with the following description: {query}?")
+        response, tokens = await client.query(f"Based on your knowledge, what are the best hyperparameters for a dataset with the following description: {query}?")
     else:
         logger.info(f"Found similar dataset: {similar_dataset['name']}")
-        response = await client.query(f"Retrieve the best hyperparametersettings for the following dataset {similar_dataset['name']}?")
+        response, tokens = await client.query(f"Retrieve the best hyperparametersettings for the following dataset {similar_dataset['name']}?")
+
+    query_id = _store_tokens(tokens)
+    logger.info(f"Tokens stored with query_id: {query_id}")
 
     await client.cleanup()
     logger.info(f"Response: {response}")
@@ -75,6 +102,7 @@ async def retrieve_parameters(request: Request):
 @app.post("/retrieve_runs")
 async def retrieve_runs(request: Request):
     """Retrieve runs from the neo4j based on the given metadata and description of a dataset."""
+
     req = await request.json()
     query = req.get("query", "")
     
@@ -87,12 +115,16 @@ async def retrieve_runs(request: Request):
         similar_dataset = find_similar_dataset(query) 
         if not similar_dataset:
             logger.info("No similar datasets found.")
-            response = await client.query_for_run(f"Based on your knowledge, what are the 3 best runs for a dataset with the following description: {query}?")
+            response, tokens = await client.query_for_run(f"Based on your knowledge, what are the 3 best runs for a dataset with the following description: {query}?")
         else:
             logger.info(f"Found similar dataset: {similar_dataset['name']}")
-            response = await client.query_for_run(f"Retrieve the 3 best runs for the following dataset {similar_dataset['name']}." + OUTPUT_RUN)
-        
+            response, tokens = await client.query_for_run(f"Retrieve the 3 best runs for the following dataset {similar_dataset['name']}." + OUTPUT_RUN)
+
         await client.cleanup()
+
+        query_id = _store_tokens(tokens)
+        logger.info(f"Tokens stored with query_id: {query_id}")
+
         return {"message": response}
     except Exception as e:
         logger.error(f"Error retrieving runs: {e}")

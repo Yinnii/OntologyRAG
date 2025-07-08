@@ -11,17 +11,31 @@ POSTGRES_DB = os.getenv("POSTGRES_DB", "openml")
 # initialize postgresql database connection
 def init_postgresql():
     """ Initialize the PostgreSQL database connection."""
-    connection = p.connect(
-      database=POSTGRES_DB,
-      user=POSTGRES_USER,
-      password=POSTGRES_PASSWORD,
-      host=POSTGRES_HOST,
-      port=POSTGRES_PORT
-    )
+    # if the POSTGRES_HOST is a container name or service name, do another connection without port
+    if "postgres" in POSTGRES_HOST or "postgresql" in POSTGRES_HOST:
+        connection = p.connect(
+            database=POSTGRES_DB,
+            user=POSTGRES_USER,
+            password=POSTGRES_PASSWORD,
+            host=POSTGRES_HOST
+        )
+        engine = create_engine(
+            f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}"
+        )
 
-    engine = create_engine(
-        f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
-    )
+    else:
+      connection = p.connect(
+        database=POSTGRES_DB,
+        user=POSTGRES_USER,
+        password=POSTGRES_PASSWORD,
+        host=POSTGRES_HOST,
+        port=POSTGRES_PORT
+      )
+
+      engine = create_engine(
+          f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+      )
+      
     return connection, engine
 
 def close_postgresql(connection):

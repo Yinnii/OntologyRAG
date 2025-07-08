@@ -76,7 +76,7 @@ RETURN label, apoc.map.fromPairs(attributes) as attributes, apoc.map.fromPairs(r
                     _read, get_schema_query, dict()
                 )
 
-                logger.debug(f"Read query returned {len(results_json_str)} rows")
+                logger.debug(f"Read query returned {results_json_str}")
 
                 return [types.TextContent(type="text", text=results_json_str)]
 
@@ -99,7 +99,7 @@ RETURN label, apoc.map.fromPairs(attributes) as attributes, apoc.map.fromPairs(r
             async with neo4j_driver.session(database=database) as session:
                 results_json_str = await session.execute_read(_read, query, params)
 
-                logger.debug(f"Read query returned {len(results_json_str)} rows")
+                logger.debug(f"Read query returned {results_json_str}")
 
                 return [types.TextContent(type="text", text=results_json_str)]
 

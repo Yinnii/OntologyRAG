@@ -27,8 +27,8 @@ You can use the following tools:
 EXAMPLE_PROMPT = """
 Here are some examples of how to interact with the database. To ensure correct usage, always retrieve the schema first:
 USER INPUT: 'What are the best runs and its hyperparametersettings?'
-1. Retrieve schema then run the query to retrieve the best predictive accuracy for the dataset:
-QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) RETURN r, d, me ORDER BY me.hasValue DESC LIMIT 3
+1. Retrieve schema then run the query to retrieve the best predictive accuracy for the dataset and return ONLY the name of dataset:
+QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) RETURN r, d.name, me ORDER BY me.hasValue DESC LIMIT 3
 
 2. Get the hyperparametersettings for each of the runs:
 QUERY: MATCH (r:Run {name: 'retrieved run name'})-[:hasInput]->(hps:HyperParameterSetting) RETURN hps.name, hps.hasValue
@@ -77,6 +77,7 @@ class MCPClient:
         response = await self.session.list_tools()
         tools = response.tools
         logger.info("Available tools:" + ", ".join(tool.name for tool in tools))
+
 
     async def process_query(self, query: str) -> str:
       response = await self.session.list_tools()
@@ -177,6 +178,8 @@ class MCPClient:
             return f"Error processing query: {str(e)}"
     
     async def process_query_for_run(self, query: str) -> str:
+      """Run a query to retrieve runs from the server and handle tool calls"""
+      tokens = []
       response = await self.session.list_tools()
 
       available_tools = [{
@@ -212,6 +215,18 @@ class MCPClient:
           tools=available_tools
       )
 
+      completion_token = response.usage.completion_tokens
+      prompt_tokens = response.usage.prompt_tokens
+      total_tokens = response.usage.total_tokens
+      tokens.append({
+          "id": response.id,
+          "completion_tokens": completion_token,
+          "prompt_tokens": prompt_tokens,
+          "total_tokens": total_tokens
+      })
+
+      logger.info(f"Response tokens: {tokens}")
+
       # Process response and handle tool calls
       final_text = []
       choices = response.choices
@@ -239,8 +254,6 @@ class MCPClient:
 
                   # Execute tool call
                   result = await self.session.call_tool(tool_name, tool_args)
-                  
-                  print(f"Tool result: {result.content}")
 
                   messages.append({
                       "role": "tool",
@@ -256,21 +269,34 @@ class MCPClient:
                   tools=available_tools
               )
 
+              completion_token = response.usage.completion_tokens
+              prompt_tokens = response.usage.prompt_tokens
+              total_tokens = response.usage.total_tokens
+              overall_tokens = {
+                  "id": response.id,
+                  "completion_tokens": completion_token,
+                  "prompt_tokens": prompt_tokens,
+                  "total_tokens": total_tokens
+              }
+
+              tokens.append(overall_tokens)
+              logger.info(f"Response tokens: {tokens}")
+
               if response.choices[0].message.tool_calls:
                   choices.append(response.choices[0])
               
               if response.choices and response.choices[0].message.content:
                   final_text.append(response.choices[0].message.content)
 
-      return "\n".join(final_text)
+      return "\n".join(final_text), tokens
 
     async def query_for_run(self, query: str):
         """Run a query to retrieve runs from the server"""
         logger.info(f"Processing query for runs: {query}")
         try:
-            response = await self.process_query_for_run(query)
+            response, tokens = await self.process_query_for_run(query)
             logger.info("\n" + response)
-            return response
+            return response, tokens
         except Exception as e:
             logger.info(f"Error processing query for runs: {str(e)}")
             return f"Error processing query for runs: {str(e)}"
