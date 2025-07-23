@@ -2,9 +2,9 @@
 # It connects the retrieving similar data with searching for the best hyperparameters using the MCPClient
 # It should be also possible to integrate multiple other MCPClients later
 
-import os, asyncio, sys, uvicorn, uuid
+import os, sys, uvicorn, uuid, json, re
 from mcp_client.client import MCPClient
-from similar_data import find_similar_dataset
+from similar_data import find_similar_dataset, check_parameters_for_equality
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import ontorag_logger as logger
 from fastapi import FastAPI, Request
@@ -18,7 +18,7 @@ When retrieving runs, extract all the information related to the run and return 
 For example:
 ```{
     "run": {
-      "name": "run25673",
+      "name": "25673",
       "dataset": {  
         "dataset_name": "iris",
         "qualities": {
@@ -66,6 +66,39 @@ def _store_tokens(tokens):
         
     return query_id
 
+def _parse_response(response):
+    try:
+      response = re.search(r'```json(.*?)```', response, re.DOTALL)
+    except Exception as e:
+        logger.error(f"Error parsing response: {e}")
+        return {"message": "Error parsing response."}
+
+    return json.loads(response.group(1).strip())
+
+def _check_response_distinctness(response):
+    is_distinct = True
+    if isinstance(response, list) and len(response) > 1:
+        for i in range(len(response) - 1):
+            for j in range(i + 1, len(response)):
+                if check_parameters_for_equality(response[i], response[j]):
+                    # logger.warning(f"Runs {i} and {j} have the same hyperparametersettings: {response[i]['run']['flow']['hyperparametersettings']}")
+                    is_distinct = False
+        return is_distinct
+    elif isinstance(response, dict):
+        runs = response.get("runs", [])
+        if len(runs) > 1:
+            for i in range(len(runs) - 1):
+                for j in range(i + 1, len(runs)):
+                    if check_parameters_for_equality(runs[i], runs[j]):
+                        # logger.warning(f"Runs {i} and {j} have the same hyperparametersettings: {runs[i]['run']['flow']['hyperparametersettings']}")
+                        is_distinct = False
+            return is_distinct
+        return True, []
+    else:
+        logger.error("Unexpected response format.")
+        # Since we do not want to disturb the flow, we assume the response is distinct
+        return True, []
+
 @app.post("/retrieve_parameters")
 async def retrieve_parameters(request: Request):
     """Retrieve the best hyperparameters for a dataset based on its description.
@@ -94,7 +127,6 @@ async def retrieve_parameters(request: Request):
     query_id = _store_tokens(tokens)
     logger.info(f"Tokens stored with query_id: {query_id}")
 
-    await client.cleanup()
     logger.info(f"Response: {response}")
     await client.cleanup()
     return {"message": response}
@@ -108,7 +140,7 @@ async def retrieve_runs(request: Request):
     
     logger.info("Start searching for runs in the graph database...")
     client = MCPClient()
-    await client.connect_to_server("./mcp_server/server.py")
+    await client.connect_to_server("./src/mcp_server/server.py")
 
     response = ""
     try:
@@ -121,6 +153,40 @@ async def retrieve_runs(request: Request):
             response, tokens = await client.query_for_run(f"Retrieve the 3 best runs for the following dataset {similar_dataset['name']}." + OUTPUT_RUN)
 
         await client.cleanup()
+
+        response = _parse_response(response)
+
+        is_distinct = _check_response_distinctness(response)
+
+        if not is_distinct:
+            logger.warning("Response contains runs with the same hyperparametersettings, removing them.")
+            
+            if isinstance(response, list):
+                # get the last element of the response
+                dist_num = len(response) - 1
+            elif isinstance(response, dict):
+                dist_num = len(response.get("runs")) - 1
+
+            # find a random run with different hyperparametersettings
+            await client.connect_to_server("./src/mcp_server/server.py")
+            response_new, tokens_new = await client.query_for_run(f"Retrieve {dist_num} random runs for the following dataset {similar_dataset['name']}. Use only one json in the response." + OUTPUT_RUN)
+            await client.cleanup()
+
+            if isinstance(response, list):
+                response = {"runs": [response[0]]}
+            elif isinstance(response, dict):
+                response = {"runs": [response.get("runs")[0]]}
+
+            logger.info(f"Response after removing duplicates: {response}")
+
+            response_new = _parse_response(response_new)
+
+            if isinstance(response_new, list):
+                response["runs"].extend(response_new)
+            else:
+                response["runs"].extend(response_new["runs"])
+
+            tokens.extend(tokens_new)
 
         query_id = _store_tokens(tokens)
         logger.info(f"Tokens stored with query_id: {query_id}")

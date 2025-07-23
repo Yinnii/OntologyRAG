@@ -1,4 +1,4 @@
-import asyncio, os, sys
+import asyncio, os, sys, json
 from typing import Optional
 from contextlib import AsyncExitStack
 
@@ -16,7 +16,6 @@ from utils import ontorag_logger as logger
 
 SYSTEM_PROMPT = """
 You are a helpful data analyst specialized on machine learning data who can interact with the connected Neo4j database containing runs from OpenML by using the given tools.
-You can retrieve the schema of the database, read the data and analyze it. 
 You will receive queries and commands from the user, and you should respond with the results. 
 Use the specific tools to interact with the database, such as getting the schema and reading data.
 You can use the following tools:
@@ -126,7 +125,6 @@ class MCPClient:
               final_text.append(message.content)
               logger.info(f"Assistant response: {message.content}")
           if getattr(message, "tool_calls", None):
-              import json
               # Add the assistant message with all tool_calls
               messages.append({
                   "role": "assistant",
@@ -179,8 +177,10 @@ class MCPClient:
     
     async def process_query_for_run(self, query: str) -> str:
       """Run a query to retrieve runs from the server and handle tool calls"""
+      logger.info(f"Processing query for runs: {query}")
       tokens = []
       response = await self.session.list_tools()
+      first_message = True
 
       available_tools = [{
           "type": "function",
@@ -235,10 +235,27 @@ class MCPClient:
       for choice in choices:
           message = choice.message
           if message.content:
+              if first_message:
+                  # try to query again with the query
+
+                  response = await client.chat.completions.create(
+                      model=deployment,
+                      max_tokens=1500,
+                      messages=messages,
+                      tools=available_tools
+                  )
+
+              if response.choices[0].message.tool_calls:
+                  choices.append(response.choices[0])
+              
+              if response.choices and response.choices[0].message.content:
+                  final_text.append(response.choices[0].message.content)
+
               final_text.append(message.content)
-              logger.info(f"Assistant response: {message.content}")
+              # logger.info(f"Assistant response: {message.content}")
+
           if getattr(message, "tool_calls", None):
-              import json
+              first_message = False
               # Add the assistant message with all tool_calls
               messages.append({
                   "role": "assistant",
@@ -292,31 +309,30 @@ class MCPClient:
 
     async def query_for_run(self, query: str):
         """Run a query to retrieve runs from the server"""
-        logger.info(f"Processing query for runs: {query}")
         try:
             response, tokens = await self.process_query_for_run(query)
             logger.info("\n" + response)
             return response, tokens
         except Exception as e:
             logger.info(f"Error processing query for runs: {str(e)}")
-            return f"Error processing query for runs: {str(e)}"
+            return f"Error processing query for runs: {str(e)}", []
 
-    async def chat_loop(self):
-        """Run an interactive chat loop"""
-        logger.info("MCP Client Started!")
-        logger.info("Type your queries or 'quit' to exit.")
+    # async def chat_loop(self):
+    #     """Run an interactive chat loop"""
+    #     logger.info("MCP Client Started!")
+    #     logger.info("Type your queries or 'quit' to exit.")
         
-        while True:
-            try:
-                query = input("\nQuery: ").strip()
+    #     while True:
+    #         try:
+    #             query = input("\nQuery: ").strip()
                 
-                if query.lower() == 'quit':
-                    break
+    #             if query.lower() == 'quit':
+    #                 break
                     
-                response = await self.process_query(query)
+    #             response = await self.process_query(query)
                     
-            except Exception as e:
-                logger.info(f"\nError: {str(e)}")
+    #         except Exception as e:
+    #             logger.info(f"\nError: {str(e)}")
     
     async def cleanup(self):
         """Clean up resources"""
