@@ -42,6 +42,5 @@ def close_postgresql(connection):
     """ Close the PostgreSQL database connection."""
     if connection:
         connection.close()
-        print("PostgreSQL connection is closed.")
     else:
         print("No PostgreSQL connection to close.")
