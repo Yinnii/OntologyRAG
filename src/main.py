@@ -140,7 +140,7 @@ async def retrieve_runs(request: Request):
     
     logger.info("Start searching for runs in the graph database...")
     client = MCPClient()
-    await client.connect_to_server("./src/mcp_server/server.py")
+    await client.connect_to_server("./mcp_server/server.py")
 
     response = ""
     try:
@@ -168,7 +168,7 @@ async def retrieve_runs(request: Request):
                 dist_num = len(response.get("runs")) - 1
 
             # find a random run with different hyperparametersettings
-            await client.connect_to_server("./src/mcp_server/server.py")
+            await client.connect_to_server("./mcp_server/server.py")
             response_new, tokens_new = await client.query_for_run(f"Retrieve {dist_num} random runs for the following dataset {similar_dataset['name']}. Use only one json in the response." + OUTPUT_RUN)
             await client.cleanup()
 
