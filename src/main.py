@@ -177,8 +177,6 @@ async def retrieve_runs(request: Request):
             elif isinstance(response, dict):
                 response = {"runs": [response.get("runs")[0]]}
 
-            logger.info(f"Response after removing duplicates: {response}")
-
             response_new = _parse_response(response_new)
 
             if isinstance(response_new, list):
