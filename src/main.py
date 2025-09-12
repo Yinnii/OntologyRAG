@@ -2,8 +2,9 @@
 # It connects the retrieving similar data with searching for the best hyperparameters using the MCPClient
 # It should be also possible to integrate multiple other MCPClients later
 
-import os, sys, uvicorn, uuid, json, re
+import os, sys, uvicorn, uuid, json, re, json_repair, datetime
 from mcp_client.client import MCPClient
+from mcp_client.store_client import MCPStoreClient
 from similar_data import find_similar_dataset, check_parameters_for_equality
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import ontorag_logger as logger
@@ -43,20 +44,22 @@ For example:
 """
 def _store_tokens(tokens):
     try:
+      logger.info(tokens)
       connection, _ = init_postgresql()
       # initialize a uuid for the query
       query_id = str(uuid.uuid4())
+      date = datetime.datetime.now()
 
       with connection.cursor() as cursor:
-        cursor.execute("CREATE TABLE IF NOT EXISTS tokens (id VARCHAR PRIMARY KEY, query_id VARCHAR, completion_tokens INT, prompt_tokens INT, total_tokens INT)")
-        for token in tokens:
-            completion_tokens = int(token.get("completion_tokens") or 0)
-            prompt_tokens = int(token.get("prompt_tokens") or 0)
-            total_tokens = int(token.get("total_tokens") or 0)
-            cursor.execute(
-                "INSERT INTO tokens (id, query_id, completion_tokens, prompt_tokens, total_tokens) VALUES (%s, %s, %s, %s, %s) ON CONFLICT (id) DO UPDATE SET completion_tokens = EXCLUDED.completion_tokens, prompt_tokens = EXCLUDED.prompt_tokens, total_tokens = EXCLUDED.total_tokens",
-                (token["id"], query_id , completion_tokens, prompt_tokens, total_tokens)
-            )
+        cursor.execute("CREATE TABLE IF NOT EXISTS openai_tokens (date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, query_id VARCHAR PRIMARY KEY, completion_tokens INT, prompt_tokens INT, total_tokens INT, embedding_tokens INT)")
+        completion_tokens = int(tokens.get("completion_tokens") or 0)
+        prompt_tokens = int(tokens.get("prompt_tokens") or 0)
+        total_tokens = int(tokens.get("total_tokens") or 0)
+        embedding_tokens = int(tokens.get("embedding_tokens") or 0)
+        cursor.execute(
+            "INSERT INTO openai_tokens (date, query_id, completion_tokens, prompt_tokens, total_tokens, embedding_tokens) VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT (query_id) DO UPDATE SET completion_tokens = EXCLUDED.completion_tokens, prompt_tokens = EXCLUDED.prompt_tokens, total_tokens = EXCLUDED.total_tokens, embedding_tokens = EXCLUDED.embedding_tokens",
+            (date, query_id , completion_tokens, prompt_tokens, total_tokens, embedding_tokens)
+        )
         connection.commit()
     
       close_postgresql(connection)
@@ -76,28 +79,33 @@ def _parse_response(response):
     return json.loads(response.group(1).strip())
 
 def _check_response_distinctness(response):
-    is_distinct = True
     if isinstance(response, list) and len(response) > 1:
         for i in range(len(response) - 1):
             for j in range(i + 1, len(response)):
-                if check_parameters_for_equality(response[i], response[j]):
-                    # logger.warning(f"Runs {i} and {j} have the same hyperparametersettings: {response[i]['run']['flow']['hyperparametersettings']}")
-                    is_distinct = False
-        return is_distinct
+                equal, tokens = check_parameters_for_equality(response[i], response[j])
+                if equal:
+                    logger.warning(f"Responses {i} and {j} have the same hyperparametersettings: {response[i]['run']['flow']['hyperparametersettings']}")
+                    return False, tokens
+        return True, tokens
     elif isinstance(response, dict):
         runs = response.get("runs", [])
         if len(runs) > 1:
             for i in range(len(runs) - 1):
                 for j in range(i + 1, len(runs)):
-                    if check_parameters_for_equality(runs[i], runs[j]):
-                        # logger.warning(f"Runs {i} and {j} have the same hyperparametersettings: {runs[i]['run']['flow']['hyperparametersettings']}")
-                        is_distinct = False
-            return is_distinct
+                    equal, tokens = check_parameters_for_equality(runs[i], runs[j])
+                    if equal:
+                        logger.warning(f"Responses {i} and {j} have the same hyperparametersettings: {runs[i]['run']['flow']['hyperparametersettings']}")
+                        return False, tokens
+            return True, tokens
         return True, []
     else:
         logger.error("Unexpected response format.")
         # Since we do not want to disturb the flow, we assume the response is distinct
         return True, []
+
+def _repair_json(json_run):
+    repaired_json = json_repair.loads(json_run)
+    return repaired_json
 
 @app.post("/retrieve_parameters")
 async def retrieve_parameters(request: Request):
@@ -144,7 +152,7 @@ async def retrieve_runs(request: Request):
 
     response = ""
     try:
-        similar_dataset = find_similar_dataset(query) 
+        similar_dataset, embedding_tokens = find_similar_dataset(query) 
         if not similar_dataset:
             logger.info("No similar datasets found.")
             response, tokens = await client.query_for_run(f"Based on your knowledge, what are the 3 best runs for a dataset with the following description: {query}?")
@@ -156,7 +164,10 @@ async def retrieve_runs(request: Request):
 
         response = _parse_response(response)
 
-        is_distinct = _check_response_distinctness(response)
+        tokens["embedding_tokens"] += embedding_tokens
+
+        is_distinct, embedding_tokens = _check_response_distinctness(response)
+        tokens["embedding_tokens"] += embedding_tokens
 
         if not is_distinct:
             logger.warning("Response contains runs with the same hyperparametersettings, removing them.")
@@ -184,7 +195,9 @@ async def retrieve_runs(request: Request):
             else:
                 response["runs"].extend(response_new["runs"])
 
-            tokens.extend(tokens_new)
+            tokens["completion_tokens"] += tokens_new["completion_tokens"]
+            tokens["prompt_tokens"] += tokens_new["prompt_tokens"]
+            tokens["total_tokens"] += tokens_new["total_tokens"]
 
         query_id = _store_tokens(tokens)
         logger.info(f"Tokens stored with query_id: {query_id}")
@@ -195,46 +208,55 @@ async def retrieve_runs(request: Request):
         response = f"Error retrieving runs: {str(e)}"
         return {"message": response}
 
-@app.post("/store_run")
+@app.post("/store_run_mcp")
 async def store_run(request: Request):
+    """
+    Store a new run using the JSON payload using MCP client/server.
+    """
+    run_details = await request.json()
+    client = MCPStoreClient()
+    await client.connect_to_server("./mcp_server/write_server.py")
+    response = await client.store_run(run_details)
+    await client.cleanup()
+    return {"message": response}
+
+@app.post("/store_run_static")
+async def store_run_static(request: Request):
     """
     Store a new run in the ontology graph.
     This endpoint receives a run's metadata and stores it in the Neo4j graph database.
     It expects a JSON payload with the run's details.
     """
-    URI = os.getenv("NEO4J_URI", "neo4j://localhost:7688")
-    USER = os.getenv("NEO4J_USER", "neo4j")
-    PASSWORD = os.getenv("NEO4J_PASSWORD", "password")
 
-    connection = init_postgresql()
+    connection, _ = init_postgresql()
 
     # initialize the graph
     request_data = await request.json()
+    run = json.loads(request_data.get("run"))
     try:
-      ontoGraph = OntologyGraphStoreRun()
-      ontoGraph.insert_new_run(request_data)
-
-      # store .pkl file that has  into postgresql database with run id
-      run_id = request_data.get("run_id")
+      # ontoGraph = OntologyGraphStoreRun()
+      # run_id = ontoGraph.insert_new_run(run)
+      # logger.info(f"Run {run_id} stored successfully in the graph database.")
       # model is a pickle.dumps object as bytes
-      model = request_data.get("model")
+      run_id = uuid.uuid4()
       with connection.cursor() as cursor:
           cursor.execute(
-              "CREATE TABLE IF NOT EXISTS runs (run_id VARCHAR PRIMARY KEY, model BYTEA)"
+              "CREATE TABLE IF NOT EXISTS runs (run_id VARCHAR PRIMARY KEY, details TEXT)"
           )
           cursor.execute(
-              "INSERT INTO runs (run_id, model) VALUES (%s, %s) ON CONFLICT (run_id) DO UPDATE SET model = EXCLUDED.model",
-              (run_id, model)
+              "INSERT INTO runs (run_id, details) VALUES (%s, %s) ON CONFLICT (run_id) DO UPDATE SET details = EXCLUDED.details",
+              (run_id, json.dumps(run))
           )
           connection.commit()
       
       close_postgresql(connection)
+      logger.info(f"Run {run_id} stored successfully in PostgreSQL.")
 
-      return {"message": "Run stored successfully."}
+      return {"success": True}
     except Exception as e:
       logger.error(f"Error storing run: {e}")
-      return {"message": "Error storing run.", "error": str(e)}
+      return {"success": False, "error": str(e)}
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=6666)
+    uvicorn.run(app, host="0.0.0.0", port=5555)
 

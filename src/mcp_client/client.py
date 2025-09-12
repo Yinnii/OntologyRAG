@@ -1,4 +1,4 @@
-import asyncio, os, sys, json
+import asyncio, os, sys, json, openai, litellm
 from typing import Optional
 from contextlib import AsyncExitStack
 
@@ -24,9 +24,9 @@ You can use the following tools:
 """
 
 EXAMPLE_PROMPT = """
-Here are some examples of how to interact with the database. To ensure correct usage, always retrieve the schema first:
+Here is an examples of how to interact with the database. To ensure correct usage, always retrieve the schema first:
 USER INPUT: 'What are the best runs and its hyperparametersettings?'
-1. Retrieve schema then run the query to retrieve the best predictive accuracy for the dataset and return ONLY the name of dataset:
+1. Retrieve the schema then run the query to retrieve the best predictive accuracy for the dataset and return ONLY the name of dataset:
 QUERY: MATCH (d:Dataset {name: 'creditg'}) MATCH (r:Run)-[:hasInput]->(d) MATCH (r)-[:hasOutput]->(me:ModelEvaluation) RETURN r, d.name, me ORDER BY me.hasValue DESC LIMIT 3
 
 2. Get the hyperparametersettings for each of the runs:
@@ -100,6 +100,7 @@ class MCPClient:
           }
       ]
 
+      # TODO use litellm
       client = AsyncAzureOpenAI(
           api_key=os.getenv("AZURE_API_KEY"),
           api_version="2025-01-01-preview",
@@ -174,11 +175,16 @@ class MCPClient:
         except Exception as e:
             logger.info(f"Error processing query: {str(e)}")
             return f"Error processing query: {str(e)}"
-    
-    async def process_query_for_run(self, query: str) -> str:
+
+    async def process_query_for_run(self, query: str) -> tuple[str, dict]:
       """Run a query to retrieve runs from the server and handle tool calls"""
       logger.info(f"Processing query for runs: {query}")
-      tokens = []
+      tokens = {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0,
+          "embedding_tokens": 0
+      }
       response = await self.session.list_tools()
       first_message = True
 
@@ -201,29 +207,32 @@ class MCPClient:
           }
       ]
 
-      client = AsyncAzureOpenAI(
-          api_key=os.getenv("AZURE_API_KEY"),
-          api_version="2025-01-01-preview",
-          azure_endpoint=os.getenv("AZURE_ENDPOINT")
-      )
-      deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
-
-      response = await client.chat.completions.create(
-          model=deployment,
+      response = litellm.completion(
+          api_base=os.getenv("OPENAI_ENDPOINT"),
+          api_key=os.getenv("OPENAI_API_KEY"),
+          model="azure_ai/" + os.getenv("LLM_MODEL", "azure-gpt-4o-mini"),
           max_tokens=1500,
           messages=messages,
           tools=available_tools
       )
 
-      completion_token = response.usage.completion_tokens
-      prompt_tokens = response.usage.prompt_tokens
-      total_tokens = response.usage.total_tokens
-      tokens.append({
-          "id": response.id,
-          "completion_tokens": completion_token,
-          "prompt_tokens": prompt_tokens,
-          "total_tokens": total_tokens
-      })
+      # client = openai.OpenAI(
+      #     api_key=os.getenv("OPENAI_API_KEY"),
+      #     base_url="http://litellm.warhol.informatik.rwth-aachen.de"
+      # )
+
+      # model = os.getenv("LLM_MODEL", "gpt-4o-mini")
+
+      # response = client.chat.completions.create(
+      #     model=model,
+      #     max_tokens=1500,
+      #     messages=messages,
+      #     tools=available_tools
+      # )
+
+      tokens["completion_tokens"] = response.usage.completion_tokens
+      tokens["prompt_tokens"] = response.usage.prompt_tokens
+      tokens["total_tokens"] = response.usage.total_tokens
 
       logger.info(f"Response tokens: {tokens}")
 
@@ -238,12 +247,18 @@ class MCPClient:
               if first_message:
                   # try to query again with the query
 
-                  response = await client.chat.completions.create(
-                      model=deployment,
+                  response = litellm.completion(
+                      api_base=os.getenv("OPENAI_ENDPOINT"),
+                      api_key=os.getenv("OPENAI_API_KEY"),
+                      model="azure_ai/" + os.getenv("LLM_MODEL", "azure-gpt-4o-mini"),
                       max_tokens=1500,
                       messages=messages,
                       tools=available_tools
                   )
+
+                  tokens["completion_tokens"] += response.usage.completion_tokens
+                  tokens["prompt_tokens"] += response.usage.prompt_tokens
+                  tokens["total_tokens"] += response.usage.total_tokens
 
               if response.choices[0].message.tool_calls:
                   choices.append(response.choices[0])
@@ -278,25 +293,19 @@ class MCPClient:
                       "tool_call_id": tool_call.id,
                   })
 
-              # Get next response from Azure OpenAI
-              response = await client.chat.completions.create(
-                  model=deployment,
+              response = litellm.completion(
+                  api_base=os.getenv("OPENAI_ENDPOINT"),
+                  api_key=os.getenv("OPENAI_API_KEY"),
+                  model="azure_ai/" + os.getenv("LLM_MODEL", "azure-gpt-4o-mini"),
                   max_tokens=1500,
                   messages=messages,
                   tools=available_tools
               )
 
-              completion_token = response.usage.completion_tokens
-              prompt_tokens = response.usage.prompt_tokens
-              total_tokens = response.usage.total_tokens
-              overall_tokens = {
-                  "id": response.id,
-                  "completion_tokens": completion_token,
-                  "prompt_tokens": prompt_tokens,
-                  "total_tokens": total_tokens
-              }
+              tokens["completion_tokens"] += response.usage.completion_tokens
+              tokens["prompt_tokens"] += response.usage.prompt_tokens
+              tokens["total_tokens"] += response.usage.total_tokens
 
-              tokens.append(overall_tokens)
               logger.info(f"Response tokens: {tokens}")
 
               if response.choices[0].message.tool_calls:
@@ -333,7 +342,7 @@ class MCPClient:
                     
     #         except Exception as e:
     #             logger.info(f"\nError: {str(e)}")
-    
+
     async def cleanup(self):
         """Clean up resources"""
         await self.exit_stack.aclose()

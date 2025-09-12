@@ -1,6 +1,8 @@
 from rdflib import Graph, Namespace, Literal, RDF, RDFS
 from rdflib_neo4j import Neo4jStoreConfig, Neo4jStore, HANDLE_VOCAB_URI_STRATEGY
-import re, os
+from neo4j import GraphDatabase
+import re, os, json
+from utils import ontorag_logger as logger
 
 MLS = Namespace("http://openmlrun.org#")
 
@@ -15,26 +17,21 @@ class OntologyGraphStoreRun:
                                        batching=True,)
         self.graph = Graph(store=Neo4jStore(config=config))
         self.graph.open(config)
+        self.driver = GraphDatabase.driver(auth['uri'], auth=(auth['user'], auth['pwd']))
 
     def _safe_name(self, name):
         return re.sub(r'\W|^(?=\d)', '_', str(name)).strip('_')
     
     def max_run_id(self):
-        """
-        Returns the maximum run ID from the graph.
-        If no runs exist, returns 0.
-        """
-        query = "MATCH (r:Run) WHERE r.name STARTS WITH 'run' RETURN max(toInteger(replace(r.name, 'run', ''))) AS max_run_id"
-        result = self.graph.query(query)
-        try:
-          if result:
-              max_run_id = result.bindings[0].get('max_run_id', Literal(0))
-              return int(max_run_id)
+        with self.driver.session() as session:
+            result = session.run("MATCH (r:Run) RETURN r.name ORDER BY r.name DESC LIMIT 1")
+            max_run = result.single().get("r.name")
+            if max_run:
+                max_run_id = re.search(r'run(\d+)', max_run).group(1)
 
-        except Exception as e:
-          print(f"Error retrieving max run ID: {e}")
-          return None
-      
+            logger.info(f"Max run ID from graph: {max_run_id if max_run_id else 0}")
+            return max_run_id
+
     # Run structure example:
     # {
     #   "dataset": {  
@@ -53,23 +50,26 @@ class OntologyGraphStoreRun:
     #       "min_samples_split": 2
     #     }
     #   },
-    def insert_new_run(self, run: dict):
-        run_id = self.max_run_id() + 1
+    def insert_new_run(self, run):
+        run_id = int(self.max_run_id())+1
+
+        logger.info(f"Inserting new run with ID: run{run_id}")
+        run = json.loads(run)
 
         dataset = run.get("dataset")
-        flow = run.get("flow")
-        dname = self._safe_name(dataset.get("dataset_name"))
-        task_name = self._safe_name(run.get("task_name"))
+        flow = json.loads(run.get("flow"))
+        # dname = self._safe_name(dataset.get("dataset_name"))
+        # task_name = self._safe_name(run.get("task_name"))
         flname = self._safe_name(flow.get("implementation"))
         fldependencies = self._safe_name(flow.get("software", "NoDependencies"))
-        eval_measure = self._safe_name(run.get("evaluation_measure", "predictiveaccuracy"))
+        eval_measure = self._safe_name(json.loads(run.get("evaluation")).get("measure"))
         eval_value = run.get("evaluation_value", 0.0)
-        qualities = dataset.get("qualities", {})
-        instances = qualities.get("NumberOfInstances", 0)
-        features = qualities.get("NumberOfFeatures", 0)
-        dataset_description = dataset.get("description", "")
-        run_description = run.get("run_details", "No description available")
-        estimation_procedure = self._safe_name(run.get("estimation_procedure", "UnknownProcedure"))
+        # qualities = dataset.get("qualities", {})
+        # instances = qualities.get("NumberOfInstances", 0)
+        # features = qualities.get("NumberOfFeatures", 0)
+        # dataset_description = dataset.get("description", "")
+        # run_description = run.get("run_details", "No description available")
+        # estimation_procedure = self._safe_name(run.get("estimation_procedure", "UnknownProcedure"))
 
         flname_lower = flname.lower()
         if "logistic" in flname_lower:
@@ -106,12 +106,12 @@ class OntologyGraphStoreRun:
         algorithm_uri = MLS[algorithm_name]
         dataset_uri = MLS[f"Dataset{dname}"]
         eval_measure_uri = MLS[eval_measure]
-        estimation_procedure_uri = MLS[estimation_procedure]
+        # estimation_procedure_uri = MLS[estimation_procedure]
         evaluation_spec_uri = MLS[f"evaluationSpecification{run_id}"]
         model_eval_uri = MLS[f"modelEvaluation{run_id}"]
         model_uri = MLS[f"{flname}Model{run_id}"]
-        num_instances_uri = MLS[f"numberOfInstances{dname}"]
-        num_features_uri = MLS[f"numberOfFeatures{dname}"]
+        # num_instances_uri = MLS[f"numberOfInstances{dname}"]
+        # num_features_uri = MLS[f"numberOfFeatures{dname}"]
         print(run_uri)
 
         # Nodes
@@ -190,3 +190,5 @@ class OntologyGraphStoreRun:
             self.graph.add((hps_uri, MLS.specifiedBy, hp_uri))
             self.graph.add((implementation_uri, MLS.hasHyperParameter, hp_uri))
         
+
+        return run_id
