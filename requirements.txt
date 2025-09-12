@@ -1,12 +1,13 @@
 anthropic==0.55.0
 fastapi==0.115.14
 loguru==0.7.3
+litellm==1.77.0
 mcp==1.9.4
 mcp-neo4j-cypher==0.2.3
 neo4j==5.28.1
 neo4j-graphrag==1.7.0
 numpy==2.2.6
-openai==1.91.0
+openai==1.99.5
 openml==0.15.1
 pandas==2.3.0
 pillow==11.2.1
