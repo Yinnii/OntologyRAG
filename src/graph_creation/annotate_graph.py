@@ -73,7 +73,7 @@ def insert_runs_into_graph():
         openai_token=os.getenv("AZURE_API_KEY", None)  # or None if not using Azure OpenAI 
     )
 
-    nodes_to_embed = ["HyperParameterSetting", "Dataset"]
+    nodes_to_embed = ["Dataset"]
 
     # the embeddings are created for the descriptions of hyperparametersettings and datasets
     for n in nodes_to_embed:
