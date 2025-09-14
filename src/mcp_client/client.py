@@ -234,7 +234,7 @@ class MCPClient:
       tokens["prompt_tokens"] = response.usage.prompt_tokens
       tokens["total_tokens"] = response.usage.total_tokens
 
-      logger.info(f"Response tokens: {tokens}")
+      logger.debug(f"Response tokens: {tokens}")
 
       # Process response and handle tool calls
       final_text = []
@@ -306,7 +306,7 @@ class MCPClient:
               tokens["prompt_tokens"] += response.usage.prompt_tokens
               tokens["total_tokens"] += response.usage.total_tokens
 
-              logger.info(f"Response tokens: {tokens}")
+              logger.debug(f"Response tokens: {tokens}")
 
               if response.choices[0].message.tool_calls:
                   choices.append(response.choices[0])
@@ -321,6 +321,7 @@ class MCPClient:
         try:
             response, tokens = await self.process_query_for_run(query)
             logger.info("\n" + response)
+            logger.info(f"Tokens used: {tokens}")
             return response, tokens
         except Exception as e:
             logger.info(f"Error processing query for runs: {str(e)}")

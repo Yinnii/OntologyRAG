@@ -71,12 +71,24 @@ def _store_tokens(tokens):
 
 def _parse_response(response):
     try:
-      response = re.search(r'```json(.*?)```', response, re.DOTALL)
+        match = re.search(r'```json(.*?)```', response, re.DOTALL)
+        if not match:
+            logger.error(f"No JSON block found in response: {response}")
+            return {"message": "No JSON block found."}
+        json_str = match.group(1).strip()
+        try:
+            return json.loads(json_str)
+        except Exception as e:
+            logger.error(f"JSON decode error: {e}\nRaw JSON: {json_str}")
+            # Try to repair JSON
+            try:
+                return json_repair.loads(json_str)
+            except Exception as e2:
+                logger.error(f"json_repair failed: {e2}\nRaw JSON: {json_str}")
+                return {"message": "Error parsing response."}
     except Exception as e:
         logger.error(f"Error parsing response: {e}")
         return {"message": "Error parsing response."}
-
-    return json.loads(response.group(1).strip())
 
 def _check_response_distinctness(response):
     if isinstance(response, list) and len(response) > 1:
@@ -103,41 +115,37 @@ def _check_response_distinctness(response):
         # Since we do not want to disturb the flow, we assume the response is distinct
         return True, []
 
-def _repair_json(json_run):
-    repaired_json = json_repair.loads(json_run)
-    return repaired_json
+# @app.post("/retrieve_parameters")
+# async def retrieve_parameters(request: Request):
+#     """Retrieve the best hyperparameters for a dataset based on its description.
+#     This endpoint receives a dataset description as input, searches for similar datasets in the Neo4j database,
+#     and retrieves the best hyperparameters for the dataset using the MCPClient.
+#     """
+#     req = await request.json()
+#     query = req.get("query", "")
 
-@app.post("/retrieve_parameters")
-async def retrieve_parameters(request: Request):
-    """Retrieve the best hyperparameters for a dataset based on its description.
-    This endpoint receives a dataset description as input, searches for similar datasets in the Neo4j database,
-    and retrieves the best hyperparameters for the dataset using the MCPClient.
-    """
-    req = await request.json()
-    query = req.get("query", "")
+#     logger.info("Start searching for settings for the dataset...")
+#     client = MCPClient()
+#     await client.connect_to_server("./mcp_server/server.py")
 
-    logger.info("Start searching for settings for the dataset...")
-    client = MCPClient()
-    await client.connect_to_server("./mcp_server/server.py")
+#     response = ""
 
-    response = ""
+#     similar_dataset = find_similar_dataset(query)
 
-    similar_dataset = find_similar_dataset(query)
+#     if not similar_dataset:
+#         logger.info("No similar datasets found.")
+#         # This will not return a good solution
+#         response, tokens = await client.query(f"Based on your knowledge, what are the best hyperparameters for a dataset with the following description: {query}?")
+#     else:
+#         logger.info(f"Found similar dataset: {similar_dataset['name']}")
+#         response, tokens = await client.query(f"Retrieve the best hyperparametersettings for the following dataset {similar_dataset['name']}?")
 
-    if not similar_dataset:
-        logger.info("No similar datasets found.")
-        # This will not return a good solution
-        response, tokens = await client.query(f"Based on your knowledge, what are the best hyperparameters for a dataset with the following description: {query}?")
-    else:
-        logger.info(f"Found similar dataset: {similar_dataset['name']}")
-        response, tokens = await client.query(f"Retrieve the best hyperparametersettings for the following dataset {similar_dataset['name']}?")
+#     query_id = _store_tokens(tokens)
+#     logger.info(f"Tokens stored with query_id: {query_id}")
 
-    query_id = _store_tokens(tokens)
-    logger.info(f"Tokens stored with query_id: {query_id}")
-
-    logger.info(f"Response: {response}")
-    await client.cleanup()
-    return {"message": response}
+#     logger.info(f"Response: {response}")
+#     await client.cleanup()
+#     return {"message": response}
 
 @app.post("/retrieve_runs")
 async def retrieve_runs(request: Request):
@@ -173,20 +181,16 @@ async def retrieve_runs(request: Request):
             logger.warning("Response contains runs with the same hyperparametersettings, removing them.")
             
             if isinstance(response, list):
-                # get the last element of the response
                 dist_num = len(response) - 1
+                response = {"runs": [response[0]]}
             elif isinstance(response, dict):
                 dist_num = len(response.get("runs")) - 1
+                response = {"runs": [response.get("runs")[0]]}
 
             # find a random run with different hyperparametersettings
             await client.connect_to_server("./mcp_server/server.py")
             response_new, tokens_new = await client.query_for_run(f"Retrieve {dist_num} random runs for the following dataset {similar_dataset['name']}. Use only one json in the response." + OUTPUT_RUN)
             await client.cleanup()
-
-            if isinstance(response, list):
-                response = {"runs": [response[0]]}
-            elif isinstance(response, dict):
-                response = {"runs": [response.get("runs")[0]]}
 
             response_new = _parse_response(response_new)
 
