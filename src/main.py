@@ -3,8 +3,8 @@
 # It should be also possible to integrate multiple other MCPClients later
 
 import os, sys, uvicorn, uuid, json, re, json_repair, datetime
-from mcp_client.client import MCPClient
-from mcp_client.store_client import MCPStoreClient
+from .mcp_client.client import MCPClient
+from .mcp_client.store_client import MCPStoreClient
 from similar_data import find_similar_dataset, check_parameters_for_equality
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import ontorag_logger as logger
@@ -71,26 +71,45 @@ def _store_tokens(tokens):
 
 def _parse_response(response):
     try:
-        match = re.search(r'```json(.*?)```', response, re.DOTALL)
+        match = re.findall(r'```json(.*?)```', response, re.DOTALL)
         if not match:
             logger.error(f"No JSON block found in response: {response}")
-            return {"message": "No JSON block found."}
-        json_str = match.group(1).strip()
-        try:
-            return json.loads(json_str)
-        except Exception as e:
-            logger.error(f"JSON decode error: {e}\nRaw JSON: {json_str}")
-            # Try to repair JSON
-            try:
-                return json_repair.loads(json_str)
-            except Exception as e2:
-                logger.error(f"json_repair failed: {e2}\nRaw JSON: {json_str}")
-                return {"message": "Error parsing response."}
+            return json_objects
+        logger.info(f'Response found {match} with {type(match)}')
+        json_objects = []
+        if len(match) == 1:
+            logger.info(f'Only one object found {match[0]} with {type(match[0])}')
+            m = json.loads(match[0])
+            if isinstance(m, list):
+                json_objects = m
+            else:
+                json_objects.append(m)
+            return json_objects
+        else:
+          for m in match:
+              m = json.loads(m)
+              try: 
+                  if isinstance(m, list):
+                     logger.info(f'Append object to json_objects {m[0]} with {type(m[0])}')
+                     json_objects.extend(m)
+                  else:
+                      json_objects.append(m)
+                  return json_objects
+              except Exception as e:
+                  logger.error(f"JSON decode error for block: {m}\nError: {e}")
+                  # Try to repair JSON
+                  try:
+                      json_objects.append(json_repair.loads(m.strip()))
+                      return json_objects
+                  except Exception as e2:
+                      logger.error(f"json_repair failed for block: {m}\nError: {e2}")
+                      continue
     except Exception as e:
         logger.error(f"Error parsing response: {e}")
-        return {"message": "Error parsing response."}
+        return json_objects
 
 def _check_response_distinctness(response):
+    logger.info(f'Response is {response} with type {type(response)}')
     if isinstance(response, list) and len(response) > 1:
         for i in range(len(response) - 1):
             for j in range(i + 1, len(response)):
@@ -109,11 +128,11 @@ def _check_response_distinctness(response):
                         logger.warning(f"Responses {i} and {j} have the same hyperparametersettings: {runs[i]['run']['flow']['hyperparametersettings']}")
                         return False, tokens
             return True, tokens
-        return True, []
+        return True, 0
     else:
         logger.error("Unexpected response format.")
         # Since we do not want to disturb the flow, we assume the response is distinct
-        return True, []
+        return True, 0
 
 # @app.post("/retrieve_parameters")
 # async def retrieve_parameters(request: Request):
@@ -156,7 +175,7 @@ async def retrieve_runs(request: Request):
     
     logger.info("Start searching for runs in the graph database...")
     client = MCPClient()
-    await client.connect_to_server("./mcp_server/server.py")
+    await client.connect_to_server("src/mcp_server/server.py")
 
     response = ""
     try:
@@ -172,10 +191,10 @@ async def retrieve_runs(request: Request):
 
         response = _parse_response(response)
 
-        tokens["embedding_tokens"] += embedding_tokens
+        tokens["embedding_tokens"] += sum(embedding_tokens) if isinstance(embedding_tokens, list) else embedding_tokens
 
         is_distinct, embedding_tokens = _check_response_distinctness(response)
-        tokens["embedding_tokens"] += embedding_tokens
+        tokens["embedding_tokens"] += sum(embedding_tokens) if isinstance(embedding_tokens, list) else embedding_tokens
 
         if not is_distinct:
             logger.warning("Response contains runs with the same hyperparametersettings, removing them.")
@@ -188,7 +207,7 @@ async def retrieve_runs(request: Request):
                 response = {"runs": [response.get("runs")[0]]}
 
             # find a random run with different hyperparametersettings
-            await client.connect_to_server("./mcp_server/server.py")
+            await client.connect_to_server("src/mcp_server/server.py")
             response_new, tokens_new = await client.query_for_run(f"Retrieve {dist_num} random runs for the following dataset {similar_dataset['name']}. Use only one json in the response." + OUTPUT_RUN)
             await client.cleanup()
 
@@ -196,8 +215,14 @@ async def retrieve_runs(request: Request):
 
             if isinstance(response_new, list):
                 response["runs"].extend(response_new)
-            else:
-                response["runs"].extend(response_new["runs"])
+            elif isinstance(response_new, dict):
+                try:
+                    response["runs"].extend(response_new["runs"])
+                except Exception as e:
+                    logger.error(f"Error extending runs: {e}")
+                    logger.error(f"Response new: {response_new}")
+                    return {"message": response}
+                    
 
             tokens["completion_tokens"] += tokens_new["completion_tokens"]
             tokens["prompt_tokens"] += tokens_new["prompt_tokens"]
@@ -219,7 +244,7 @@ async def store_run(request: Request):
     """
     run_details = await request.json()
     client = MCPStoreClient()
-    await client.connect_to_server("./mcp_server/write_server.py")
+    await client.connect_to_server("src/mcp_server/write_server.py")
     response = await client.store_run(run_details)
     await client.cleanup()
     return {"message": response}
@@ -234,15 +259,16 @@ async def store_run_static(request: Request):
 
     connection, _ = init_postgresql()
 
-    # initialize the graph
+    run_id = str(uuid.uuid4())
     request_data = await request.json()
-    run = json.loads(request_data.get("run"))
+
     try:
       # ontoGraph = OntologyGraphStoreRun()
       # run_id = ontoGraph.insert_new_run(run)
       # logger.info(f"Run {run_id} stored successfully in the graph database.")
       # model is a pickle.dumps object as bytes
-      run_id = uuid.uuid4()
+      run = json.loads(request_data.get("run"))
+
       with connection.cursor() as cursor:
           cursor.execute(
               "CREATE TABLE IF NOT EXISTS runs (run_id VARCHAR PRIMARY KEY, details TEXT)"
@@ -257,10 +283,21 @@ async def store_run_static(request: Request):
       logger.info(f"Run {run_id} stored successfully in PostgreSQL.")
 
       return {"success": True}
+    except json.JSONDecodeError as e:
+      logger.warning(f"JSON decode error: {e}")
+
+      with connection.cursor() as cursor:
+          cursor.execute(
+              "CREATE TABLE IF NOT EXISTS runs (run_id VARCHAR PRIMARY KEY, details TEXT)"
+          )
+          cursor.execute(
+              "INSERT INTO runs (run_id, details) VALUES (%s, %s) ON CONFLICT (run_id) DO UPDATE SET details = EXCLUDED.details",
+              (run_id, str(request_data))
+          )
+          connection.commit()
+      return {"success": False, "error": "Invalid JSON format."}
     except Exception as e:
       logger.error(f"Error storing run: {e}")
       return {"success": False, "error": str(e)}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=5555)
 
