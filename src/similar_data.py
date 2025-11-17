@@ -36,7 +36,7 @@ def find_similar_dataset(search_prompt: str):
     logger.info(f"Found {len(records)} similar datasets.")
     records.sort(key=lambda x: x['score'], reverse=True)
 
-    tokens = response['usage']['total_tokens']
+    tokens = int(response['usage']['total_tokens'])
     return records[0], tokens
 
 def check_parameters_for_equality(run1, run2):
@@ -75,4 +75,3 @@ def euclidean_distance(vec1, vec2):
     vec1 = np.array(vec1)
     vec2 = np.array(vec2)
     return np.linalg.norm(vec1 - vec2)
-
