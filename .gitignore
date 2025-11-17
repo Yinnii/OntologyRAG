@@ -194,3 +194,4 @@ cython_debug/
 .cursorindexingignore
 
 logs/
+.venv_test
