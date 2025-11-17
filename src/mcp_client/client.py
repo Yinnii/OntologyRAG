@@ -5,6 +5,7 @@ from contextlib import AsyncExitStack
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
+from .client_config import get_client_model
 from openai import AsyncAzureOpenAI
 from anthropic import Anthropic
 from dotenv import load_dotenv
@@ -101,13 +102,16 @@ class MCPClient:
       ]
 
       # TODO use litellm
-      client = AsyncAzureOpenAI(
-          api_key=os.getenv("AZURE_API_KEY"),
-          api_version="2025-01-01-preview",
-          azure_endpoint=os.getenv("AZURE_ENDPOINT")
-      )
-      deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
+      # client = AsyncAzureOpenAI(
+      #     api_key=os.getenv("AZURE_API_KEY"),
+      #     api_version="2025-01-01-preview",
+      #     azure_endpoint=os.getenv("AZURE_ENDPOINT")
+      # )
 
+
+      # deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
+      client, deployment = get_client_model()
+      
       response = await client.chat.completions.create(
           model=deployment,
           max_tokens=1000,
