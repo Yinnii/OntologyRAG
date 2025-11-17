@@ -12,7 +12,7 @@ class VectorIndexing:
     openai_token = None 
     db_name = 'neo4j'
     model = SentenceTransformer('all-MiniLM-L6-v2')
-    openai_model = os.getenv("EMBEDDING_SMALL", None)
+    openai_model = os.getenv("EMBEDDING_MODEL", None)
 
     def __init__(self, uri, auth, db_name, openai_token=None):
         """
